@@ -5,7 +5,7 @@
 The intended purpose for this application is to provide the organization Fresh Blooms - who distribute high quality flowers and plants - with the ability to view and report on population information from around the world. The task is to design and implement a new system to allow easy access to this population information.  
 This will enable them to pinpoint the most populated countries, cities and other areas in the world to find new places to distribute their products to. There is also an intention to provide number of speakers of specific languages - this will help the company prioritise translation efforts for their global marketing to reach more customers. 
 The main teams this system will benefit are marketing and logistics.
-n existing SQL database exists with this population data which can be utilized by the application.
+An existing SQL database exists with this population data which can be utilized by the application.
 
 ### Solution Overview
 The application will provide a tabular front-end view to the database, offering users the ability to view and filter pre-defined population records from different areas of the world. These will be ordered from largest to smallest population, to visualize immediately where the largest impacts may be had.
