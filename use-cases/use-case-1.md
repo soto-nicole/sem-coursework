@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-1. As a member of the Marketing team, I want to produce a report showing the population of all countries in a given area so that I can find highly populated countries to pursue further business expansion and marketing to benefit my organization, as well as the least populated where efforts may not be as effective.
+As a member of the Marketing team, I want to produce a report showing the population of all countries in a given area so that I can find highly populated countries to pursue further business expansion and marketing to benefit my organization, as well as the least populated where efforts may not be as effective.
 
 ### Scope
 
