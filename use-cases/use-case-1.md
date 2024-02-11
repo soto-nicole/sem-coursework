@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As a member of the Marketing team, I want to produce a report showing the population of all countries in a given area so that I can find the most populated countries to pursue further business expansion and marketing to benefit my organization.
+1. As a member of the Marketing team, I want to produce a report showing the population of all countries in a given area so that I can find highly populated countries to pursue further business expansion and marketing to benefit my organization, as well as the least populated where efforts may not be as effective.
 
 ### Scope
 
@@ -40,7 +40,7 @@ A request for the business to expand into new countries is received by the Marke
 1. Marketing team receive a request to find highly populated countries in a specific area to expand their organization's customer base.
 2. Marketing employee pinpoints the specific area of the world to receive country population data for.
 3. Marketing employee extracts population data for the required areas.
-4. Marketing employee recommends new countries with high populations in a report which the business could see benefit from expanding into. 
+4. Marketing employee recommends new countries with high populations in a report which the business could see benefit from expanding into, as well as low population countries where sales may not be as effective.
 
 ## EXTENSIONS
 
