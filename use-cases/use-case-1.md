@@ -44,7 +44,7 @@ A request for the business to expand into new countries is received by the Marke
 
 ## EXTENSIONS
 
-3. **Area does not exist**:
+1.**Area does not exist**:
     1. Marketing team informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
