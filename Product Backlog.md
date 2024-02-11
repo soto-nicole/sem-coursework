@@ -1,20 +1,22 @@
-Code Review 1:
+# Product Backlog
 
-- Set up Github repository (Complete)
-- Create Product Backlog list (Complete)
-- Create Java project and link to Github repo (Complete)
-- Ensure project builds to JAR with Maven (Complete)
-- Create Dockerfile and add to project (Complete)
-- Create development workflow branches - master and develop (Complete)
-- Set up GitHub Actions for the project and ensure it works using JAR/Docker - Cat
-- Define the Code of Conduct for the project
-- Create issues on Github
-- Create tasks as User stories
-- Define use cases for the application
-- Create a use case diagram - show the steps a user will need to take to carry out certain tasks.
-- Create first release on GitHub
+## Code Review 1:
 
-Code Review 2 (50% of features in any order):
+- [x] Set up Github repository
+- [x] Create Product Backlog list 
+- [x] Create Java project and link to Github repo
+- [ ] Ensure project builds to JAR with Maven
+- [x] Create Dockerfile and add to project
+- [ ] Set up GitHub Actions for the project and ensure it works using JAR/Docker
+- [x] Create development workflow branches - master and develop
+- [ ] Create first release on GitHub
+- [x] Define the Code of Conduct for the project
+- [x] Create issues on Github
+- [x] Create tasks as User stories
+- [ ] Define use cases for the application
+- [ ] Create a use case diagram - show the steps a user will need to take to carry out certain tasks.
+
+## Code Review 2 (50% of features in any order):
 
 - Set up Kanban Board with Zube.io
 - Integrate Kanban Board with GitHub project
@@ -52,7 +54,7 @@ Code Review 2 (50% of features in any order):
 - Implement queries for all the cities in a district organised by largest population to smallest.
 - Create unit tests for all the cities in a district organised by largest population to smallest.
 
-Code Review 3 (Other 50% of feature in any order):
+## Code Review 3 (Other 50% of feature in any order):
 
 - Implement queries for the top N populated cities in the world where N is provided by the user.
 - Create unit tests for the top N populated cities in the world where N is provided by the user.
