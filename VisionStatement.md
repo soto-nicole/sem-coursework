@@ -2,7 +2,7 @@
 
 ## Intro
 ### Purpose
-The intended purpose for this application is to provide the organization Fresh Blooms with the ability to view and report on population information from around the world. The task is to design and implement a new system to allow easy access to this population information.  
+The intended purpose for this application is to provide the organization Fresh Blooms - who distribute high quality flowers and plants - with the ability to view and report on population information from around the world. The task is to design and implement a new system to allow easy access to this population information.  
 This will enable them to pinpoint the most populated countries, cities and other areas in the world to find new places to distribute their products to. There is also an intention to provide number of speakers of specific languages - this will help the company prioritise translation efforts for their global marketing to reach more customers. 
 The main teams this system will benefit are marketing and logistics.
 n existing SQL database exists with this population data which can be utilized by the application.
