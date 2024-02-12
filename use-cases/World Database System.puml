@@ -1,0 +1,133 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+   skinparam rectangle {
+    BackgroundColor lightblue
+    BorderColor black
+    }
+
+    'Use Case 1'
+    actor Marketing as "Marketing Employee"
+
+    rectangle Database
+
+    rectangle "World Database System" {
+    usecase UC1 as "Get all countries from specific area,
+        ordered largest to smallest population"
+
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+
+    Marketing --> UC1 #blue
+    UC1 ..> UCa : include
+    UC1 <- Database
+    }
+
+    'Use Case 2'
+    actor BusinessDevelopment as "Business Development Employee"
+
+    rectangle Database
+
+    rectangle "World Database System" {
+    usecase UC2 as "Get top N populated countries in a given area,
+    ordered largest to smallest population"
+
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+
+    BusinessDevelopment --> UC2 #blue
+    UC2 ..> UCa : include
+    UC2 <- Database
+    }
+
+    'Use Case 3'
+    actor FinanceManager as "Finance Manager"
+    rectangle Database
+    rectangle "World Database System" {
+    usecase UC3 as "Get population of all cities in a given area,
+    ordered by largest to smallest population"
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+    FinanceManager --> UC3
+    UC3 ..> UCa : include
+    UC3 <- Database
+    }
+
+    'Use Case 4'
+    actor LogisticsManager as "Logistics Manager"
+    rectangle Database
+    rectangle "World Database System" {
+    usecase UC4 as "Get top N populated cities in a given area,
+    ordered by largest to smallest population"
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+    LogisticsManager --> UC4 #blue
+    UC4 ..> UCa : include
+    UC4 <- Database
+    }
+
+    'Use Case 5'
+    actor HR as "Talent Ambassador"
+    rectangle Database
+    rectangle "World Database System" {
+    usecase UC5 as "Get all capital cities in a given area,
+    ordered by largest to smallest population"
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+    HR --> UC5 #blue
+    UC5 ..> UCa : include
+    UC5 <- Database
+    }
+
+    'Use Case 6'
+    actor MarketingManager as "Global Marketing Manager"
+    rectangle Database
+    rectangle "World Database System" {
+    usecase UC6 as "Get top N populated capital cities in a given area,
+    ordered by largest to smallest population"
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+    MarketingManager --> UC6 #blue
+    UC6 ..> UCa : include
+    UC6 <- Database
+    }
+
+    'Use Case 7'
+    actor AdvertisingDesigner as "Advertising Designer"
+    rectangle Database
+    rectangle "World Database System" {
+    usecase UC7 as "Get total population of people living within and outwith cities in a given area,
+    ordered by largest to smallest population"
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+    AdvertisingDesigner --> UC7 #blue
+    UC7 ..> UCa : include
+    UC7 <- Database
+    }
+
+    'Use Case 8'
+    actor DistributionDirector as "Distribution Director"
+    rectangle Database
+    rectangle "World Database System" {
+    usecase UC8 as "Get total population of people in a given area,
+    ordered by largest to smallest population"
+    usecase UCa as "Print queried data results"
+    top to bottom direction
+    DistributionDirector --> UC8 #blue
+    UC8 ..> UCa : include
+    UC8 <- Database
+    }
+
+    'Use Case 9'
+   actor MarketingTranslator as "Marketing Translator"
+   rectangle Database
+   rectangle "World Database System" {
+   usecase UC9 as "Get total population of people who speak certain
+   languages in the world, ordered by largest
+   to smallest population"
+   usecase UCa as "Print queried data results"
+   top to bottom direction
+   MarketingTranslator --> UC9 #blue
+   UC9 ..> UCa : include
+   UC9 <- Database
+   }
+@enduml
