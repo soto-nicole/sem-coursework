@@ -44,8 +44,8 @@ A request for the business to increase the number of languages its advertisement
 
 ## EXTENSIONS
 
-1.**Data does not exist**: 
-    - Marketing team informs the requester that the necessary data does not exist within the database.
+1.**Data does not exist**:
+   - Marketing team informs the requester that the necessary data does not exist within the database.
 
 ## SUB-VARIATIONS
 

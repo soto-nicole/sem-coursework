@@ -47,7 +47,7 @@ A request for the business to optimize the distribution network by placing CDC s
 ## EXTENSIONS
 
 1.**Area does not exist**:
-    - Distribution Director informs the requester that the area data was requested for does not exist.
+  - Distribution Director informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 
