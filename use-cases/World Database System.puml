@@ -1,5 +1,9 @@
 @startuml
 'https://plantuml.com/use-case-diagram
+   skinparam rectangle {
+    BackgroundColor lightblue
+    BorderColor black
+    }
 
     'Use Case 1'
     actor Marketing as "Marketing Employee"
@@ -13,7 +17,7 @@
     usecase UCa as "Print queried data results"
     top to bottom direction
 
-    Marketing --> UC1
+    Marketing --> UC1 #blue
     UC1 ..> UCa : include
     UC1 <- Database
     }
@@ -30,7 +34,7 @@
     usecase UCa as "Print queried data results"
     top to bottom direction
 
-    BusinessDevelopment --> UC2
+    BusinessDevelopment --> UC2 #blue
     UC2 ..> UCa : include
     UC2 <- Database
     }
@@ -56,7 +60,7 @@
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    LogisticsManager --> UC4
+    LogisticsManager --> UC4 #blue
     UC4 ..> UCa : include
     UC4 <- Database
     }
@@ -69,7 +73,7 @@
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    HR --> UC5
+    HR --> UC5 #blue
     UC5 ..> UCa : include
     UC5 <- Database
     }
@@ -82,7 +86,7 @@
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    MarketingManager --> UC6
+    MarketingManager --> UC6 #blue
     UC6 ..> UCa : include
     UC6 <- Database
     }
@@ -91,11 +95,11 @@
     actor AdvertisingDesigner as "Advertising Designer"
     rectangle Database
     rectangle "World Database System" {
-    usecase UC7 as "Get total population of people living withinand outwith cities in a given area,
+    usecase UC7 as "Get total population of people living within and outwith cities in a given area,
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    AdvertisingDesigner --> UC7
+    AdvertisingDesigner --> UC7 #blue
     UC7 ..> UCa : include
     UC7 <- Database
     }
@@ -108,7 +112,7 @@
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    DistributionDirector --> UC8
+    DistributionDirector --> UC8 #blue
     UC8 ..> UCa : include
     UC8 <- Database
     }
@@ -122,7 +126,7 @@
    to smallest population"
    usecase UCa as "Print queried data results"
    top to bottom direction
-   MarketingTranslator --> UC9
+   MarketingTranslator --> UC9 #blue
    UC9 ..> UCa : include
    UC9 <- Database
    }
