@@ -13,7 +13,7 @@
     usecase UCa as "Print queried data results"
     top to bottom direction
 
-    Marketing -> UC1
+    Marketing --> UC1
     UC1 ..> UCa : include
     UC1 <- Database
     }
@@ -30,33 +30,33 @@
     usecase UCa as "Print queried data results"
     top to bottom direction
 
-    BusinessDevelopment -> UC2
+    BusinessDevelopment --> UC2
     UC2 ..> UCa : include
     UC2 <- Database
     }
 
     'Use Case 3'
-    actor Finance as "Finance Manager"
+    actor FinanceManager as "Finance Manager"
     rectangle Database
     rectangle "World Database System" {
     usecase UC3 as "Get population of all cities in a given area,
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    Finance -> UC3
+    FinanceManager --> UC3
     UC3 ..> UCa : include
     UC3 <- Database
     }
 
     'Use Case 4'
-    actor Logistics as "Logistics Manager"
+    actor LogisticsManager as "Logistics Manager"
     rectangle Database
     rectangle "World Database System" {
     usecase UC4 as "Get top N populated cities in a given area,
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    Logistics -> UC4
+    LogisticsManager --> UC4
     UC4 ..> UCa : include
     UC4 <- Database
     }
@@ -69,52 +69,52 @@
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    HR -> UC5
+    HR --> UC5
     UC5 ..> UCa : include
     UC5 <- Database
     }
 
     'Use Case 6'
-    actor Marketing as "Global Marketing Manager"
+    actor MarketingManager as "Global Marketing Manager"
     rectangle Database
     rectangle "World Database System" {
     usecase UC6 as "Get top N populated capital cities in a given area,
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    Marketing -> UC6
+    MarketingManager --> UC6
     UC6 ..> UCa : include
     UC6 <- Database
     }
 
     'Use Case 7'
-    actor Advertising as "Advertising Designer"
+    actor AdvertisingDesigner as "Advertising Designer"
     rectangle Database
     rectangle "World Database System" {
     usecase UC7 as "Get total population of people living withinand outwith cities in a given area,
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    Advertising -> UC7
+    AdvertisingDesigner --> UC7
     UC7 ..> UCa : include
     UC7 <- Database
     }
 
     'Use Case 8'
-    actor Distribution as "Distribution Director"
+    actor DistributionDirector as "Distribution Director"
     rectangle Database
     rectangle "World Database System" {
     usecase UC8 as "Get total population of people in a given area,
     ordered by largest to smallest population"
     usecase UCa as "Print queried data results"
     top to bottom direction
-    Distribution -> UC8
+    DistributionDirector --> UC8
     UC8 ..> UCa : include
     UC8 <- Database
     }
 
     'Use Case 9'
-   actor Marketing as "Marketing Translator"
+   actor MarketingTranslator as "Marketing Translator"
    rectangle Database
    rectangle "World Database System" {
    usecase UC9 as "Get total population of people who speak certain
@@ -122,7 +122,7 @@
    to smallest population"
    usecase UCa as "Print queried data results"
    top to bottom direction
-   Marketing -> UC9
+   MarketingTranslator --> UC9
    UC9 ..> UCa : include
    UC9 <- Database
    }
