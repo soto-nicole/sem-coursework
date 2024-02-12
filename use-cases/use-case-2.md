@@ -19,11 +19,11 @@ Primary task.
 - We know the area we want to limit population data to:
     - Global: All countries in the world
     - Specific continent
-    - Specific region within a continent.
+    - Specific region within a continent
 - Database contains current world population numbers, including for continents and regions.
 - The system has the functionality to sort countries based on their population sizes (largest to smallest).
 - System has input box for the user to insert the N top cities.
-- 
+
 ### Success End Condition
 
 A report is available for the Business Development team to view top population data and use this in reporting potential locations for a new global expansion branch.
@@ -42,7 +42,7 @@ A request for the business to create a new global distribution branch in a profi
 
 ## MAIN SUCCESS SCENARIO
 
-1. Business Development team receive a request to find highly populated countries in a specific area to and pinpoint a country to open a new company branch in.
+1. Business Development team receives a request to find highly populated countries in a specific area to and pinpoint a country to open a new company branch in.
 2. Business Development employee pinpoints the specific area of the world to receive the top country population data for.
 3. Business Development employee extracts population data for the required areas.
 4. Business Development employee recommends a new country with a high population in their report, where they would likely see increased financial benefit if the organization began distributing within the country.
@@ -50,7 +50,7 @@ A request for the business to create a new global distribution branch in a profi
 ## EXTENSIONS
 
 1.**Area does not exist**:
-1. Business Development team informs the requester that the area data was requested for does not exist.
+  - Business Development team informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 

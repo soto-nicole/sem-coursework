@@ -19,7 +19,7 @@ Primary task.
 - We know the area we want to limit population data to:
     - Global: All cities in the world
     - Specific continent
-    - Specific region within a continent.
+    - Specific region within a continent
     - Specific country
     - Specific district
 - Database contains current world city population numbers, including data for continents, regions, countries, districts.
@@ -52,7 +52,7 @@ A request for the business to open a new distribution centre in a profitable are
 ## EXTENSIONS
 
 1.**Area does not exist**:
-1. Logistics Manager informs the requester that the area data was requested for does not exist.
+  - Logistics Manager informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 

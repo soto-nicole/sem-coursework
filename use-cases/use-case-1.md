@@ -19,7 +19,7 @@ Primary task.
 - We know the area we want to limit population data to: 
   - Global: All countries in the world
   - Specific continent
-  - Specific region within a continent. 
+  - Specific region within a continent
 - Database contains current world population numbers, including for continents and regions.
 - The system has the functionality to sort countries based on their population sizes (largest to smallest)
 
@@ -49,7 +49,7 @@ A request for the business to expand into new countries is received by the Marke
 ## EXTENSIONS
 
 1.**Area does not exist**:
-    1. Marketing team informs the requester that the area data was requested for does not exist.
+    - Marketing team informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 

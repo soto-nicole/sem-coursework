@@ -19,7 +19,7 @@ Primary task.
 - We know the area we want to limit population data to:
     - Global: All cities in the world
     - Specific continent
-    - Specific region within a continent.
+    - Specific region within a continent
 - Database contains current world capital cities population numbers, including for continents and regions.
 - The system has the functionality to sort capital cities based on their population sizes (largest to smallest)
 
@@ -49,7 +49,7 @@ A request for the business to identity the key capital cities for targeted on-st
 ## EXTENSIONS
 
 1.**Data does not exist**:
-1. Global Marketing Manager informs the requester that the necessary data does not exist within the database.
+  - Global Marketing Manager informs the requester that the necessary data does not exist within the database.
 
 ## SUB-VARIATIONS
 

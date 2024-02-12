@@ -19,7 +19,7 @@ Primary task.
 - We know the area we want to limit population data to:
     - Global: All cities in the world
     - Specific continent
-    - Specific region within a continent.
+    - Specific region within a continent
     - specific country
     - specific district
 - Database contains current world city population numbers, including for continents and regions.
@@ -51,7 +51,7 @@ A request to find out which cities have the most and least potential customers i
 ## EXTENSIONS
 
 1.**Area does not exist**:
-1. Finance manager informs the requester that the area data was requested for does not exist.
+  - Finance manager informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 

@@ -1,4 +1,4 @@
-# USE CASE: 7 Produce a Report on the Population of people who lives within and outwith cities in a given area
+# USE CASE: 7 Produce a Report on the Population of People who live within and outwith Cities in a given area
 
 ## CHARACTERISTIC INFORMATION
 
@@ -48,7 +48,7 @@ A request for the business to enhance its advertisement strategy by tailoring ad
 ## EXTENSIONS
 
 1.**Data does not exist**:
-1. Advertising Designer informs the requester that the necessary data does not exist within the database.
+  - Advertising Designer informs the requester that the necessary data does not exist within the database.
 
 ## SUB-VARIATIONS
 
