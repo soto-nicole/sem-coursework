@@ -16,8 +16,15 @@ Primary task.
 
 ### Preconditions
 
-We know the area we want to limit population data to (world, specific continent, country, etc).  
-Database contains current world city population numbers.
+- We know the area we want to limit population data to:
+    - Global: All cities in the world
+    - Specific continent
+    - Specific region within a continent.
+    - Specific country
+    - Specific district
+- Database contains current world city population numbers, including data for continents, regions, countries, districts.
+- The system has the functionality to sort cities based on their population sizes (largest to smallest).
+- System has input box for the user to insert the N top cities.
 
 ### Success End Condition
 

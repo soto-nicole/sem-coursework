@@ -16,8 +16,12 @@ Primary task.
 
 ### Preconditions
 
-We know the area we want to limit population data to (world, specific continent).  
-Database contains current world population numbers, including for continents and regions.
+- We know the area we want to limit population data to: 
+  - Global: All countries in the world
+  - Specific continent
+  - Specific region within a continent. 
+- Database contains current world population numbers, including for continents and regions.
+- The system has the functionality to sort countries based on their population sizes (largest to smallest)
 
 ### Success End Condition
 

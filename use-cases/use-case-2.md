@@ -1,4 +1,4 @@
-# USE CASE: 1 Produce a Report on the Top Populated Countries in a given area
+# USE CASE: 2 Produce a Report on the Top Populated Countries in a given area
 
 ## CHARACTERISTIC INFORMATION
 
@@ -16,12 +16,17 @@ Primary task.
 
 ### Preconditions
 
-We know the area we want to limit population data to (world, specific continent, region).  
-Database contains current world population numbers, including continents and regions.
-
+- We know the area we want to limit population data to:
+    - Global: All countries in the world
+    - Specific continent
+    - Specific region within a continent.
+- Database contains current world population numbers, including for continents and regions.
+- The system has the functionality to sort countries based on their population sizes (largest to smallest).
+- System has input box for the user to insert the N top cities.
+- 
 ### Success End Condition
 
-A report is available for the Business Devleopment team to view top population data and use this in reporting potential locations for a new global expansion branch.
+A report is available for the Business Development team to view top population data and use this in reporting potential locations for a new global expansion branch.
 
 ### Failed End Condition
 
