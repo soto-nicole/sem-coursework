@@ -13,8 +13,8 @@
 - [x] Define the Code of Conduct for the project
 - [x] Create issues on Github
 - [x] Create tasks as User stories
-- [ ] Define use cases for the application
-- [ ] Create a use case diagram - show the steps a user will need to take to carry out certain tasks.
+- [x] Define use cases for the application
+- [x] Create a use case diagram
 
 ## Code Review 2 (50% of features in any order):
 
