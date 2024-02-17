@@ -1,10 +1,10 @@
-# USE CASE: 5 Produce a Report on the Top N Populated Countries in a continent
+# USE CASE: 31 Produce a Report on the Total Population in a city
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a member of X, I want to produce a filtered report showing the top N populated countries in a continent, so that Y.
+As an X, I want to produce a report on the total population of a city so that Y.
 
 ### Scope
 
@@ -16,10 +16,9 @@ Primary task.
 
 ### Preconditions
 
-- We know the area we want to limit population data to:
-    - Specific continent
-- Database contains current world population numbers, including for continents.
-- The system has the functionality to sort countries based on their population sizes (largest to smallest)
+- We know the area we want to limit population data to, this case: specific city.
+- Database contains current world population numbers, including for cities and people living in and out the cities. 
+- The system has the capability to calculate percentages for in-cities and out-cities living, within a city.
 
 ### Success End Condition
 

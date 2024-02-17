@@ -1,10 +1,10 @@
-# USE CASE: 5 Produce a Report on the Top N Populated Countries in a continent
+# USE CASE: 24 Produce a Report on the Population of People who live within and outwith Cities in a region
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a member of X, I want to produce a filtered report showing the top N populated countries in a continent, so that Y.
+As an X, I want to produce a report on the total population of the people living within and outwith cities in a region so that Y.
 
 ### Scope
 
@@ -17,9 +17,8 @@ Primary task.
 ### Preconditions
 
 - We know the area we want to limit population data to:
-    - Specific continent
-- Database contains current world population numbers, including for continents.
-- The system has the functionality to sort countries based on their population sizes (largest to smallest)
+    - Specific region
+- Database contains current world population numbers, including for those living in cities and not living in cities, for each region.
 
 ### Success End Condition
 
