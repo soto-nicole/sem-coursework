@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As an X, I want to produce a filtered report on the top N populated cities in a region so that Y.
+As a Logistics manager, I want to produce a filtered report on the top N populated cities in a region so that I can identify the most densely populated cities with the highest number of potential customers, which will help the organization decide where to situate its newest distribution centre to maximise short customer delivery times.
 
 ### Scope
 
@@ -32,21 +32,22 @@ No population data is found and a report cannot be produced.
 
 ### Primary Actor
 
-X
+Logistics manager
 
 ### Trigger
 
-X
+A request for the business to open a new distribution centre in a profitable area they have not yet expanded to.
 
 ## MAIN SUCCESS SCENARIO
 
-1.
-2.
-3.
+1. Logistics team receive a request to find a highly populated city in a specific region to place a new distribution branch.
+2. Logistics manager extracts population data for the region.
+3. Logistics manager notes a city with a high population in the region in their report, where most of their customers would likely order from and would benefit from the quick delivery due to proximity of the distribution warehouse.
 
 ## EXTENSIONS
 
-1.
+1.**Area does not exist**:
+- Logistics Manager informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 

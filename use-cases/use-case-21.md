@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As an X, I want to produce a filtered report on the top N populated capital cities in a continent so that Y.
+As a Global Marketing manager, I want to produce a filtered report on the top N populated capital cities in a continent so that I can prioritise areas which experience high volumes of tourism and foot traffic to decide where set up a campaign of eye-catching advertisements promoting our business.
 
 ### Scope
 
@@ -31,21 +31,22 @@ No population data is found and a report cannot be produced.
 
 ### Primary Actor
 
-X
+Global Marketing Manager
 
 ### Trigger
 
-X
+A request for the business to identity the key capital cities for targeted on-street advertisement campaigns with prioritisation to the capital cities with the most pedestrian and tourist traffic.
 
 ## MAIN SUCCESS SCENARIO
 
-1.
-2.
-3.
+1. Global Marketing Manager receives a request to find the capital cities with the most pedestrian and tourist traffic in a specific continent.
+2. Global Marketing Manager extracts population data for the required continent.
+3. Global Marketing Manager recommends a new capital city with a high population and pedestrian traffic in their report, where they would likely see increased financial benefit if the organization began advertising within the capital city.
 
 ## EXTENSIONS
 
-1.
+1.**Data does not exist**:
+- Global Marketing Manager informs the requester that the necessary data does not exist within the database.
 
 ## SUB-VARIATIONS
 

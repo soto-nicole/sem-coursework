@@ -40,7 +40,7 @@ A request for the business to open a new distribution centre in a profitable are
 
 ## MAIN SUCCESS SCENARIO
 
-1. Logistics team receive a request to find a highly populated city in a specific area to place a new distribution branch.
+1. Logistics team receive a request to find a highly populated city in the world to place a new distribution branch.
 2. Logistics manager extracts population data for the world.
 3. Logistics manager notes a city with a high population in the world in their report, where most of their customers would likely order from and would benefit from the quick delivery due to proximity of the distribution warehouse.
 

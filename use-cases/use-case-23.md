@@ -1,10 +1,10 @@
-# USE CASE: 23 Produce a Report on the Population of People who live within and outwith Cities in a continent
+# USE CASE: 23 Produce a Report on the Population of People who live within and outwith Cities in each continent
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an Advertising Designer, I want to produce a report on the total population of the people living within and outwith cities in a continent so that I can create the most suitable advertisements, tailor-made to appeal to those living in the intended area.
+As an Advertising Designer, I want to produce a report on the total population of the people living within and outwith cities in each continent so that I can create the most suitable advertisements, tailor-made to appeal to those living in the intended area.
 
 ### Scope
 
@@ -17,12 +17,12 @@ Primary task.
 ### Preconditions
 
 - We know the area we want to limit population data to:
-    - Specific continent
+    - Each continent
 - Database contains current world population numbers, including for those living in cities and not living in cities, for each continent.
 
 ### Success End Condition
 
-A report is available for the Advertising team to provide insights into the population living within and outside cities in a continent, facilitating the creation of targeted advertisements.
+A report is available for the Advertising team to provide insights into the population living within and outside cities in each continent, facilitating the creation of targeted advertisements.
 
 ### Failed End Condition
 
@@ -38,9 +38,9 @@ A request for the business to enhance its advertisement strategy by tailoring ad
 
 ## MAIN SUCCESS SCENARIO
 
-1. Advertising Designer receive a request to find the targeted demographic for the company to effectively develop taylor-made and relatable advertising campaigns.
-2. Advertising Designer extracts population data for people living within cities and outside the cities in a continent. 
-3. Advertising Designer recommends advertisement strategies designed to appeal the urban and rural populations from a continent.
+1. Advertising Designer receive a request to find the targeted demographic for the company to effectively develop tailor-made and relatable advertising campaigns.
+2. Advertising Designer extracts population data for people living within cities and outside the cities in each continent. 
+3. Advertising Designer recommends advertisement strategies designed to appeal the urban and rural populations from each continent.
 
 ## EXTENSIONS
 
