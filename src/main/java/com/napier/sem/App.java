@@ -80,4 +80,41 @@ public class App
             }
         }
     }
+
+    public City getCity(int id)
+    {
+        try {
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT ID, Name, CountryCode, District, Population" +
+                            "FROM city " +
+                            "WHERE ID = " + id;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            if (rset.next())
+            {
+                City city = new City();
+                city.id = rset.getInt("ID");
+                city.name = rset.getString("Name");
+                city.countryCode = rset.getString("CountryCode");
+                city.district = rset.getString("District");
+                city.population = rset.getInt("Population");
+                return city;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+
+
+
+
 }
