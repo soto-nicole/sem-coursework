@@ -11,6 +11,8 @@ public class App
 
         // Connect to database
         a.connect();
+        City city = a.getCity(1);
+        a.displayCity(city);
 
         // Disconnect from database
         a.disconnect();
@@ -48,6 +50,7 @@ public class App
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
+                Thread.sleep(10000);
                 break;
             }
             catch (SQLException sqle)
@@ -86,7 +89,7 @@ public class App
         try {
             Statement stmt = con.createStatement();
             String strSelect =
-                    "SELECT ID, Name, CountryCode, District, Population" +
+                    "SELECT ID, Name, CountryCode, District, Population " +
                             "FROM city " +
                             "WHERE ID = " + id;
             // Execute SQL statement
@@ -113,8 +116,17 @@ public class App
         }
     }
 
-
-
-
-
+    public void displayCity(City city)
+    {
+        if (city != null)
+        {
+            System.out.println(
+                    "City ID: " + city.id + "\nName: " + city.name + "\nCountry Code: " + city.countryCode
+                    + "\nDistrict: " + city.district + "\nPopulation: " + city.population);
+        }
+        else
+        {
+            System.out.println("City not found!");
+        }
+    }
 }
