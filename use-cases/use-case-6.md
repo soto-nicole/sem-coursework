@@ -1,10 +1,10 @@
-# USE CASE: 6 Produce a Report on the Top Populated Capital Cities in a given area
+# USE CASE: 6 Produce a Report on the Top N Populated Countries in a region
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a Global Marketing manager, I want to produce a filtered report on the top populated capital cities in a given area so that I can prioritise areas which experience high volumes of tourism and foot traffic to decide where set up a campaign of eye-catching advertisements promoting our business.
+As a Business Development manager, I want to produce a filtered report showing the top N populated countries in a region, so that I can recommend only the countries with the highest potential customer numbers for a new global branch.
 
 ### Scope
 
@@ -17,15 +17,13 @@ Primary task.
 ### Preconditions
 
 - We know the area we want to limit population data to:
-    - Global: All cities in the world
-    - Specific continent
-    - Specific region within a continent
-- Database contains current world capital cities population numbers, including for continents and regions.
-- The system has the functionality to sort capital cities based on their population sizes (largest to smallest)
+    - Specific region
+- Database contains current world population numbers, including for regions.
+- The system has the functionality to sort countries based on their population sizes (largest to smallest)
 
 ### Success End Condition
 
-A report is available for the Marketing team to view the capital cities with the highest populations in a chosen area to enable the team to select strategic locations for their advertisement campaigns. 
+A report is available for the Business Development team to view top population data and use this in reporting potential locations for a new global expansion branch.
 
 ### Failed End Condition
 
@@ -33,23 +31,22 @@ No population data is found and a report cannot be produced.
 
 ### Primary Actor
 
-Global Marketing Manager
+Business Development manager
 
 ### Trigger
 
-A request for the business to identity the key capital cities for targeted on-street advertisement campaigns with prioritisation to the capital cities with the most pedestrian and tourist traffic.
+A request for the business to create a new global distribution branch in a profitable country they have not yet expanded to.
 
 ## MAIN SUCCESS SCENARIO
 
-1. Global Marketing Manager receives a request to find the capital cities with the most pedestrian and tourist traffic in a specific area.
-2. Global Marketing Manager pinpoints the specific area of the world to receive the top capital city data for. 
-3. Global Marketing Manager extracts population data for the required areas.
-4. Global Marketing Manager recommends a new capital city with a high population and pedestrian traffic in their report, where they would likely see increased financial benefit if the organization began advertising within the capital city.
+1. Business Development team receives a request to find highly populated countries in a region and pinpoint a country to open a new company branch in.
+2. Business Development manager extracts population data for the region.
+3. Business Development manager recommends a new country with a high population in their report, where they would likely see increased financial benefit if the organization began distributing within the country.
 
 ## EXTENSIONS
 
-1.**Data does not exist**:
-  - Global Marketing Manager informs the requester that the necessary data does not exist within the database.
+1.**Area does not exist**:
+- Business Development team informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 
