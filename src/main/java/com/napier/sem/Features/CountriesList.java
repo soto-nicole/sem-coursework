@@ -36,6 +36,19 @@ public class CountriesList
                 "ORDER BY country.Population DESC");
     }
 
+    /**
+     * Gets a list of all the countries in a specific region by their population number in descending order
+     * @param region is the region of the country that is being fetched from the db
+     * @return ArrayList that contains Country objects in a specific region  with their respective properties: code, name, continent, region, population and capital name
+     */
+    public static ArrayList<Country> ByRegion(String region)
+    {
+        return getCountryReport("SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Region = '" + region + "' " +
+                "ORDER BY country.Population DESC");
+    }
 
     /**
      * Helper method to get the country information by using the SQL queries
