@@ -1,0 +1,57 @@
+package com.napier.sem.Features;
+
+import com.napier.sem.Models.City;
+import com.napier.sem.Utils.DatabaseUtil;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class AllCities
+{
+    /**
+     * Gets a list of all the cities in the world by their population number in descending order
+     * @return ArrayList that contains Country objects in the world with their respective properties : Name, Country, District and Population
+     */
+    public static ArrayList<City> ByWorld()
+    {
+        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "ORDER BY city.Population DESC");
+    }
+
+    /**
+     * Helper method to get the country information by using the SQL queries
+     * @param strSelect SQL query that will return the city information needed for the reports
+     * @return ArrayList from City objects that contains the required data being fetched
+     */
+    private static ArrayList<City> getCityReport(String strSelect)
+    {
+        ArrayList<City> cities = new ArrayList<>();
+        try
+        {
+            Connection con = DatabaseUtil.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            while (rset.next())
+            {
+                City city = new City();
+                city.name = rset.getString("Name");
+                city.countryCode = rset.getString("CountryName");
+                city.district = rset.getString("District");
+                city.population = rset.getInt("Population");
+                cities.add(city);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city report");
+            return null;
+        }
+        return cities;
+    }
+}
