@@ -1,6 +1,6 @@
 package com.napier.sem;
 
-import Models.Country;
+import com.napier.sem.Models.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

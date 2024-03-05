@@ -1,4 +1,4 @@
-package Models;
+package com.napier.sem.Models;
 
 
 public class City {
