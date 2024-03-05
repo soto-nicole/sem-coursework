@@ -1,132 +1,75 @@
 package com.napier.sem;
+import Models.Country;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
     public static void main(String[] args)
     {
-        // Create new Application
-        App a = new App();
+        Utils.DatabaseUtil.connect();
 
-        // Connect to database
-        a.connect();
-        City city = a.getCity(1);
-        a.displayCity(city);
+        ArrayList<Country> countries = getCountryReport();
+        displayCountries(countries);
 
-        // Disconnect from database
-        a.disconnect();
+        Utils.DatabaseUtil.disconnect();
     }
 
     /**
-     * Connection to MySQL database.
+     * Fetches a list of countries sorted in descending order by population number
+     * @return  A list of Country objects with their respective code, name, continent, region, population and capital city name. Otherwise, returns null if there is an error.
+     *
      */
-    private Connection con = null;
-
-    /**
-     * Connect to the MySQL database.
-     */
-    public void connect()
-    {
-        try
-        {
-            // Load Database driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
-            System.out.println("Could not load SQL driver");
-            System.exit(-1);
-        }
-
-        int retries = 10;
-        for (int i = 0; i < retries; ++i)
-        {
-            System.out.println("Connecting to database...");
-            try
-            {
-                // Wait a bit for db to start
-                Thread.sleep(30000);
-                // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
-                System.out.println("Successfully connected");
-                Thread.sleep(10000);
-                break;
-            }
-            catch (SQLException sqle)
-            {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
-                System.out.println("Thread interrupted? Should not happen.");
-            }
-        }
-    }
-
-    /**
-     * Disconnect from the MySQL database.
-     */
-    public void disconnect()
-    {
-        if (con != null)
-        {
-            try
-            {
-                // Close connection
-                con.close();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Error closing connection to database");
-            }
-        }
-    }
-
-    public City getCity(int id)
-    {
+    public static ArrayList<Country> getCountryReport() {
+        ArrayList<Country> countries = new ArrayList<>();
         try {
+            Connection con = Utils.DatabaseUtil.getConnection();
             Statement stmt = con.createStatement();
             String strSelect =
-                    "SELECT ID, Name, CountryCode, District, Population " +
-                            "FROM city " +
-                            "WHERE ID = " + id;
-            // Execute SQL statement
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                            "FROM country " +
+                            "JOIN city ON country.Capital = city.ID " +
+                            "ORDER BY country.Population DESC";
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next())
-            {
-                City city = new City();
-                city.id = rset.getInt("ID");
-                city.name = rset.getString("Name");
-                city.countryCode = rset.getString("CountryCode");
-                city.district = rset.getString("District");
-                city.population = rset.getInt("Population");
-                return city;
+            while (rset.next()) {
+                Country country = new Country();
+                country.code = rset.getString("Code");
+                country.name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                country.capitalName = rset.getString("CapitalName");
+                countries.add(country);
             }
-            else
-                return null;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
+            System.out.println("Failed to get country report");
         }
+        return countries;
     }
 
-    public void displayCity(City city)
+    /**
+     * Displays the countries' details in a formatted table
+     * @param countries The list of Country objects that will be displayed
+     *
+     */
+    public static void displayCountries(ArrayList<Country> countries)
     {
-        if (city != null)
+        if (countries == null)
         {
-            System.out.println(
-                    "City ID: " + city.id + "\nName: " + city.name + "\nCountry Code: " + city.countryCode
-                    + "\nDistrict: " + city.district + "\nPopulation: " + city.population);
+            System.out.println("No countries");
+            return;
         }
-        else
+
+        System.out.println(String.format("%-5s %-40s %-20s %-35s %-15s %-20s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
+        for (Country country : countries)
         {
-            System.out.println("City not found!");
+            if (country ==null) continue;
+            String countryString = String.format("%-5s %-40s %-20s %-35s %-15d %-20s",
+                    country.code, country.name, country.continent, country.region, country.population, country.capitalName);
+            System.out.println(countryString);
         }
     }
 }
