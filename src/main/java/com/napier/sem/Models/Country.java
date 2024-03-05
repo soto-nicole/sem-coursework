@@ -1,5 +1,6 @@
-package Models;
+package com.napier.sem.Models;
 
+//TODO: for future us, should we add ALL the properties and add comments to them?
 public class Country
 {
     public String code;
