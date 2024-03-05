@@ -1,8 +1,8 @@
 package com.napier.sem;
-
-import Models.City;
+import Models.Country;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
@@ -10,57 +10,58 @@ public class App
     {
         Utils.DatabaseUtil.connect();
 
-        City city = getCity(1);
-        displayCity(city);
+        ArrayList<Country> countries = getCountryReport();
+        displayCountries(countries);
 
         Utils.DatabaseUtil.disconnect();
     }
 
-
-    public static City getCity(int id)
-    {
+    /**
+     * Fetches a list of countries sorted in descending order by population number
+     * @return  A list of Country objects with their respective code, name, continent, region, population and capital city name. Otherwise, returns null if there is an error.
+     *
+     */
+    public static ArrayList<Country> getCountryReport() {
+        ArrayList<Country> countries = new ArrayList<>();
         try {
             Connection con = Utils.DatabaseUtil.getConnection();
             Statement stmt = con.createStatement();
             String strSelect =
-                    "SELECT ID, Name, CountryCode, District, Population " +
-                            "FROM city " +
-                            "WHERE ID = " + id;
-            // Execute SQL statement
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                            "FROM country " +
+                            "JOIN city ON country.Capital = city.ID " +
+                            "ORDER BY country.Population DESC";
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next())
-            {
-                City city = new City();
-                city.id = rset.getInt("ID");
-                city.name = rset.getString("Name");
-                city.countryCode = rset.getString("CountryCode");
-                city.district = rset.getString("District");
-                city.population = rset.getInt("Population");
-                return city;
+            while (rset.next()) {
+                Country country = new Country();
+                country.code = rset.getString("Code");
+                country.name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                country.capitalName = rset.getString("CapitalName");
+                countries.add(country);
             }
-            else
-                return null;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
-            return null;
+            System.out.println("Failed to get country report");
         }
+        return countries;
     }
 
-    public static void displayCity(City city)
-    {
-        if (city != null)
-        {
-            System.out.println(
-                    "City ID: " + city.id + "\nName: " + city.name + "\nCountry Code: " + city.countryCode
-                    + "\nDistrict: " + city.district + "\nPopulation: " + city.population);
-        }
-        else
-        {
-            System.out.println("City not found!");
+    /**
+     * Displays the countries' details in a formatted table
+     * @param countries The list of Country objects that will be displayed
+     *
+     */
+    public static void displayCountries(ArrayList<Country> countries) {
+
+        System.out.println(String.format("%-5s %-40s %-20s %-35s %-15s %-20s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
+        for (Country country : countries) {
+            String countryString = String.format("%-5s %-40s %-20s %-35s %-15d %-20s",
+                    country.code, country.name, country.continent, country.region, country.population, country.capitalName);
+            System.out.println(countryString);
         }
     }
 }

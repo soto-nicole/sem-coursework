@@ -7,4 +7,5 @@ public class Country
     public String continent;
     public String region;
     public int population;
+    public String capitalName;
 }
