@@ -55,10 +55,18 @@ public class App
      * @param countries The list of Country objects that will be displayed
      *
      */
-    public static void displayCountries(ArrayList<Country> countries) {
+    public static void displayCountries(ArrayList<Country> countries)
+    {
+        if (countries == null)
+        {
+            System.out.println("No countries");
+            return;
+        }
 
         System.out.println(String.format("%-5s %-40s %-20s %-35s %-15s %-20s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
-        for (Country country : countries) {
+        for (Country country : countries)
+        {
+            if (country ==null) continue;
             String countryString = String.format("%-5s %-40s %-20s %-35s %-15d %-20s",
                     country.code, country.name, country.continent, country.region, country.population, country.capitalName);
             System.out.println(countryString);
