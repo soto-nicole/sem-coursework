@@ -50,6 +50,6 @@ public class AppTest
         country.capitalName = "Oranjestad";
         countries.add(country);
 
-        App.displayCountries(countries);
+        displayCountries(countries);
     }
 }
