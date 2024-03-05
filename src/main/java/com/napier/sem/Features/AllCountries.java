@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CountriesList
+public class AllCountries
 {
     /**
      * Gets a list of all the countries in the world by their population number in descending order
