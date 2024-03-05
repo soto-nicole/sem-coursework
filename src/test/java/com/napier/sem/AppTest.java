@@ -1,12 +1,11 @@
 package com.napier.sem;
 
+import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static com.napier.sem.App.displayCountries;
 
 public class AppTest
 {
@@ -20,21 +19,21 @@ public class AppTest
     @Test
     void printCountriesTestNull()
     {
-        displayCountries(null);
+        app.displayCountries(null);
     }
 
     @Test
     void printCountriesTestEmpty()
     {
         ArrayList<Country> countries = new ArrayList<Country>();
-        displayCountries(countries);
+        app.displayCountries(countries);
     }
     @Test
     void printCountriesTestContainsNull()
     {
         ArrayList<Country> countries = new ArrayList<Country>();
         countries.add(null);
-        displayCountries(countries);
+        app.displayCountries(countries);
     }
 
     @Test
@@ -50,6 +49,40 @@ public class AppTest
         country.capitalName = "Oranjestad";
         countries.add(country);
 
-        displayCountries(countries);
+        app.displayCountries(countries);
+    }
+    @Test
+    void displayCitiesTestNull()
+    {
+        app.displayCities(null);
+    }
+
+    @Test
+    void displayCitiesTestEmpty()
+    {
+        ArrayList<City> cities = new ArrayList<City>();
+        app.displayCities(cities);
+    }
+
+    @Test
+    void displayCitiesTestContainsNull()
+    {
+        ArrayList<City> cities = new ArrayList<City>();
+        cities.add(null);
+        app.displayCities(cities);
+    }
+
+    @Test
+    void displayCities()
+    {
+        ArrayList<City> cities = new ArrayList<City>();
+        City city = new City();
+        city.name = "Kabul";
+        city.countryCode = "Afghanistan";
+        city.district = "Kabul";
+        city.population = 1780000;
+        cities.add(city);
+
+        app.displayCities(cities);
     }
 }
