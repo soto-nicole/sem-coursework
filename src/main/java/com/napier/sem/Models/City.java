@@ -1,7 +1,8 @@
 package com.napier.sem.Models;
 
 
-public class City {
+public class City
+{
     public int id;
     public String name;
     public String countryCode;
