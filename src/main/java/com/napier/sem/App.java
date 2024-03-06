@@ -13,6 +13,7 @@ public class App
         App app = new App();
         String continent = "Africa";
         String region = "Caribbean";
+        String country = "Spain";
 
         DatabaseUtil.connect();
 
@@ -42,6 +43,10 @@ public class App
         //6. All cities in a region by population number in descending order (largest-to-smallest)
         System.out.println("All cities in the " + region + " region organised by largest population to smallest:");
         app.displayCities(AllCities.ByRegion(region));
+
+        //7. All cities in a country by population number in descending order (largest-to-smallest)
+        System.out.println("All cities in " + country + " organised by largest population to smallest:");
+        app.displayCities(AllCities.ByCountry(country));
 
         DatabaseUtil.disconnect();
     }
