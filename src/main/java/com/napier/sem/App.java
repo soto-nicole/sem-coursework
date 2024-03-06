@@ -1,6 +1,7 @@
 package com.napier.sem;
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
+import com.napier.sem.Features.TopNCountries;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Utils.DatabaseUtil;
@@ -14,6 +15,7 @@ public class App
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
+        int N = 5;
 
         DatabaseUtil.connect();
 
@@ -47,6 +49,12 @@ public class App
         //7. All cities in a country by population number in descending order (largest-to-smallest)
         System.out.println("All cities in " + country + " organised by largest population to smallest:");
         app.displayCities(AllCities.ByCountry(country));
+
+        //------------------ Top N countries by population in descending order --------------------------------
+        //9. Top N populated countries in the world sorted by population number in descending order (largest-to-smallest)
+
+        System.out.println("Top " + N + " countries in the world organised by largest population to smallest:");
+        app.displayCountries(TopNCountries.ByWorld(N));
 
         DatabaseUtil.disconnect();
     }
