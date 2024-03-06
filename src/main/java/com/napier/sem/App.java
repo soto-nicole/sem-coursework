@@ -56,6 +56,12 @@ public class App
         System.out.println("Top " + N + " countries in the world organised by largest population to smallest:");
         app.displayCountries(TopNCountries.ByWorld(N));
 
+        //10. Top N populated countries in a specific continent sorted by population number in descending order (largest-to-smallest)
+
+        System.out.println("Top " + N + " countries in " + continent + " organised by largest population to smallest:");
+        app.displayCountries(TopNCountries.ByContinent(N, continent));
+
+
         DatabaseUtil.disconnect();
     }
 
