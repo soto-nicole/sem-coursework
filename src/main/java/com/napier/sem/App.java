@@ -19,9 +19,9 @@ public class App
         app.displayCountries(AllCountries.ByWorld());
 
         //2. All countries in a continent by population number in descending order (largest-to-smallest)
-        String continent = "Africa";
-        System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByContinent(continent));
+        String countryContinent = "Africa";
+        System.out.println("All countries in the " + countryContinent + " continent organised by largest population to smallest:");
+        app.displayCountries(AllCountries.ByContinent(countryContinent));
 
         //3. All countries in a region by population number in descending order (largest-to-smallest)
         String region = "Caribbean";
@@ -29,10 +29,16 @@ public class App
         app.displayCountries(AllCountries.ByRegion(region));
 
 
-        //------------------ All cities by population in descending order --------------------------------
+        //------------------ All cities by population in descending order ----------------------------------------
         //4. All cities in the world sorted by population number in descending order (largest-to-smallest)
         System.out.println("All cities in the world organised by largest population to smallest:");
         app.displayCities(AllCities.ByWorld());
+
+        //5. All cities in a continent sorted by population number in descending order (largest-to-smallest)
+        String cityContinent = "Europe";
+        System.out.println("All countries in the " + cityContinent + " continent organised by largest population to smallest:");
+        app.displayCities(AllCities.ByContinent(cityContinent));
+
 
         DatabaseUtil.disconnect();
     }
@@ -49,7 +55,7 @@ public class App
             return;
         }
 
-        System.out.println(String.format("%-5s %-40s %-20s %-35s %-15s %-20s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
+        System.out.printf("%-5s %-40s %-20s %-35s %-15s %-20s%n", "Code", "Name", "Continent", "Region", "Population", "Capital");
 
         for (Country country : countries)
         {
@@ -75,7 +81,7 @@ public class App
             return;
         }
 
-        System.out.println(String.format("%-35s %-60s %-40s %-15s", "Name", "Country", "District", "Population"));
+        System.out.printf("%-35s %-60s %-40s %-15s%n", "Name", "Country", "District", "Population");
 
         for (City city : cities)
         {
