@@ -40,6 +40,22 @@ public class TopNCountries
     }
 
     /**
+     * Gets a list of the top N populated countries in a given region by their population number in descending order
+     * @param N The number of top populated countries to be returned
+     * @param region The name of the region, constraining the list of countries returned to those within the specified region
+     * @return ArrayList that contains Country objects in a specific region with their respective properties : code, name, continent, region, population and capital name
+     */
+    public static ArrayList<Country> ByRegion(int N, String region)
+    {
+        return getCountryReport("SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Region = '" + region + "' " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + N);
+    }
+
+    /**
      * Helper method to get the country information by using the SQL queries
      * @param strSelect SQL query that will return the country information needed for the reports
      * @return ArrayList from country objects that contains the required data being fetched
