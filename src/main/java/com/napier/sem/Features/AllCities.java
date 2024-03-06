@@ -23,20 +23,6 @@ public class AllCities
     }
 
     /**
-     * Gets a list of all the cities in a specific region by their population number in descending order
-     * @param region is the city of the country that is being fetched from the db
-     * @return ArrayList that contains City objects in the world with their respective properties : Name, Country, District and Population
-     */
-    public static ArrayList<City> ByRegion(String region)
-    {
-        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
-                "FROM city " +
-                "JOIN country ON city.CountryCode = country.Code " +
-                "WHERE country.Region = '" + region + "' " +
-                "ORDER BY city.Population DESC");
-    }
-
-    /**
      * Gets a list of all the cities in a specific continent by their population number in descending order
      * @param continent is the city of the country that is being fetched from the db
      * @return ArrayList that contains Country objects in the world with their respective properties : Name, Country, District and Population
@@ -47,6 +33,20 @@ public class AllCities
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Continent = '" + continent + "' " +
+                "ORDER BY city.Population DESC");
+    }
+
+    /**
+     * Gets a list of all the cities in a specific region by their population number in descending order
+     * @param region is the city of the country that is being fetched from the db
+     * @return ArrayList that contains City objects in the world with their respective properties : Name, Country, District and Population
+     */
+    public static ArrayList<City> ByRegion(String region)
+    {
+        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Region = '" + region + "' " +
                 "ORDER BY city.Population DESC");
     }
 

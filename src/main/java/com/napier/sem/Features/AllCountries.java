@@ -21,7 +21,6 @@ public class AllCountries
                 "ORDER BY country.Population DESC");
     }
 
-
     /**
      * Gets a list of all the countries in a specific continent by their population number in descending order
      * @param continent is the continent of the country that is being fetched from the db

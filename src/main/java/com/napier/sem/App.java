@@ -11,6 +11,9 @@ public class App
     public static void main(String[] args)
     {
         App app = new App();
+        String continent = "Africa";
+        String region = "Caribbean";
+
         DatabaseUtil.connect();
 
         //--------------------- All countries by population in descending order --------------------------------
@@ -19,12 +22,10 @@ public class App
         app.displayCountries(AllCountries.ByWorld());
 
         //2. All countries in a continent by population number in descending order (largest-to-smallest)
-        String continent = "Africa";
         System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
         app.displayCountries(AllCountries.ByContinent(continent));
 
         //3. All countries in a region by population number in descending order (largest-to-smallest)
-        String region = "Caribbean";
         System.out.println("All countries in the " + region + " region organised by largest population to smallest:");
         app.displayCountries(AllCountries.ByRegion(region));
 
@@ -34,15 +35,13 @@ public class App
         System.out.println("All cities in the world organised by largest population to smallest:");
         app.displayCities(AllCities.ByWorld());
 
-        //5. All cities in a region by population number in descending order (largest-to-smallest)
+        //5. All cities in a continent sorted by population number in descending order (largest-to-smallest)
+        System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
+        app.displayCities(AllCities.ByContinent(continent));
+
+        //6. All cities in a region by population number in descending order (largest-to-smallest)
         System.out.println("All cities in the " + region + " region organised by largest population to smallest:");
         app.displayCities(AllCities.ByRegion(region));
-
-        //5. All cities in a continent sorted by population number in descending order (largest-to-smallest)
-        String cityContinent = "Europe";
-        System.out.println("All countries in the " + cityContinent + " continent organised by largest population to smallest:");
-        app.displayCities(AllCities.ByContinent(cityContinent));
-
 
         DatabaseUtil.disconnect();
     }
