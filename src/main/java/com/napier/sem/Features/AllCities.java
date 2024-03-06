@@ -37,6 +37,21 @@ public class AllCities
     }
 
     /**
+     * Gets a list of all the cities in a specific continent by their population number in descending order
+     * @param continent is the city of the country that is being fetched from the db
+     * @return ArrayList that contains Country objects in the world with their respective properties : Name, Country, District and Population
+     */
+    public static ArrayList<City> ByContinent(String continent)
+    {
+        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + continent + "' " +
+                "ORDER BY city.Population DESC");
+    }
+
+
+    /**
      * Helper method to get the country information by using the SQL queries
      * @param strSelect SQL query that will return the city information needed for the reports
      * @return ArrayList from City objects that contains the required data being fetched

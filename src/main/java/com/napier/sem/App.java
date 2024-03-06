@@ -12,7 +12,6 @@ public class App
     {
         App app = new App();
         DatabaseUtil.connect();
-        //TODO: [NS] Maybe we should add all the variables here at the top and choose a certain region for all, country for all etc....
 
         //--------------------- All countries by population in descending order --------------------------------
         //1. All countries in the world sorted by population number in descending order (largest-to-smallest)
@@ -38,6 +37,12 @@ public class App
         //5. All cities in a region by population number in descending order (largest-to-smallest)
         System.out.println("All cities in the " + region + " region organised by largest population to smallest:");
         app.displayCities(AllCities.ByRegion(region));
+
+        //5. All cities in a continent sorted by population number in descending order (largest-to-smallest)
+        String cityContinent = "Europe";
+        System.out.println("All countries in the " + cityContinent + " continent organised by largest population to smallest:");
+        app.displayCities(AllCities.ByContinent(cityContinent));
+
 
         DatabaseUtil.disconnect();
     }
