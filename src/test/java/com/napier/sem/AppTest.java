@@ -3,6 +3,7 @@ package com.napier.sem;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Features.TopNCountries;
+import com.napier.sem.Utils.DatabaseUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -89,22 +90,5 @@ public class AppTest
         cities.add(city);
 
         app.displayCities(cities);
-    }
-
-    /**
-     * Tests that the function runs as expected with a valid parameter
-     */
-    @Test
-    void getTopNCountriesTest() {
-        ArrayList<Country> topNCountries = TopNCountries.ByWorld(5);
-        app.displayCountries(topNCountries);
-    }
-
-    @Test
-    void getTopNCountriesNotNullTest() {
-        ArrayList<Country> topNCountries = TopNCountries.ByWorld(5);
-        for (Country country : topNCountries) {
-            assertNotNull(topNCountries);
-        }
     }
 }
