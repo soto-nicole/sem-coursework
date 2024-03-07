@@ -15,6 +15,7 @@ public class App
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
+        String district = "Tucumán";
         int N = 5;
 
         DatabaseUtil.connect();
@@ -49,6 +50,10 @@ public class App
         //7. All cities in a country by population number in descending order (largest-to-smallest)
         System.out.println("All cities in " + country + " organised by largest population to smallest:");
         app.displayCities(AllCities.ByCountry(country));
+
+        //8. All cities in a district by population number in descending order (largest-to-smallest)
+        System.out.println("All cities in the " + district + " district organised by largest population to smallest:");
+        app.displayCities(AllCities.ByDistrict(district));
 
         //------------------ Top N countries by population in descending order --------------------------------
         //9. Top N populated countries in the world sorted by population number in descending order (largest-to-smallest)
@@ -92,7 +97,6 @@ public class App
         }
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
-
     }
 
     /**

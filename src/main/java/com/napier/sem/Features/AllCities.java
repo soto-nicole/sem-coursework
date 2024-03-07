@@ -1,5 +1,6 @@
 package com.napier.sem.Features;
 
+import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Utils.DatabaseUtil;
 
@@ -16,7 +17,7 @@ public class AllCities
      */
     public static ArrayList<City> ByWorld()
     {
-        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "ORDER BY city.Population DESC");
@@ -29,7 +30,7 @@ public class AllCities
      */
     public static ArrayList<City> ByContinent(String continent)
     {
-        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Continent = '" + continent + "' " +
@@ -43,7 +44,7 @@ public class AllCities
      */
     public static ArrayList<City> ByRegion(String region)
     {
-        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Region = '" + region + "' " +
@@ -57,44 +58,27 @@ public class AllCities
      */
     public static ArrayList<City> ByCountry(String countryName)
     {
-        return getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Name = '" + countryName + "' " +
                 "ORDER BY city.Population DESC");
     }
 
-
     /**
-     * Helper method to get the country information by using the SQL queries
-     * @param strSelect SQL query that will return the city information needed for the reports
-     * @return ArrayList from City objects that contains the required data being fetched
+     * Gets a list of all the cities for a specific district by their population number in descending order
+     * @param districtName is the name of the district for which to get the list of cities
+     * @return An ArrayList of City objects representing the cities in the specific district with their respective properties : Name, Country, District and Population
      */
-    private static ArrayList<City> getCityReport(String strSelect)
+    public static ArrayList<City> ByDistrict(String districtName)
     {
-        ArrayList<City> cities = new ArrayList<>();
-        try
-        {
-            Connection con = DatabaseUtil.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect);
+        return ReportHelper.getCityReport("SELECT city.Name, city.District, city.Population, country.Name as CountryName " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE city.District = '" + districtName + "' " +
+                "ORDER BY city.Population DESC");
 
-            while (rset.next())
-            {
-                City city = new City();
-                city.name = rset.getString("Name");
-                city.countryCode = rset.getString("CountryName");
-                city.district = rset.getString("District");
-                city.population = rset.getInt("Population");
-                cities.add(city);
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get city report");
-            return null;
-        }
-        return cities;
+        //TODO: Investigate quirk where the district  Cordoba shows up two different countries - might be a db issue. unless we let the user input
+        // for which country they need
     }
 }
