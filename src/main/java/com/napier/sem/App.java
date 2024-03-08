@@ -78,6 +78,11 @@ public class App
         System.out.println("Top " + N + " cities in the world organised by largest population to smallest:");
         app.displayCities(TopNCities.ByWorld(N));
 
+        //13. Top N populated cities in a specific continent sorted by population number in descending order (largest-to-smallest)
+
+        System.out.println("Top " + N + " cities in the " + continent + " continent organised by largest population to smallest:");
+        app.displayCities(TopNCities.ByContinent(N, continent));
+
         DatabaseUtil.disconnect();
     }
 

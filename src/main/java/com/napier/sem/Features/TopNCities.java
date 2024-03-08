@@ -19,4 +19,14 @@ public class TopNCities {
                 "LIMIT " + N
         );
     }
+
+    public static ArrayList<City> ByContinent(int N, String continent) {
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.continent = '" + continent + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + N
+        );
+    }
 }
