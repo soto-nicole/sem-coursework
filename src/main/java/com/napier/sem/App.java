@@ -2,6 +2,7 @@ package com.napier.sem;
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
 import com.napier.sem.Features.TopNCountries;
+import com.napier.sem.Features.TopNCities;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Utils.DatabaseUtil;
@@ -70,6 +71,12 @@ public class App
 
         System.out.println("Top " + N + " countries in the " + region + " region organised by largest population to smallest:");
         app.displayCountries(TopNCountries.ByRegion(N, region));
+
+        //------------------ Top N cities by population in descending order --------------------------------
+        //12. Top N populated cities in the world sorted by population number in descending order (largest-to-smallest)
+
+        System.out.println("Top " + N + " cities in the world organised by largest population to smallest:");
+        app.displayCities(TopNCities.ByWorld(N));
 
         DatabaseUtil.disconnect();
     }
