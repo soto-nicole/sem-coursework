@@ -16,7 +16,7 @@ public class App
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
-        String district = "Tucumán";
+        String district = "Buenos Aires";
         int N = 5;
 
         DatabaseUtil.connect();
