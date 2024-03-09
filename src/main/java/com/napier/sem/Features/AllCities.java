@@ -2,18 +2,13 @@ package com.napier.sem.Features;
 
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
-import com.napier.sem.Utils.DatabaseUtil;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AllCities
 {
     /**
      * Gets a list of all the cities in the world by their population number in descending order
-     * @return ArrayList that contains Country objects in the world with their respective properties : Name, Country, District and Population
+     * @return ArrayList that contains City objects in the world with their respective properties : Name, Country, District and Population
      */
     public static ArrayList<City> ByWorld()
     {
@@ -25,8 +20,8 @@ public class AllCities
 
     /**
      * Gets a list of all the cities in a specific continent by their population number in descending order
-     * @param continent is the city of the country that is being fetched from the db
-     * @return ArrayList that contains Country objects in the specific Continent with their respective properties : Name, Country, District and Population
+     * @param continent is the name of the continent from which cities are being fetched from the db
+     * @return ArrayList that contains City objects in the specific Continent with their respective properties : Name, Country, District and Population
      */
     public static ArrayList<City> ByContinent(String continent)
     {
@@ -39,7 +34,7 @@ public class AllCities
 
     /**
      * Gets a list of all the cities in a specific region by their population number in descending order
-     * @param region is the city of the country that is being fetched from the db
+     * @param region is the name of the region from which cities are being fetched from the db
      * @return ArrayList that contains City objects in the specific region with their respective properties : Name, Country, District and Population
      */
     public static ArrayList<City> ByRegion(String region)
@@ -52,8 +47,8 @@ public class AllCities
     }
 
     /**
-     * Gets a list of all the cities for a specific country by their population number in descending order
-     * @param countryName is the name of the country for which to get the list of cities
+     * Gets a list of all the cities from a specific country by their population number in descending order
+     * @param countryName is the name of the country from which to get the list of cities
      * @return An ArrayList of City objects representing the cities in the specific country with their respective properties : Name, Country, District and Population
      */
     public static ArrayList<City> ByCountry(String countryName)
