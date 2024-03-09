@@ -6,98 +6,61 @@ import com.napier.sem.Features.TopNCities;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Utils.DatabaseUtil;
+import com.napier.sem.View.Index;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class App
 {
     public static void main(String[] args)
     {
+        Scanner scanner = new Scanner(System.in);
         App app = new App();
+
+        DatabaseUtil.connect();
+        Index.displayOptions();
+
+        //TODO: Discuss input of these values for users
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
         String district = "Buenos Aires";
-        int N = 5;
 
-        DatabaseUtil.connect();
+        System.out.println("Select a number to view the report");
 
-        //--------------------- All countries by population in descending order --------------------------------
-        //1. All countries in the world sorted by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the world organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByWorld());
+        Map<String, Runnable> keyValues = new HashMap<>();
 
-        //2. All countries in a continent by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByContinent(continent));
+        //---------       All countries by population in descending order --------------
+        keyValues.put("1",  () -> app.displayCountries(AllCountries.ByWorld()));
+        keyValues.put("2",  () -> app.displayCountries(AllCountries.ByContinent(continent)));
+        keyValues.put("3",  () -> app.displayCountries(AllCountries.ByRegion(region)));
 
-        //3. All countries in a region by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the " + region + " region organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByRegion(region));
+        //---------       All cities by population in descending order    ---------------
+        keyValues.put("4",  () -> app.displayCities(AllCities.ByWorld()));
+        keyValues.put("5",  () -> app.displayCities(AllCities.ByContinent(continent)));
+        keyValues.put("6",  () -> app.displayCities(AllCities.ByRegion(region)));
+        keyValues.put("7",  () -> app.displayCities(AllCities.ByCountry(country)));
+        keyValues.put("8",  () -> app.displayCities(AllCities.ByDistrict(district)));
 
 
-        //------------------ All cities by population in descending order --------------------------------
-        //4. All cities in the world sorted by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in the world organised by largest population to smallest:");
-        app.displayCities(AllCities.ByWorld());
+        //-------------- Top N countries by population in descending order --------------
+        keyValues.put("9",  () -> app.displayCountries(TopNCountries.ByWorld(getN(scanner))));
+        keyValues.put("10", () -> app.displayCountries(TopNCountries.ByContinent(getN(scanner), continent)));
+        keyValues.put("11", () -> app.displayCountries(TopNCountries.ByRegion(getN(scanner), region)));
 
-        //5. All cities in a continent sorted by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCities(AllCities.ByContinent(continent));
+        //---------------Top N cities by population in descending order -------------------
+        keyValues.put("12", () -> app.displayCities(TopNCities.ByWorld(getN(scanner))));
+        keyValues.put("13", () -> app.displayCities(TopNCities.ByContinent(getN(scanner), continent)));
+        keyValues.put("14", () -> app.displayCities(TopNCities.ByRegion(getN(scanner), region)));
+        keyValues.put("15", () -> app.displayCities(TopNCities.ByCountry(getN(scanner),country)));
+        keyValues.put("16", () -> app.displayCities(TopNCities.ByDistrict(getN(scanner), district)));
 
-        //6. All cities in a region by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in the " + region + " region organised by largest population to smallest:");
-        app.displayCities(AllCities.ByRegion(region));
-
-        //7. All cities in a country by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in " + country + " organised by largest population to smallest:");
-        app.displayCities(AllCities.ByCountry(country));
-
-        //8. All cities in a district by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in the " + district + " district organised by largest population to smallest:");
-        app.displayCities(AllCities.ByDistrict(district));
-
-        //------------------ Top N countries by population in descending order --------------------------------
-        //9. Top N populated countries in the world sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " countries in the world organised by largest population to smallest:");
-        app.displayCountries(TopNCountries.ByWorld(N));
-
-        //10. Top N populated countries in a specific continent sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCountries(TopNCountries.ByContinent(N, continent));
-
-        //11. Top N populated countries in a specific region sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " countries in the " + region + " region organised by largest population to smallest:");
-        app.displayCountries(TopNCountries.ByRegion(N, region));
-
-        //------------------ Top N cities by population in descending order --------------------------------
-        //12. Top N populated cities in the world sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the world organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByWorld(N));
-
-        //13. Top N populated cities in a specific continent sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByContinent(N, continent));
-
-        //14. Top N populated cities in a specific region sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the " + region + " region organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByRegion(N, region));
-
-        //15. Top N populated cities in a specific country sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the country " + country + " organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByCountry(N, country));
-
-        //16. Top N populated cities in a specific district sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the district " + district + " organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByDistrict(N, district));
-
+        String choice = scanner.nextLine();
+        Runnable action = keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
+        action.run();
         DatabaseUtil.disconnect();
     }
 
@@ -149,5 +112,14 @@ public class App
         }
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+
+    private static int getN(Scanner scanner)
+    {
+        System.out.println("How many top N would you like to see?:");
+        int N = scanner.nextInt();
+        scanner.nextLine();
+        return N;
     }
 }
