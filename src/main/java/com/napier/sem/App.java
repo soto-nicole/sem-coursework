@@ -15,53 +15,57 @@ import java.util.Scanner;
 
 public class App
 {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         App app = new App();
-
         DatabaseUtil.connect();
-        Index.displayOptions();
 
-        //TODO: Discuss input of these values for users
-        String continent = "Africa";
-        String region = "Caribbean";
-        String country = "Spain";
-        String district = "Buenos Aires";
+        while (true)
+        {
+            Index.displayOptions();
+            System.out.println("Select the number you wish to see the report for or press 0 to quit:");
+            String choice = scanner.nextLine();
 
-        System.out.println("Select a number to view the report");
+            if ("0".equals(choice)) break;
 
-        Map<String, Runnable> keyValues = new HashMap<>();
+            Map<String, Runnable> keyValues = new HashMap<>();
+            String continent = "Africa";
+            String region = "Caribbean";
+            String country = "Spain";
+            String district = "Buenos Aires";
 
-        //---------       All countries by population in descending order --------------
-        keyValues.put("1",  () -> app.displayCountries(AllCountries.ByWorld()));
-        keyValues.put("2",  () -> app.displayCountries(AllCountries.ByContinent(continent)));
-        keyValues.put("3",  () -> app.displayCountries(AllCountries.ByRegion(region)));
+            //---------       All countries by population in descending order --------------
+            keyValues.put("1", () -> app.displayCountries(AllCountries.ByWorld()));
+            keyValues.put("2", () -> app.displayCountries(AllCountries.ByContinent(continent)));
+            keyValues.put("3", () -> app.displayCountries(AllCountries.ByRegion(region)));
 
-        //---------       All cities by population in descending order    ---------------
-        keyValues.put("4",  () -> app.displayCities(AllCities.ByWorld()));
-        keyValues.put("5",  () -> app.displayCities(AllCities.ByContinent(continent)));
-        keyValues.put("6",  () -> app.displayCities(AllCities.ByRegion(region)));
-        keyValues.put("7",  () -> app.displayCities(AllCities.ByCountry(country)));
-        keyValues.put("8",  () -> app.displayCities(AllCities.ByDistrict(district)));
+            //---------       All cities by population in descending order    ---------------
+            keyValues.put("4", () -> app.displayCities(AllCities.ByWorld()));
+            keyValues.put("5", () -> app.displayCities(AllCities.ByContinent(continent)));
+            keyValues.put("6", () -> app.displayCities(AllCities.ByRegion(region)));
+            keyValues.put("7", () -> app.displayCities(AllCities.ByCountry(country)));
+            keyValues.put("8", () -> app.displayCities(AllCities.ByDistrict(district)));
 
 
-        //-------------- Top N countries by population in descending order --------------
-        keyValues.put("9",  () -> app.displayCountries(TopNCountries.ByWorld(getN(scanner))));
-        keyValues.put("10", () -> app.displayCountries(TopNCountries.ByContinent(getN(scanner), continent)));
-        keyValues.put("11", () -> app.displayCountries(TopNCountries.ByRegion(getN(scanner), region)));
+            //-------------- Top N countries by population in descending order --------------
+            keyValues.put("9", () -> app.displayCountries(TopNCountries.ByWorld(getN(scanner))));
+            keyValues.put("10", () -> app.displayCountries(TopNCountries.ByContinent(getN(scanner), continent)));
+            keyValues.put("11", () -> app.displayCountries(TopNCountries.ByRegion(getN(scanner), region)));
 
-        //---------------Top N cities by population in descending order -------------------
-        keyValues.put("12", () -> app.displayCities(TopNCities.ByWorld(getN(scanner))));
-        keyValues.put("13", () -> app.displayCities(TopNCities.ByContinent(getN(scanner), continent)));
-        keyValues.put("14", () -> app.displayCities(TopNCities.ByRegion(getN(scanner), region)));
-        keyValues.put("15", () -> app.displayCities(TopNCities.ByCountry(getN(scanner),country)));
-        keyValues.put("16", () -> app.displayCities(TopNCities.ByDistrict(getN(scanner), district)));
+            //---------------Top N cities by population in descending order -------------------
+            keyValues.put("12", () -> app.displayCities(TopNCities.ByWorld(getN(scanner))));
+            keyValues.put("13", () -> app.displayCities(TopNCities.ByContinent(getN(scanner), continent)));
+            keyValues.put("14", () -> app.displayCities(TopNCities.ByRegion(getN(scanner), region)));
+            keyValues.put("15", () -> app.displayCities(TopNCities.ByCountry(getN(scanner), country)));
+            keyValues.put("16", () -> app.displayCities(TopNCities.ByDistrict(getN(scanner), district)));
 
-        String choice = scanner.nextLine();
-        Runnable action = keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
-        action.run();
+            Runnable action = keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
+            action.run();
+        }
+
         DatabaseUtil.disconnect();
+        scanner.close();
+        System.out.println("Thank for using our system!");
     }
 
     /**
@@ -113,7 +117,6 @@ public class App
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
-
 
     private static int getN(Scanner scanner)
     {
