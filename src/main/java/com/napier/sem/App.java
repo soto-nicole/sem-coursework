@@ -12,16 +12,22 @@ public class App
 {
     public static void main(String[] args)
     {
+        // Create a new application
         App app = new App();
+
+        // Define static area name variables for running queries
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
         String district = "Buenos Aires";
+
+        // Define a static limit number for "Top N..." queries
         int N = 5;
 
+        // Establish a connection to the database
         DatabaseUtil.connect();
 
-        //--------------------- All countries by population in descending order --------------------------------
+        //--------------------- All countries by population in descending order queries --------------------------------
         //1. All countries in the world sorted by population number in descending order (largest-to-smallest)
         System.out.println("All countries in the world organised by largest population to smallest:");
         app.displayCountries(AllCountries.ByWorld());
@@ -35,7 +41,7 @@ public class App
         app.displayCountries(AllCountries.ByRegion(region));
 
 
-        //------------------ All cities by population in descending order --------------------------------
+        //------------------ All cities by population in descending order queries --------------------------------
         //4. All cities in the world sorted by population number in descending order (largest-to-smallest)
         System.out.println("All cities in the world organised by largest population to smallest:");
         app.displayCities(AllCities.ByWorld());
@@ -56,7 +62,7 @@ public class App
         System.out.println("All cities in the " + district + " district organised by largest population to smallest:");
         app.displayCities(AllCities.ByDistrict(district));
 
-        //------------------ Top N countries by population in descending order --------------------------------
+        //------------------ Top N countries by population in descending order queries --------------------------------
         //9. Top N populated countries in the world sorted by population number in descending order (largest-to-smallest)
 
         System.out.println("Top " + N + " countries in the world organised by largest population to smallest:");
@@ -72,7 +78,7 @@ public class App
         System.out.println("Top " + N + " countries in the " + region + " region organised by largest population to smallest:");
         app.displayCountries(TopNCountries.ByRegion(N, region));
 
-        //------------------ Top N cities by population in descending order --------------------------------
+        //------------------ Top N cities by population in descending order queries --------------------------------
         //12. Top N populated cities in the world sorted by population number in descending order (largest-to-smallest)
 
         System.out.println("Top " + N + " cities in the world organised by largest population to smallest:");
@@ -98,6 +104,7 @@ public class App
         System.out.println("Top " + N + " cities in the district " + district + " organised by largest population to smallest:");
         app.displayCities(TopNCities.ByDistrict(N, district));
 
+        // Close database connection
         DatabaseUtil.disconnect();
     }
 
