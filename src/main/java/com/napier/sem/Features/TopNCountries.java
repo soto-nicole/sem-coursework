@@ -24,7 +24,7 @@ public class TopNCountries
     /**
      * Gets a list of the top N populated countries in a given continent by their population number in descending order
      *
-     * @param N         The number of top populated countries to be returned
+     * @param N The number of top populated countries to be returned
      * @param continent The name of the continent, constraining the list of countries returned to those within the specified continent
      * @return ArrayList that contains Country objects in a specific continent with their respective properties : code, name, continent, region, population and capital name
      */
