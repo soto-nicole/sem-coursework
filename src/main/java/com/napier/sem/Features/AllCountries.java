@@ -2,10 +2,6 @@ package com.napier.sem.Features;
 
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Country;
-import com.napier.sem.Utils.DatabaseUtil;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AllCountries
@@ -24,7 +20,7 @@ public class AllCountries
 
     /**
      * Gets a list of all the countries in a specific continent by their population number in descending order
-     * @param continent is the continent of the country that is being fetched from the db
+     * @param continent is the name of the continent from which countries are being fetched from the db
      * @return ArrayList that contains Country objects in a specific continent with their respective properties: code, name, continent, region, population and capital name
      */
     public static ArrayList<Country> ByContinent(String continent)
@@ -38,8 +34,8 @@ public class AllCountries
 
     /**
      * Gets a list of all the countries in a specific region by their population number in descending order
-     * @param region is the region of the country that is being fetched from the db
-     * @return ArrayList that contains Country objects in a specific region  with their respective properties: code, name, continent, region, population and capital name
+     * @param region is the name of the region from which countries are being fetched from the db
+     * @return ArrayList that contains Country objects in a specific region with their respective properties: code, name, continent, region, population and capital name
      */
     public static ArrayList<Country> ByRegion(String region)
     {
