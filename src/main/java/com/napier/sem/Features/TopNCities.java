@@ -70,4 +70,21 @@ public class TopNCities {
                 "LIMIT " + N
         );
     }
+
+    /**
+     * Gets a list of the top N populated cities in a district by their population number in descending order
+     *
+     * @param N The number of top populated cities to be returned
+     * @param district The name of the country, constraining the list of cities returned to those within the specified district
+     * @return ArrayList that contains City objects in a specific district with their respective properties : Name, Country, District and Population
+     */
+    public static ArrayList<City> ByDistrict(int N, String district) {
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE city.District = '" + district + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + N
+        );
+    }
 }

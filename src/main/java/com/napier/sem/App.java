@@ -16,7 +16,7 @@ public class App
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
-        String district = "Tucumán";
+        String district = "Buenos Aires";
         int N = 5;
 
         DatabaseUtil.connect();
@@ -92,6 +92,11 @@ public class App
 
         System.out.println("Top " + N + " cities in the country " + country + " organised by largest population to smallest:");
         app.displayCities(TopNCities.ByCountry(N, country));
+
+        //16. Top N populated cities in a specific district sorted by population number in descending order (largest-to-smallest)
+
+        System.out.println("Top " + N + " cities in the district " + district + " organised by largest population to smallest:");
+        app.displayCities(TopNCities.ByDistrict(N, district));
 
         DatabaseUtil.disconnect();
     }
