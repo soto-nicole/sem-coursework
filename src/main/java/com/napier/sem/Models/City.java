@@ -22,7 +22,7 @@ public class City
      */
     public String district;
     /**
-     * The total population of the city
+     * The total number of people who live in the city
      */
     public int population;
 }
