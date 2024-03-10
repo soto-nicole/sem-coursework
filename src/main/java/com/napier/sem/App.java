@@ -55,7 +55,7 @@ public class App
                 }
             }
 
-            // choosing default afterr 20 seconds
+            // choosing default after 20 seconds
             if (choice == null)
             {
                 choice = "1";
@@ -74,14 +74,14 @@ public class App
 
                 if (isDefaultOption)
                 {
-                    continueLoop = false; //exit the loop if the desfault value is used after 20 secs
+                    continueLoop = false; //exit the loop if the default value is used after 20 secs
                 }
             }
         }
 
         DatabaseUtil.disconnect();
         scanner.close();
-        System.out.println("Thank for using our system!");
+        System.out.println("Thanks for using our system!");
     }
     private static Runnable getUserOption(App app, String choice)
     {
