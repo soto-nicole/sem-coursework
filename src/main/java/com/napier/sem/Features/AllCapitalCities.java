@@ -17,4 +17,14 @@ public class AllCapitalCities {
                 "WHERE country.capital = city.id " +
                 "ORDER BY city.Population DESC");
     }
+
+    public static ArrayList<City> ByContinent(int N, String continent) {
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "AND country.Continent = '" + continent + "' " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + N);
+    }
 }

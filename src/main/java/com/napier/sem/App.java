@@ -117,6 +117,7 @@ public class App
 
         //---------       All capital cities by population in descending order    ---------------
         keyValues.put("17", () -> app.displayCapitalCities(AllCapitalCities.ByWorld()));
+        keyValues.put("18", () -> app.displayCapitalCities(AllCapitalCities.ByContinent(getN(scanner), continent)));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
