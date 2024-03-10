@@ -86,6 +86,7 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    @Test
     void printCapitalCitiesTestNull()
     {
         app.displayCapitalCities(null);

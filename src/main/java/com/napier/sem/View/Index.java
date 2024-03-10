@@ -30,5 +30,6 @@ public class Index
         System.out.println("  16)  Top populated cities in a district");
         System.out.println();
         System.out.println("  17)  List of capital cities in the world by population in descending order");
+        System.out.println("  18)  List of capital cities in a continent by population in descending order");
     }
 }
