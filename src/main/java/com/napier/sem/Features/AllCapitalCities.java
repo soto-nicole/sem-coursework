@@ -11,7 +11,7 @@ public class AllCapitalCities {
      * @return ArrayList that contains City objects in the world with their respective properties : Name, Country and Population
      */
     public static ArrayList<City> ByWorld() {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.Population " +
+        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.capital = city.id " +

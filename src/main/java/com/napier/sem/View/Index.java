@@ -29,5 +29,6 @@ public class Index
         System.out.println("  15)  Top populated cities in a country");
         System.out.println("  16)  Top populated cities in a district");
         System.out.println();
+        System.out.println("  17)  List of capital cities in the world by population in descending order");
     }
 }

@@ -103,7 +103,6 @@ public class App
         keyValues.put("7", () -> app.displayCities(AllCities.ByCountry(country)));
         keyValues.put("8", () -> app.displayCities(AllCities.ByDistrict(district)));
 
-
         //-------------- Top N countries by population in descending order --------------
         keyValues.put("9", () -> app.displayCountries(TopNCountries.ByWorld(getN(scanner))));
         keyValues.put("10", () -> app.displayCountries(TopNCountries.ByContinent(getN(scanner), continent)));
@@ -115,6 +114,9 @@ public class App
         keyValues.put("14", () -> app.displayCities(TopNCities.ByRegion(getN(scanner), region)));
         keyValues.put("15", () -> app.displayCities(TopNCities.ByCountry(getN(scanner), country)));
         keyValues.put("16", () -> app.displayCities(TopNCities.ByDistrict(getN(scanner), district)));
+
+        //---------       All capital cities by population in descending order    ---------------
+        keyValues.put("17", () -> app.displayCapitalCities(AllCapitalCities.ByWorld()));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
