@@ -85,4 +85,38 @@ public class AppTest
 
         app.displayCities(cities);
     }
+
+    void printCapitalCitiesTestNull()
+    {
+        app.displayCapitalCities(null);
+    }
+
+    @Test
+    void printCapitalCitiesTestEmpty()
+    {
+        ArrayList<City> capitalCities = new ArrayList<City>();
+        app.displayCapitalCities(capitalCities);
+    }
+    @Test
+    void printCapitalCitiesTestContainsNull()
+    {
+        ArrayList<City> capitalCities = new ArrayList<City>();
+        capitalCities.add(null);
+        app.displayCapitalCities(capitalCities);
+    }
+
+    @Test
+    void printCapitalCities()
+    {
+        ArrayList<City> capitalCities = new ArrayList<City>();
+        City capitalCity = new City();
+        capitalCity.name = "Kabul";
+        capitalCity.countryCode = "Afghanistan";
+        capitalCity.population = 1780000;
+        capitalCities.add(capitalCity);
+
+
+        app.displayCapitalCities(capitalCities);
+    }
+
 }
