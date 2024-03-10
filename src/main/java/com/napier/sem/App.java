@@ -1,9 +1,5 @@
 package com.napier.sem;
-import com.napier.sem.Features.AllCities;
-import com.napier.sem.Features.AllCountries;
-import com.napier.sem.Features.TopNCountries;
-import com.napier.sem.Features.TopNCities;
-import com.napier.sem.Features.AllCapitalCities;
+import com.napier.sem.Features.*;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Utils.DatabaseUtil;
@@ -117,8 +113,11 @@ public class App
 
         //---------       All capital cities by population in descending order    ---------------
         keyValues.put("17", () -> app.displayCapitalCities(AllCapitalCities.ByWorld()));
-        keyValues.put("18", () -> app.displayCapitalCities(AllCapitalCities.ByContinent(getN(scanner), continent)));
-        keyValues.put("19", () -> app.displayCapitalCities(AllCapitalCities.ByRegion(getN(scanner), region)));
+        keyValues.put("18", () -> app.displayCapitalCities(AllCapitalCities.ByContinent(continent)));
+        keyValues.put("19", () -> app.displayCapitalCities(AllCapitalCities.ByRegion(region)));
+
+        //---------       Top N capital cities by population in descending order    ---------------
+        keyValues.put("20", () -> app.displayCapitalCities(TopNCapitalCities.ByWorld(getN(scanner))));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
