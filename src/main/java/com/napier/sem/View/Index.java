@@ -32,5 +32,7 @@ public class Index
         System.out.println("  17)  List of capital cities in the world by population in descending order");
         System.out.println("  18)  List of capital cities in a continent by population in descending order");
         System.out.println("  19)  List of capital cities in a region by population in descending order");
+        System.out.println();
+        System.out.println("  20)  Top populated capital cities in the world in descending order");
     }
 }
