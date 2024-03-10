@@ -56,19 +56,21 @@
 --------------------------------------------------------
 
 ### All Capital Cities Queries
-- [ ] Implement query to retrieve all the capital cities in the world organised by largest population to smallest.
-- [ ] Implement query to retrieve all the capital cities in a continent organised by largest population to smallest.
-- [ ] Implement query to retrieve all the capital cities in a region organised by largest to smallest.
+- [x] Implement query to retrieve all the capital cities in the world organised by largest population to smallest.
+- [x] Implement query to retrieve all the capital cities in a continent organised by largest population to smallest.
+- [x] Implement query to retrieve all the capital cities in a region organised by largest to smallest.
 --------------------------------------------------------
 ### Top N Populated Capital Cities Queries
-- [ ] Implement query to retrieve the top N populated capital cities in the world where N is provided by the user.
-- [ ] Implement query to retrieve the top N populated capital cities in a continent where N is provided by the user.
-- [ ] Implement query to retrieve the top N populated capital cities in a region where N is provided by the user.
+- [x] Implement query to retrieve the top N populated capital cities in the world where N is provided by the user.
+- [x] Implement query to retrieve the top N populated capital cities in a continent where N is provided by the user.
+- [x] Implement query to retrieve the top N populated capital cities in a region where N is provided by the user.
 --------------------------------------------------------
 
 ### Capital Cities Unit Tests
-- [ ] Create unit tests for displaying capital city data
+- [x] Create unit tests for displaying capital city data
 --------------------------------------------------------
+
+## Code Review 3 (Other 50% of features in any order):
 
 ### Population Within and Outwith Cities Queries
 - [ ] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each continent.
@@ -78,8 +80,6 @@
 ### Population Within and Outwith Cities Unit Tests
 - [ ] Create unit tests for displaying population of people, people living in cities, and people not living in cities
 --------------------------------------------------------
-
-## Code Review 3 (Other 50% of features in any order):
 
 ### General Population Queries
 - [ ] Implement query to retrieve the population of the world.
