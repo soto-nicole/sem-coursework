@@ -19,12 +19,6 @@ public class AllCapitalCities {
     }
 
     /**
-     *
-     *
-     *
-     */
-
-    /**
      * Gets a list of all the capital cities in a continent by their population number in descending order
      * @param N The number of top populated capital cities to be returned
      * @param continent The name of the continent, constraining the list of capital cities returned to those within the specified continent
