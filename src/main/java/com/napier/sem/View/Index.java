@@ -35,5 +35,6 @@ public class Index
         System.out.println();
         System.out.println("  20)  Top populated capital cities in the world in descending order");
         System.out.println("  21)  Top populated capital cities in a continent in descending order");
+        System.out.println("  22)  Top populated capital cities in a region in descending order");
     }
 }
