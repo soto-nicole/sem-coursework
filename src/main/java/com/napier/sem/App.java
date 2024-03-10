@@ -6,107 +6,120 @@ import com.napier.sem.Features.TopNCities;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Utils.DatabaseUtil;
+import com.napier.sem.View.Index;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class App
 {
-    public static void main(String[] args)
-    {
-        // Create a new application
+    private static final Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
         App app = new App();
+        DatabaseUtil.connect();
 
-        // Define static area name variables for running queries
+        boolean continueLoop = true;
+        boolean isDefaultOption = false;
+
+        while (continueLoop)
+        {
+            Index.displayOptions();
+            System.out.println("Select the number you wish to see the report for or press 0 to quit:");
+
+            String choice = null;
+            long startTime = System.currentTimeMillis();
+            final long timeout = 20000; // 20 secs
+
+            while (System.currentTimeMillis() - startTime < timeout && choice == null)
+            {
+                try
+                {
+                    if (System.in.available() > 0)
+                    {
+                        choice = scanner.nextLine();
+                        isDefaultOption = false;
+                    } else
+                    {
+                        Thread.sleep(200);
+                    }
+                }
+                catch (IOException | InterruptedException e)
+                {
+                    Thread.currentThread().interrupt();
+                    System.out.println("An error occurred. Exiting...");
+                    return;
+                }
+            }
+
+            // choosing default afterr 20 seconds
+            if (choice == null)
+            {
+                choice = "1";
+                isDefaultOption = true;
+            }
+
+            if ("0".equals(choice))
+            {
+                continueLoop = false;
+            }
+
+            else
+            {
+                Runnable action = getUserOption(app, choice);
+                action.run();
+
+                if (isDefaultOption)
+                {
+                    continueLoop = false; //exit the loop if the desfault value is used after 20 secs
+                }
+            }
+        }
+
+        DatabaseUtil.disconnect();
+        scanner.close();
+        System.out.println("Thank for using our system!");
+    }
+    private static Runnable getUserOption(App app, String choice)
+    {
+        Map<String, Runnable> keyValues = new HashMap<>();
         String continent = "Africa";
         String region = "Caribbean";
         String country = "Spain";
         String district = "Buenos Aires";
 
-        // Define a static limit number for "Top N..." queries
-        int N = 5;
+        //---------       All countries by population in descending order --------------
+        keyValues.put("1", () -> app.displayCountries(AllCountries.ByWorld()));
+        keyValues.put("2", () -> app.displayCountries(AllCountries.ByContinent(continent)));
+        keyValues.put("3", () -> app.displayCountries(AllCountries.ByRegion(region)));
 
-        // Establish a connection to the database
-        DatabaseUtil.connect();
-
-        //--------------------- All countries by population in descending order queries --------------------------------
-        //1. All countries in the world sorted by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the world organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByWorld());
-
-        //2. All countries in a continent by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByContinent(continent));
-
-        //3. All countries in a region by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the " + region + " region organised by largest population to smallest:");
-        app.displayCountries(AllCountries.ByRegion(region));
+        //---------       All cities by population in descending order    ---------------
+        keyValues.put("4", () -> app.displayCities(AllCities.ByWorld()));
+        keyValues.put("5", () -> app.displayCities(AllCities.ByContinent(continent)));
+        keyValues.put("6", () -> app.displayCities(AllCities.ByRegion(region)));
+        keyValues.put("7", () -> app.displayCities(AllCities.ByCountry(country)));
+        keyValues.put("8", () -> app.displayCities(AllCities.ByDistrict(district)));
 
 
-        //------------------ All cities by population in descending order queries --------------------------------
-        //4. All cities in the world sorted by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in the world organised by largest population to smallest:");
-        app.displayCities(AllCities.ByWorld());
+        //-------------- Top N countries by population in descending order --------------
+        keyValues.put("9", () -> app.displayCountries(TopNCountries.ByWorld(getN(scanner))));
+        keyValues.put("10", () -> app.displayCountries(TopNCountries.ByContinent(getN(scanner), continent)));
+        keyValues.put("11", () -> app.displayCountries(TopNCountries.ByRegion(getN(scanner), region)));
 
-        //5. All cities in a continent sorted by population number in descending order (largest-to-smallest)
-        System.out.println("All countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCities(AllCities.ByContinent(continent));
+        //---------------Top N cities by population in descending order -------------------
+        keyValues.put("12", () -> app.displayCities(TopNCities.ByWorld(getN(scanner))));
+        keyValues.put("13", () -> app.displayCities(TopNCities.ByContinent(getN(scanner), continent)));
+        keyValues.put("14", () -> app.displayCities(TopNCities.ByRegion(getN(scanner), region)));
+        keyValues.put("15", () -> app.displayCities(TopNCities.ByCountry(getN(scanner), country)));
+        keyValues.put("16", () -> app.displayCities(TopNCities.ByDistrict(getN(scanner), district)));
 
-        //6. All cities in a region by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in the " + region + " region organised by largest population to smallest:");
-        app.displayCities(AllCities.ByRegion(region));
-
-        //7. All cities in a country by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in " + country + " organised by largest population to smallest:");
-        app.displayCities(AllCities.ByCountry(country));
-
-        //8. All cities in a district by population number in descending order (largest-to-smallest)
-        System.out.println("All cities in the " + district + " district organised by largest population to smallest:");
-        app.displayCities(AllCities.ByDistrict(district));
-
-        //------------------ Top N countries by population in descending order queries --------------------------------
-        //9. Top N populated countries in the world sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " countries in the world organised by largest population to smallest:");
-        app.displayCountries(TopNCountries.ByWorld(N));
-
-        //10. Top N populated countries in a specific continent sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " countries in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCountries(TopNCountries.ByContinent(N, continent));
-
-        //11. Top N populated countries in a specific region sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " countries in the " + region + " region organised by largest population to smallest:");
-        app.displayCountries(TopNCountries.ByRegion(N, region));
-
-        //------------------ Top N cities by population in descending order queries --------------------------------
-        //12. Top N populated cities in the world sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the world organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByWorld(N));
-
-        //13. Top N populated cities in a specific continent sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the " + continent + " continent organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByContinent(N, continent));
-
-        //14. Top N populated cities in a specific region sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the " + region + " region organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByRegion(N, region));
-
-        //15. Top N populated cities in a specific country sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the country " + country + " organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByCountry(N, country));
-
-        //16. Top N populated cities in a specific district sorted by population number in descending order (largest-to-smallest)
-
-        System.out.println("Top " + N + " cities in the district " + district + " organised by largest population to smallest:");
-        app.displayCities(TopNCities.ByDistrict(N, district));
-
-        // Close database connection
-        DatabaseUtil.disconnect();
+        return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
+
+
+
 
     /**
      * Displays the countries' details in a formatted table
@@ -156,5 +169,13 @@ public class App
         }
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+    private static int getN(Scanner scanner)
+    {
+        System.out.println("How many top N would you like to see?:");
+        int N = scanner.nextInt();
+        scanner.nextLine();
+        return N;
     }
 }
