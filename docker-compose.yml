@@ -4,11 +4,6 @@ services:
     build: .
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
-      - DB_NAME=world
-      - DB_USER=root
-      - DB_PASSWORD=example
   db:
     build: db/.
     command: --default-authentication-plugin=mysql_native_password
