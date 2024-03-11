@@ -1,32 +1,167 @@
 package com.napier.sem;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
+import com.napier.sem.Models.City;
+import com.napier.sem.Models.Country;
+import com.napier.sem.Utils.DatabaseUtil;
+import com.napier.sem.View.Index;
 
-// Entry point for the application
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class App
 {
-    public static void main(String[] args)
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        App app = new App();
+        DatabaseUtil.connect();
+
+        boolean continueLoop = true;
+        boolean isDefaultOption = false;
+
+        /**
+         * This loop will keep displaying the selection options to the user and accepting their input until:
+         * - The user decides to exit pressing 0
+         * - or, there is no input within the first 20 seconds
+         * This is a workaround for a failing pipeline and wanting to have an interactive mode using docker compose for user to input what report they wish to see
+         */
+        while (continueLoop)
+        {
+            Index.displayOptions();
+            System.out.println("Select the number you wish to see the report for or press 0 to quit:");
+
+            String choice = null;
+            long startTime = System.currentTimeMillis();
+            final long endTime = 20000; // 20 secs for timeout
+
+            /**
+             * This loop will wait for the user input ot timeout
+             */
+            while (System.currentTimeMillis() - startTime < endTime && choice == null)
+            {
+                try
+                {
+                    if (System.in.available() > 0) //checks if there is an user input available from the user
+                    {
+                        choice = scanner.nextLine();
+                        isDefaultOption = false;    //no defaulted option, yes user input
+                    }
+
+                    else
+                    {
+                        Thread.sleep(200);
+                    }
+                }
+                catch (IOException | InterruptedException e)
+                {
+                    Thread.currentThread().interrupt(); //Interrups the thread
+                    System.out.println("An error occurred. Exiting...");
+                    return;
+                }
+            }
+
+            // choosing default choice after 20 seconds
+            if (choice == null)
+            {
+                choice = "1";     //choose table 1 as default
+                isDefaultOption = true;
+            }
+
+            if ("0".equals(choice))  //exit the loop
+            {
+                continueLoop = false;
+            }
+
+            else
+            {
+                Runnable action = Index.getUserOption(app, choice, scanner);
+                action.run();
+
+                if (isDefaultOption)
+                {
+                    continueLoop = false; //exit the loop if the default value is used after 20 secs
+                }
+            }
+        }
+
+        DatabaseUtil.disconnect();
+        scanner.close();
+        System.out.println("Thanks for using our system!");
+    }
+
+
+    /**
+     * Displays the countries' details in a formatted table
+     * @param countries The list of Country objects that will be displayed
+     */
+    public void displayCountries(ArrayList<Country> countries)
     {
-        // Test db setup in preparation for connecting WorldDb
+        if (countries == null)
+        {
+            System.out.println("No countries");
+            return;
+        }
 
-        // Create a MongoDB server
-        MongoClient mongoClient = new MongoClient("mongo-dbserver");
-        // Get a database - will create when we use it
-        MongoDatabase database = mongoClient.getDatabase("WorldDB");
-        // Get a collection from the database
-        MongoCollection<Document> collection = database.getCollection("TestCollection");
-        // Create a document to store
-        Document doc = new Document("name", "Nicole Soto")
-                .append("class", "Software Engineering Methods")
-                .append("year", "2024")
-                .append("result", new Document("CW", 95).append("EX", 85));
-        // Add document to collection
-        collection.insertOne(doc);
+        System.out.println(String.format("%-5s %-40s %-20s %-35s %-15s %-20s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
 
-        // Check document in collection
-        Document myDoc = collection.find().first();
-        System.out.println(myDoc.toJson());
+        for (Country country : countries)
+        {
+            if (country == null) continue;
+            String countryString = String.format("%-5s %-40s %-20s %-35s %-15d %-20s",
+                    country.code, country.name, country.continent, country.region, country.population, country.capitalName);
+            System.out.println(countryString);
+        }
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+    /**
+     * Displays the cities' details in a formatted table
+     * @param cities The list of City objects that will be displayed
+     */
+    public void displayCities(ArrayList<City> cities)
+    {
+        if (cities == null)
+        {
+            System.out.println("No cities");
+            return;
+        }
+
+        System.out.println(String.format("%-35s %-60s %-40s %-15s", "Name", "Country", "District", "Population"));
+
+        for (City city : cities)
+        {
+            if (city == null) continue;
+            String cityString = String.format("%-35s %-60s %-40s %-15d",
+                    city.name, city.countryCode, city.district, city.population);
+            System.out.println(cityString);
+        }
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+    /**
+     * Displays the capital cities' details in a formatted table
+     * @param capitalCities The list of City objects that will be displayed
+     */
+    public void displayCapitalCities(ArrayList<City> capitalCities)
+    {
+        if (capitalCities == null)
+        {
+            System.out.println("No capital cities");
+            return;
+        }
+
+        System.out.println(String.format("%-35s %-60s %-15s", "Name", "Country", "Population"));
+
+        for (City capitalCity : capitalCities)
+        {
+            if (capitalCity == null) continue;
+            String capitalCityString = String.format("%-35s %-60s %-15d",
+                    capitalCity.name, capitalCity.countryCode, capitalCity.population);
+            System.out.println(capitalCityString);
+        }
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 }

@@ -1,10 +1,10 @@
-# USE CASE: 2 Produce a Report on the Top Populated Countries in a given area
+# USE CASE: 2 Produce a Report on the Population of all Countries in a continent
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a member of the Business Development team, I want to produce a filtered report showing the top populated countries in a given area, so that I can recommend only the countries with the highest potential customer numbers for a new global branch.
+As a Marketing manager, I want to produce a report showing the population of all countries in a continent so that I can find highly populated countries to pursue further business expansion and marketing to benefit my organization, as well as the least populated where efforts may not be as effective.
 
 ### Scope
 
@@ -17,16 +17,13 @@ Primary task.
 ### Preconditions
 
 - We know the area we want to limit population data to:
-    - Global: All countries in the world
-    - Specific continent
-    - Specific region within a continent
-- Database contains current world population numbers, including for continents and regions.
-- The system has the functionality to sort countries based on their population sizes (largest to smallest).
-- System has input box for the user to insert the N top cities.
+  - Specific continent
+- Database contains current world population numbers, including for continents.
+- The system has the functionality to sort countries based on their population sizes (largest to smallest)
 
 ### Success End Condition
 
-A report is available for the Business Development team to view top population data and use this in reporting potential locations for a new global expansion branch.
+A report is available for Marketing to view population data and use in reporting to wider company.
 
 ### Failed End Condition
 
@@ -34,23 +31,22 @@ No population data is found and a report cannot be produced.
 
 ### Primary Actor
 
-Business Development team employee
+Marketing manager
 
 ### Trigger
 
-A request for the business to create a new global distribution branch in a profitable country they have not yet expanded to.
+A request for the business to expand into new countries is received by the Marketing team.
 
 ## MAIN SUCCESS SCENARIO
 
-1. Business Development team receives a request to find highly populated countries in a specific area to and pinpoint a country to open a new company branch in.
-2. Business Development employee pinpoints the specific area of the world to receive the top country population data for.
-3. Business Development employee extracts population data for the required areas.
-4. Business Development employee recommends a new country with a high population in their report, where they would likely see increased financial benefit if the organization began distributing within the country.
+1. Marketing team receive a request to find highly populated countries in a continent to expand their organization's customer base.
+2. Marketing manager extracts population data for the specified continent.
+3. Marketing manager recommends new countries with high populations in a report which the business could see benefit from expanding into, as well as low population countries where sales may not be as effective.
 
 ## EXTENSIONS
 
-1.**Area does not exist**:
-  - Business Development team informs the requester that the area data was requested for does not exist.
+1. **Area does not exist**:
+  - Marketing manager informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 

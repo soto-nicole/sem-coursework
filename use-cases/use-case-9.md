@@ -1,11 +1,10 @@
-# USE CASE: 9 Produce a Report on the Number of People who speak specific Languages in the World
+# USE CASE: 9 Produce a Report on the Population of all Cities in a region
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a Marketing Translator, I want to produce a report showing the number of people who speak certain languages across the world so that
-I can find the most spoken languages to prioritise translation efforts for global marketing campaigns.
+As a Finance manager, I want to produce a report on the population of all the cities in a region so that I can identify the highest and lowest populated cities in that area, identifying where the most and least profit may be made based on potential customer count.
 
 ### Scope
 
@@ -17,40 +16,37 @@ Primary task.
 
 ### Preconditions
 
-We know the languages we want to limit population data to.  
-Database contains current world population numbers and data about the number of individuals who speak each language.
+- We know the area we want to limit population data to:
+    - Specific region
+- Database contains current world city population numbers, including regions.
+- The system has the functionality to sort cities based on their population sizes (largest to smallest)
 
 ### Success End Condition
 
-A report is available for Marketing to view number of speakers of the language and use for future marketing and
-translation efforts globally.
+A report is available for X to view population data and use in reporting to wider company.
 
 ### Failed End Condition
 
-No population language data is found and a report cannot be produced.
+No population data is found and a report cannot be produced.
 
 ### Primary Actor
 
-Marketing Translator
+Finance team manager
 
 ### Trigger
 
-A request for the business to increase the number of languages its advertisements and marketing campaigns can be
-translated into, with prioritisation to the most common languages worldwide.
+A request to find out which cities have the most and least potential customers in a region, to better hone sales efforts.
 
 ## MAIN SUCCESS SCENARIO
 
-1. Marketing team receive a request to find the languages with the most speakers in a specific area.
-2. Marketing Translator pinpoints the specific area of the world to receive spoken language data for.
-3. Marketing Translator extracts spoken language data for the required areas.
-4. Marketing Translator recommends the most spoken languages which could reach the most potential customers for the
-   business in that given area.
+1. Finance team receive a request to find the population of cities in a region to identify both good and bad areas for seeking new potential customers.
+2. Finance manager extracts population data for a region.
+3. Finance manager reports the best and worst cities in a region for future sales endeavours.
 
 ## EXTENSIONS
 
-1.**Data does not exist**:
-
-- Marketing Translator informs the requester that the necessary data does not exist within the database.
+1.**Area does not exist**:
+- Finance manager informs the requester that the area data was requested for does not exist.
 
 ## SUB-VARIATIONS
 
