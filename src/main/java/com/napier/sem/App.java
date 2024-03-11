@@ -1,5 +1,4 @@
 package com.napier.sem;
-import com.napier.sem.Features.*;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Utils.DatabaseUtil;
@@ -7,8 +6,6 @@ import com.napier.sem.View.Index;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class App
@@ -22,6 +19,12 @@ public class App
         boolean continueLoop = true;
         boolean isDefaultOption = false;
 
+        /**
+         * This loop will keep displaying the selection options to the user and accepting their input until:
+         * - The user decides to exit pressing 0
+         * - or, there is no input within the first 20 seconds
+         * This is a workaround for a failing pipeline and wanting to have an interactive mode using docker compose for user to input what report they wish to see
+         */
         while (continueLoop)
         {
             Index.displayOptions();
@@ -29,37 +32,42 @@ public class App
 
             String choice = null;
             long startTime = System.currentTimeMillis();
-            final long timeout = 20000; // 20 secs
+            final long endTime = 20000; // 20 secs for timeout
 
-            while (System.currentTimeMillis() - startTime < timeout && choice == null)
+            /**
+             * This loop will wait for the user input ot timeout
+             */
+            while (System.currentTimeMillis() - startTime < endTime && choice == null)
             {
                 try
                 {
-                    if (System.in.available() > 0)
+                    if (System.in.available() > 0) //checks if there is an user input available from the user
                     {
                         choice = scanner.nextLine();
-                        isDefaultOption = false;
-                    } else
+                        isDefaultOption = false;    //no defaulted option, yes user input
+                    }
+
+                    else
                     {
                         Thread.sleep(200);
                     }
                 }
                 catch (IOException | InterruptedException e)
                 {
-                    Thread.currentThread().interrupt();
+                    Thread.currentThread().interrupt(); //Interrups the thread
                     System.out.println("An error occurred. Exiting...");
                     return;
                 }
             }
 
-            // choosing default after 20 seconds
+            // choosing default choice after 20 seconds
             if (choice == null)
             {
-                choice = "1";
+                choice = "1";     //choose table 1 as default
                 isDefaultOption = true;
             }
 
-            if ("0".equals(choice))
+            if ("0".equals(choice))  //exit the loop
             {
                 continueLoop = false;
             }

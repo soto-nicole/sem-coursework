@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 public class Index
 {
+    /**
+     * Displaying the menu options for user interaction with the terminal
+     */
     public static void displayOptions()
     {
         System.out.println("=========================================");
@@ -46,6 +49,13 @@ public class Index
         System.out.println("  22)  Top populated capital cities in a region in descending order");
     }
 
+    /**
+     * Gets the action based on the user's choice and returns it as a Runnable.
+     * @param app App object that contains the methods for displaying the data coming from the db
+     * @param choice user's choice from the input
+     * @param scanner Scanner object used fo the input
+     * @return  A Runnable for the action corresponding to the user's choice
+     */
     public static Runnable getUserOption(App app, String choice, Scanner scanner)
     {
         Map<String, Runnable> keyValues = new HashMap<>();
@@ -91,6 +101,11 @@ public class Index
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
 
+    /**
+     * Asks yser for input: number of top N values they would like to see.
+     * @param scanner Scanner object used fo the input
+     * @return user's chosen value for N
+     */
     public static int getN(Scanner scanner)
     {
         System.out.println("How many top N would you like to see?:");
