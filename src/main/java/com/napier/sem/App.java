@@ -14,7 +14,14 @@ public class App
 
     public static void main(String[] args) {
         App app = new App();
-        DatabaseUtil.connect();
+        if (args.length < 2)
+        {
+            DatabaseUtil.connect("localhost:33060", 30000);
+        }
+        else
+        {
+            DatabaseUtil.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         boolean continueLoop = true;
         boolean isDefaultOption = false;
