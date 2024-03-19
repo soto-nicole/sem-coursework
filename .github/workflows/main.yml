@@ -2,7 +2,10 @@ name: A workflow for my Population Reports System
 on:
   push:
     branches:
+      - master
       - develop
+      - release
+      - feature/**
 jobs:
   UnitTests:
     name: Unit Tests
