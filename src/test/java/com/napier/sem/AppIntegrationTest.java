@@ -94,5 +94,38 @@ public class AppIntegrationTest
     }
 
 
+    @Test
+    void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
+    {
+        ArrayList<Country> countries = AllCountries.ByRegion("Caribbean");
+        assertNotNull(countries);
+        assertFalse(countries.isEmpty());
 
+        Country largestPopulationCountry = countries.get(0);
+
+        assertEquals("CUB", largestPopulationCountry.code);
+        assertEquals("Cuba", largestPopulationCountry.name);
+        assertEquals("North America", largestPopulationCountry.continent);
+        assertEquals("Caribbean", largestPopulationCountry.region);
+        assertEquals("La Habana", largestPopulationCountry.capitalName);
+        assertEquals(11201000, largestPopulationCountry.population);
+    }
+
+
+    @Test
+    void testByRegion_ShouldProvide_SmallestPopulationLast()
+    {
+        ArrayList<Country> countries = AllCountries.ByRegion("Caribbean");
+        assertNotNull(countries);
+        assertFalse(countries.isEmpty());
+
+        Country smallestPopulationCountry = countries.get(countries.size() - 1);
+
+        assertEquals("AIA", smallestPopulationCountry.code);
+        assertEquals("Anguilla", smallestPopulationCountry.name);
+        assertEquals("North America", smallestPopulationCountry.continent);
+        assertEquals("Caribbean", smallestPopulationCountry.region);
+        assertEquals(8000, smallestPopulationCountry.population);
+        assertEquals("The Valley", smallestPopulationCountry.capitalName);
+    }
 }
