@@ -171,4 +171,10 @@ public class App
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
+
+
+    public void connect(String location, int delay)
+    {
+        DatabaseUtil.connect(location, delay);
+    }
 }
