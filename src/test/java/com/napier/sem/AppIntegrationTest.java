@@ -42,7 +42,7 @@ public class AppIntegrationTest
 
 
     @Test
-    void testByWorld_ShouldProvide_SmallestPopulationLast()
+    void testByWorld_ShouldProvide_CountriesSmallestPopulationLast()
     {
         ArrayList<Country> countries = AllCountries.ByWorld();
         assertNotNull(countries);
@@ -57,5 +57,42 @@ public class AppIntegrationTest
         assertEquals(50, smallestPopulationCountry.population);
         assertEquals("Adamstown", smallestPopulationCountry.capitalName);
     }
+
+    @Test
+    void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
+    {
+        ArrayList<Country> countries = AllCountries.ByContinent("Africa");
+        assertNotNull(countries);
+        assertFalse(countries.isEmpty());
+
+        Country largestPopulationCountry = countries.get(0);
+
+        assertEquals("NGA", largestPopulationCountry.code);
+        assertEquals("Nigeria", largestPopulationCountry.name);
+        assertEquals("Africa", largestPopulationCountry.continent);
+        assertEquals("Western Africa", largestPopulationCountry.region);
+        assertEquals("Abuja", largestPopulationCountry.capitalName);
+        assertEquals(111506000, largestPopulationCountry.population);
+    }
+
+
+    @Test
+    void testByContinent_ShouldProvide_SmallestPopulationLast()
+    {
+        ArrayList<Country> countries = AllCountries.ByContinent("Africa");
+        assertNotNull(countries);
+        assertFalse(countries.isEmpty());
+
+        Country smallestPopulationCountry = countries.get(countries.size() - 1);
+
+        assertEquals("SHN", smallestPopulationCountry.code);
+        assertEquals("Saint Helena", smallestPopulationCountry.name);
+        assertEquals("Africa", smallestPopulationCountry.continent);
+        assertEquals("Western Africa", smallestPopulationCountry.region);
+        assertEquals(6000, smallestPopulationCountry.population);
+        assertEquals("Jamestown", smallestPopulationCountry.capitalName);
+    }
+
+
 
 }
