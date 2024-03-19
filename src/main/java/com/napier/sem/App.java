@@ -14,17 +14,23 @@ public class App
 
     public static void main(String[] args) {
         App app = new App();
-        DatabaseUtil.connect();
+        if (args.length < 2)
+        {
+            DatabaseUtil.connect("localhost:33060", 30000);
+        }
+        else
+        {
+            DatabaseUtil.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         boolean continueLoop = true;
         boolean isDefaultOption = false;
 
-        /**
-         * This loop will keep displaying the selection options to the user and accepting their input until:
-         * - The user decides to exit pressing 0
-         * - or, there is no input within the first 20 seconds
-         * This is a workaround for a failing pipeline and wanting to have an interactive mode using docker compose for user to input what report they wish to see
-         */
+         // This loop will keep displaying the selection options to the user and accepting their input until:
+         //- The user decides to exit pressing 0
+         // - or, there is no input within the first 20 seconds
+         // This is a workaround for a failing pipeline and wanting to have an interactive mode using docker compose for user to input what report they wish to see
+
         while (continueLoop)
         {
             Index.displayOptions();
@@ -34,14 +40,14 @@ public class App
             long startTime = System.currentTimeMillis();
             final long endTime = 20000; // 20 secs for timeout
 
-            /**
-             * This loop will wait for the user input ot timeout
-             */
+
+            //  This loop will wait for the user input ot timeout
+
             while (System.currentTimeMillis() - startTime < endTime && choice == null)
             {
                 try
                 {
-                    if (System.in.available() > 0) //checks if there is an user input available from the user
+                    if (System.in.available() > 0) //checks if there is a user input available from the user
                     {
                         choice = scanner.nextLine();
                         isDefaultOption = false;    //no defaulted option, yes user input
@@ -54,7 +60,7 @@ public class App
                 }
                 catch (IOException | InterruptedException e)
                 {
-                    Thread.currentThread().interrupt(); //Interrups the thread
+                    Thread.currentThread().interrupt(); //Interrupts the thread
                     System.out.println("An error occurred. Exiting...");
                     return;
                 }
@@ -102,7 +108,7 @@ public class App
             return;
         }
 
-        System.out.println(String.format("%-5s %-40s %-20s %-35s %-15s %-20s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
+        System.out.printf("%-5s %-40s %-20s %-35s %-15s %-20s%n", "Code", "Name", "Continent", "Region", "Population", "Capital");
 
         for (Country country : countries)
         {
@@ -127,7 +133,7 @@ public class App
             return;
         }
 
-        System.out.println(String.format("%-35s %-60s %-40s %-15s", "Name", "Country", "District", "Population"));
+        System.out.printf("%-35s %-60s %-40s %-15s%n", "Name", "Country", "District", "Population");
 
         for (City city : cities)
         {
@@ -152,7 +158,7 @@ public class App
             return;
         }
 
-        System.out.println(String.format("%-35s %-60s %-15s", "Name", "Country", "Population"));
+        System.out.printf("%-35s %-60s %-15s%n", "Name", "Country", "Population");
 
         for (City capitalCity : capitalCities)
         {
@@ -163,5 +169,11 @@ public class App
         }
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+
+    public void connect(String location, int delay)
+    {
+        DatabaseUtil.connect(location, delay);
     }
 }

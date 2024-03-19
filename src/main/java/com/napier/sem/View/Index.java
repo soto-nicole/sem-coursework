@@ -102,7 +102,7 @@ public class Index
     }
 
     /**
-     * Asks yser for input: number of top N values they would like to see.
+     * Asks user for input: number of top N values they would like to see.
      * @param scanner Scanner object used fo the input
      * @return user's chosen value for N
      */

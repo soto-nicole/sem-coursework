@@ -23,17 +23,17 @@ public class ReportHelper
         {
             Connection con = DatabaseUtil.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet set = stmt.executeQuery(strSelect);
 
-            while (rset.next())
+            while (set.next())
             {
                 Country country = new Country();
-                country.code = rset.getString("Code");
-                country.name = rset.getString("Name");
-                country.continent = rset.getString("Continent");
-                country.region = rset.getString("Region");
-                country.population = rset.getInt("Population");
-                country.capitalName = rset.getString("CapitalName");
+                country.code = set.getString("Code");
+                country.name = set.getString("Name");
+                country.continent = set.getString("Continent");
+                country.region = set.getString("Region");
+                country.population = set.getInt("Population");
+                country.capitalName = set.getString("CapitalName");
                 countries.add(country);
             }
         }
@@ -58,15 +58,15 @@ public class ReportHelper
         {
             Connection con = DatabaseUtil.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet set = stmt.executeQuery(strSelect);
 
-            while (rset.next())
+            while (set.next())
             {
                 City city = new City();
-                city.name = rset.getString("Name");
-                city.countryCode = rset.getString("CountryName");
-                city.district = rset.getString("District");
-                city.population = rset.getInt("Population");
+                city.name = set.getString("Name");
+                city.countryCode = set.getString("CountryName");
+                city.district = set.getString("District");
+                city.population = set.getInt("Population");
                 cities.add(city);
             }
         }
