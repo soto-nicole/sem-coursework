@@ -6,10 +6,6 @@ package com.napier.sem.Models;
 public class City
 {
     /**
-     * The unique ID of the city in the database
-     */
-    public int id;
-    /**
      * The name of the city
      */
     public String name;
