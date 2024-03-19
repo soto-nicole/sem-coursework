@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - develop
-      - feature/nicole/bug/testing-coverage
 jobs:
   UnitTests:
     name: Unit Tests
