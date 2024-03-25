@@ -22,6 +22,8 @@ public class App
         {
             DatabaseUtil.connect(args[0], Integer.parseInt(args[1]));
         }
+        Index index = new Index();
+
 
         boolean continueLoop = true;
         boolean isDefaultOption = false;
@@ -33,7 +35,7 @@ public class App
 
         while (continueLoop)
         {
-            Index.displayOptions();
+            index.displayOptions();
             System.out.println("Select the number you wish to see the report for or press 0 to quit:");
 
             String choice = null;
@@ -80,7 +82,7 @@ public class App
 
             else
             {
-                Runnable action = Index.getUserOption(app, choice, scanner);
+                Runnable action = index.getUserOption(app, choice, scanner);
                 action.run();
 
                 if (isDefaultOption)
