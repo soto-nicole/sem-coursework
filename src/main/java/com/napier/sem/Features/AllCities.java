@@ -79,8 +79,5 @@ public class AllCities
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE city.District = '" + districtName + "' " +
                 "ORDER BY city.Population DESC");
-
-        //TODO: Investigate quirk where the district  Cordoba shows up two different countries - might be a db issue. unless we let the user input
-        // for which country they need
     }
 }
