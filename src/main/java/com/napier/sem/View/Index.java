@@ -15,12 +15,20 @@ public class Index {
     private ReportHelper reportHelper;
     private AllCountries allCountries;
     private TopNCountries topNCountries;
+    private AllCities allCities;
+    private AllCapitalCities allCapitalCities;
+    private TopNCapitalCities topNCapitalCities;
+    private TopNCities topNCities;
 
     public Index()
     {
         this.reportHelper = new ReportHelper(DatabaseUtil.getConnection());
         this.allCountries = new AllCountries(reportHelper);
         this.topNCountries = new TopNCountries(reportHelper);
+        this.allCities = new AllCities(reportHelper);
+        this.allCapitalCities = new AllCapitalCities(reportHelper);
+        this.topNCapitalCities = new TopNCapitalCities(reportHelper);
+        this.topNCities = new TopNCities(reportHelper);
     }
 
     /**
@@ -83,11 +91,11 @@ public class Index {
         keyValues.put("3", () -> app.displayCountries(allCountries.ByRegion(region)));
 
         //---------       All cities by population in descending order    ---------------
-        keyValues.put("4", () -> app.displayCities(AllCities.ByWorld()));
-        keyValues.put("5", () -> app.displayCities(AllCities.ByContinent(continent)));
-        keyValues.put("6", () -> app.displayCities(AllCities.ByRegion(region)));
-        keyValues.put("7", () -> app.displayCities(AllCities.ByCountry(country)));
-        keyValues.put("8", () -> app.displayCities(AllCities.ByDistrict(district)));
+        keyValues.put("4", () -> app.displayCities(allCities.ByWorld()));
+        keyValues.put("5", () -> app.displayCities(allCities.ByContinent(continent)));
+        keyValues.put("6", () -> app.displayCities(allCities.ByRegion(region)));
+        keyValues.put("7", () -> app.displayCities(allCities.ByCountry(country)));
+        keyValues.put("8", () -> app.displayCities(allCities.ByDistrict(district)));
 
         //-------------- Top N countries by population in descending order --------------
         keyValues.put("9", () -> app.displayCountries(topNCountries.ByWorld(getN(scanner))));
@@ -95,21 +103,21 @@ public class Index {
         keyValues.put("11", () -> app.displayCountries(topNCountries.ByRegion(getN(scanner), region)));
 
         //---------------Top N cities by population in descending order -------------------
-        keyValues.put("12", () -> app.displayCities(TopNCities.ByWorld(getN(scanner))));
-        keyValues.put("13", () -> app.displayCities(TopNCities.ByContinent(getN(scanner), continent)));
-        keyValues.put("14", () -> app.displayCities(TopNCities.ByRegion(getN(scanner), region)));
-        keyValues.put("15", () -> app.displayCities(TopNCities.ByCountry(getN(scanner), country)));
-        keyValues.put("16", () -> app.displayCities(TopNCities.ByDistrict(getN(scanner), district)));
+        keyValues.put("12", () -> app.displayCities(topNCities.ByWorld(getN(scanner))));
+        keyValues.put("13", () -> app.displayCities(topNCities.ByContinent(getN(scanner), continent)));
+        keyValues.put("14", () -> app.displayCities(topNCities.ByRegion(getN(scanner), region)));
+        keyValues.put("15", () -> app.displayCities(topNCities.ByCountry(getN(scanner), country)));
+        keyValues.put("16", () -> app.displayCities(topNCities.ByDistrict(getN(scanner), district)));
 
         //---------       All capital cities by population in descending order    ---------------
-        keyValues.put("17", () -> app.displayCapitalCities(AllCapitalCities.ByWorld()));
-        keyValues.put("18", () -> app.displayCapitalCities(AllCapitalCities.ByContinent(continent)));
-        keyValues.put("19", () -> app.displayCapitalCities(AllCapitalCities.ByRegion(region)));
+        keyValues.put("17", () -> app.displayCapitalCities(allCapitalCities.ByWorld()));
+        keyValues.put("18", () -> app.displayCapitalCities(allCapitalCities.ByContinent(continent)));
+        keyValues.put("19", () -> app.displayCapitalCities(allCapitalCities.ByRegion(region)));
 
         //---------       Top N capital cities by population in descending order    ---------------
-        keyValues.put("20", () -> app.displayCapitalCities(TopNCapitalCities.ByWorld(getN(scanner))));
-        keyValues.put("21", () -> app.displayCapitalCities(TopNCapitalCities.ByContinent(getN(scanner), continent)));
-        keyValues.put("22", () -> app.displayCapitalCities(TopNCapitalCities.ByRegion(getN(scanner), region)));
+        keyValues.put("20", () -> app.displayCapitalCities(topNCapitalCities.ByWorld(getN(scanner))));
+        keyValues.put("21", () -> app.displayCapitalCities(topNCapitalCities.ByContinent(getN(scanner), continent)));
+        keyValues.put("22", () -> app.displayCapitalCities(topNCapitalCities.ByRegion(getN(scanner), region)));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
