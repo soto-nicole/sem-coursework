@@ -1,7 +1,9 @@
 package com.napier.sem;
 
 import com.napier.sem.Features.AllCountries;
+import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Utils.DatabaseUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,21 +14,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppIntegrationTest
 {
     static App app;
-
+    static AllCountries allCountries;
     @BeforeAll
     static void init()
     {
         app = new App();
         app.connect("localhost:33060", 30000);
-
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        allCountries = new AllCountries(reportHelper);
     }
+
 
     //---------------------------------- All Countries Population -----------------------------------------//
 
     @Test
     void testByWorld_ShouldProvide_LargestPopulationFirst()
     {
-        ArrayList<Country> countries = AllCountries.ByWorld();
+        ArrayList<Country> countries = allCountries.ByWorld();
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -44,7 +48,7 @@ public class AppIntegrationTest
     @Test
     void testByWorld_ShouldProvide_CountriesSmallestPopulationLast()
     {
-        ArrayList<Country> countries = AllCountries.ByWorld();
+        ArrayList<Country> countries = allCountries.ByWorld();
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -61,7 +65,7 @@ public class AppIntegrationTest
     @Test
     void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
     {
-        ArrayList<Country> countries = AllCountries.ByContinent("Africa");
+        ArrayList<Country> countries = allCountries.ByContinent("Africa");
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -79,7 +83,7 @@ public class AppIntegrationTest
     @Test
     void testByContinent_ShouldProvide_SmallestPopulationLast()
     {
-        ArrayList<Country> countries = AllCountries.ByContinent("Africa");
+        ArrayList<Country> countries = allCountries.ByContinent("Africa");
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -97,7 +101,7 @@ public class AppIntegrationTest
     @Test
     void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
     {
-        ArrayList<Country> countries = AllCountries.ByRegion("Caribbean");
+        ArrayList<Country> countries = allCountries.ByRegion("Caribbean");
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -115,7 +119,7 @@ public class AppIntegrationTest
     @Test
     void testByRegion_ShouldProvide_SmallestPopulationLast()
     {
-        ArrayList<Country> countries = AllCountries.ByRegion("Caribbean");
+        ArrayList<Country> countries = allCountries.ByRegion("Caribbean");
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -128,4 +132,5 @@ public class AppIntegrationTest
         assertEquals(8000, smallestPopulationCountry.population);
         assertEquals("The Valley", smallestPopulationCountry.capitalName);
     }
+
 }

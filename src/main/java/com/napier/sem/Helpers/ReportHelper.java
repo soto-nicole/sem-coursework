@@ -11,18 +11,24 @@ import java.util.ArrayList;
 
 public class ReportHelper
 {
+    private Connection con;
+
+    public ReportHelper(Connection connection)
+    {
+        this.con = connection;
+    }
+
     /**
      * Helper method to get the country information by using the SQL queries
      * @param strSelect SQL query that will return the country information needed for the reports
      * @return ArrayList from country objects that contains the required data being fetched
      */
-    public static ArrayList<Country> getCountryReport(String strSelect)
+    public ArrayList<Country> getCountryReport(String strSelect)
     {
         ArrayList<Country> countries = new ArrayList<>();
         try
         {
-            Connection con = DatabaseUtil.getConnection();
-            Statement stmt = con.createStatement();
+            Statement stmt = this.con.createStatement();
             ResultSet set = stmt.executeQuery(strSelect);
 
             while (set.next())
@@ -51,13 +57,12 @@ public class ReportHelper
      * @param strSelect SQL query that will return the city information needed for the reports
      * @return ArrayList from City objects that contains the required data being fetched
      */
-    public static ArrayList<City> getCityReport(String strSelect)
+    public ArrayList<City> getCityReport(String strSelect)
     {
         ArrayList<City> cities = new ArrayList<>();
         try
         {
-            Connection con = DatabaseUtil.getConnection();
-            Statement stmt = con.createStatement();
+            Statement stmt = this.con.createStatement();
             ResultSet set = stmt.executeQuery(strSelect);
 
             while (set.next())
@@ -78,5 +83,4 @@ public class ReportHelper
         }
         return cities;
     }
-
 }
