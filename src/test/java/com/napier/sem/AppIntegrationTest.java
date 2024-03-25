@@ -53,10 +53,10 @@ public class AppIntegrationTest
 
         City smallestPopulationCity = cities.get(cities.size() - 1);
 
-        assertEquals("Pitcairn", smallestPopulationCity.name);
-        assertEquals("Polynesia", smallestPopulationCity.district);
-        assertEquals("Oceania", smallestPopulationCity.countryCode);
-        assertEquals(50, smallestPopulationCity.population);
+        assertEquals("Adamstown", smallestPopulationCity.name);
+        assertEquals("Pitcairn", smallestPopulationCity.district);
+        assertEquals("-", smallestPopulationCity.countryCode);
+        assertEquals(42, smallestPopulationCity.population);
 
     }
 
@@ -120,7 +120,35 @@ public class AppIntegrationTest
     }
 
 
+    @Test
+    void testByCountry_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> cities = allCities.ByDistrict("Spain");
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
 
+        City largestPopulationCity = cities.get(0);
+
+        assertEquals("Madrid", largestPopulationCity.name);
+        assertEquals("Madrid", largestPopulationCity.district);
+        assertEquals("Spain", largestPopulationCity.countryCode);
+        assertEquals(2879052, largestPopulationCity.population);
+    }
+
+    @Test
+    void testByCountry_ShouldProvide_CitiesSmallestPopulationLast()
+    {
+        ArrayList<City> cities = allCities.ByDistrict("Spain");
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
+
+        City smallestPopulationCity = cities.get(cities.size() - 1);
+
+        assertEquals("Torrejón de Ardoz", smallestPopulationCity.name);
+        assertEquals("Madrid", smallestPopulationCity.district);
+        assertEquals("Spain", smallestPopulationCity.countryCode);
+        assertEquals(92262, smallestPopulationCity.population);
+    }
 
 
 
