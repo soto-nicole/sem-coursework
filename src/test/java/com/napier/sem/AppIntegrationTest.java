@@ -1,7 +1,9 @@
 package com.napier.sem;
 
 import com.napier.sem.Features.AllCountries;
+import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Utils.DatabaseUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +20,8 @@ public class AppIntegrationTest
     {
         app = new App();
         app.connect("localhost:33060", 30000);
-
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        allCountries = new AllCountries(reportHelper);
     }
 
 
