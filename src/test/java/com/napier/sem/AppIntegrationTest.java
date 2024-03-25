@@ -119,11 +119,10 @@ public class AppIntegrationTest
         assertEquals(595, smallestPopulationCity.population);
     }
 
-
     @Test
     void testByCountry_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> cities = allCities.ByDistrict("Spain");
+        ArrayList<City> cities = allCities.ByCountry("Spain");
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
 
@@ -138,7 +137,7 @@ public class AppIntegrationTest
     @Test
     void testByCountry_ShouldProvide_CitiesSmallestPopulationLast()
     {
-        ArrayList<City> cities = allCities.ByDistrict("Spain");
+        ArrayList<City> cities = allCities.ByCountry("Spain");
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
 
@@ -150,15 +149,35 @@ public class AppIntegrationTest
         assertEquals(92262, smallestPopulationCity.population);
     }
 
+    @Test
+    void testByDistrict_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> cities = allCities.ByDistrict("Buenos Aires");
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
 
+        City largestPopulationCity = cities.get(0);
 
+        assertEquals("La Matanza", largestPopulationCity.name);
+        assertEquals("Buenos Aires", largestPopulationCity.district);
+        assertEquals("Argentina", largestPopulationCity.countryCode);
+        assertEquals(1266461, largestPopulationCity.population);
+    }
 
+    @Test
+    void testByDistrict_ShouldProvide_CitiesSmallestPopulationLast()
+    {
+        ArrayList<City> cities = allCities.ByDistrict("Buenos Aires");
+        assertNotNull(cities);
+        assertFalse(cities.isEmpty());
 
+        City smallestPopulationCity = cities.get(cities.size() - 1);
 
-
-
-
-
+        assertEquals("Tandil", smallestPopulationCity.name);
+        assertEquals("Buenos Aires", smallestPopulationCity.district);
+        assertEquals("Argentina", smallestPopulationCity.countryCode);
+        assertEquals(91101, smallestPopulationCity.population);
+    }
 
     //---------------------------------- All Countries Population -----------------------------------------//
 
