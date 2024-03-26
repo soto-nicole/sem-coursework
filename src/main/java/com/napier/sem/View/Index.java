@@ -79,6 +79,7 @@ public class Index {
         System.out.println();
         System.out.println("  26)  Display the total population, population of people within and outside of cities in the world");
         System.out.println("  27)  Display the total population, population of people within and outside of cities in a continent");
+        System.out.println("  28)  Display the total population, population of people within and outside of cities in a region");
     }
 
     /**
@@ -130,14 +131,15 @@ public class Index {
         keyValues.put("21", () -> app.displayCapitalCities(topNCapitalCities.ByContinent(getN(scanner), continent)));
         keyValues.put("22", () -> app.displayCapitalCities(topNCapitalCities.ByRegion(getN(scanner), region)));
 
-        //---------       Total population of people, within and outwith cities by continent    ---------------
+        //---------       All total populations of people, within and outwith cities for each specified area type  ---------------
         keyValues.put("23", () -> app.displayPopulations(allPopulations.ByContinent()));
         keyValues.put("24", () -> app.displayPopulations(allPopulations.ByRegion()));
         keyValues.put("25", () -> app.displayPopulations(allPopulations.ByCountry()));
 
-        //---------       Total population of people, within and outwith cities in a specific area   ---------------
+        //---------       Total population of people, within and outwith cities in a specific area type  ---------------
         keyValues.put("26", () -> app.displaySpecificPopulation(specificPopulation.ByWorld()));
         keyValues.put("27", () -> app.displaySpecificPopulation(specificPopulation.ByContinent(continent)));
+        keyValues.put("28", () -> app.displaySpecificPopulation(specificPopulation.ByRegion(region)));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }

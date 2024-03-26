@@ -157,4 +157,33 @@ public class AppTest
 
         app.displayPopulations(populations);
     }
+
+    //-----------
+
+    @Test
+    void printSpecificPopulationTestNull()
+    {
+        app.displaySpecificPopulation(null);
+    }
+
+    @Test
+    void printSpecificPopulationTestEmpty()
+    {
+        Population population = new Population();
+        app.displaySpecificPopulation(population);
+    }
+
+    @Test
+    void printSpecificPopulation()
+    {
+        Population population = new Population();
+        population.areaName = "China";
+        population.population = 3000000;
+        population.populationCities = 1500000;
+        population.populationCitiesPercentage = 50.00F;
+        population.populationOutsideCities = 1500000;
+        population.populationOutsideCitiesPercentage = 50.00F;
+
+        app.displaySpecificPopulation(population);
+    }
 }
