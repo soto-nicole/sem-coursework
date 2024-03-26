@@ -65,7 +65,7 @@ public class AppIntegrationTest
     @Test
     void testByRegion_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
     {
-        ArrayList<Country> topCountries = topNCountries.ByContinent(5, "Caribbean");
+        ArrayList<Country> topCountries = topNCountries.ByRegion(5, "Caribbean");
         assertNotNull(topCountries);
         assertFalse(topCountries.isEmpty());
         assertEquals(5, topCountries.size());
