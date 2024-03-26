@@ -121,8 +121,6 @@ public class AppTest
         app.displayCapitalCities(capitalCities);
     }
 
-    --
-
     @Test
     void printPopulationsTestNull()
     {
