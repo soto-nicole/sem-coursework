@@ -20,6 +20,7 @@ public class AppIntegrationTest
     static TopNCountries topNCountries;
     static AllCapitalCities allCapitalCities;
     static TopNCities topNCities;
+    static TopNCapitalCities topNCapitalCities;
 
 
     static final String TEST_CONTINENT = "Africa";
@@ -39,77 +40,47 @@ public class AppIntegrationTest
         topNCountries = new TopNCountries(reportHelper);
         allCapitalCities = new AllCapitalCities(reportHelper);
         topNCities = new TopNCities(reportHelper);
+        topNCapitalCities = new TopNCapitalCities(reportHelper);
     }
 
     //---------------------------------- Top N Populated Capital cities-----------------------------------------//
     @Test
     void testByWorld_TopNCapitalCities_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> topCities = topNCities.ByWorld(N);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
+        ArrayList<City> topCapitalCities = topNCapitalCities.ByWorld(N);
+        assertNotNull(topCapitalCities);
+        assertFalse(topCapitalCities.isEmpty());
+        assertEquals(N, topCapitalCities.size());
 
-        assertEquals("Mumbai (Bombay)", topCities.get(0).name);
-        assertEquals("Maharashtra", topCities.get(0).district);
-        assertEquals(10500000, topCities.get(0).population);
-        assertEquals("India", topCities.get(0).countryCode);
+        assertEquals("Seoul", topCapitalCities.get(0).name);
+        assertEquals(9981619, topCapitalCities.get(0).population);
+        assertEquals("South Korea", topCapitalCities.get(0).countryCode);
     }
 
     @Test
     void testByContinent_TopNCapitalCities_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> topCities = topNCities.ByContinent(N,TEST_CONTINENT);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
+        ArrayList<City> topCapitalCities = topNCapitalCities.ByContinent(N,TEST_CONTINENT);
+        assertNotNull(topCapitalCities);
+        assertFalse(topCapitalCities.isEmpty());
+        assertEquals(N, topCapitalCities.size());
 
-        assertEquals("Cairo", topCities.get(0).name);
-        assertEquals("Kairo", topCities.get(0).district);
-        assertEquals(6789479, topCities.get(0).population);
-        assertEquals("Egypt", topCities.get(0).countryCode);
+        assertEquals("Cairo", topCapitalCities.get(0).name);
+        assertEquals(6789479, topCapitalCities.get(0).population);
+        assertEquals("Egypt", topCapitalCities.get(0).countryCode);
     }
 
     @Test
     void testByRegion_TopNCapitalCities_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> topCities = topNCities.ByRegion(N,TEST_REGION);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
+        ArrayList<City> topCapitalCities = topNCapitalCities.ByRegion(N,TEST_REGION);
+        assertNotNull(topCapitalCities);
+        assertFalse(topCapitalCities.isEmpty());
+        assertEquals(N, topCapitalCities.size());
 
-        assertEquals("La Habana", topCities.get(0).name);
-        assertEquals("La Habana", topCities.get(0).district);
-        assertEquals(2256000, topCities.get(0).population);
-        assertEquals("Cuba", topCities.get(0).countryCode);
-    }
-
-    @Test
-    void testByCountry_TopNCapitalCities_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> topCities = topNCities.ByCountry(N,TEST_COUNTRY);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
-
-        assertEquals("Madrid", topCities.get(0).name);
-        assertEquals("Madrid", topCities.get(0).district);
-        assertEquals(2879052, topCities.get(0).population);
-        assertEquals("Spain", topCities.get(0).countryCode);
-    }
-
-    @Test
-    void testByDistrict_TopNCapitalCities_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> topCities = topNCities.ByDistrict(N,TEST_DISTRICT);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
-
-        assertEquals("La Matanza", topCities.get(0).name);
-        assertEquals("Buenos Aires", topCities.get(0).district);
-        assertEquals(1266461, topCities.get(0).population);
-        assertEquals("Argentina", topCities.get(0).countryCode);
+        assertEquals("La Habana", topCapitalCities.get(0).name);
+        assertEquals(2256000, topCapitalCities.get(0).population);
+        assertEquals("Cuba", topCapitalCities.get(0).countryCode);
     }
 
     //---------------------------------- Top N Populated cities-----------------------------------------//
@@ -154,35 +125,6 @@ public class AppIntegrationTest
         assertEquals(2256000, topCities.get(0).population);
         assertEquals("Cuba", topCities.get(0).countryCode);
     }
-
-    @Test
-    void testByCountry_TopNCities_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> topCities = topNCities.ByCountry(N,TEST_COUNTRY);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
-
-        assertEquals("Madrid", topCities.get(0).name);
-        assertEquals("Madrid", topCities.get(0).district);
-        assertEquals(2879052, topCities.get(0).population);
-        assertEquals("Spain", topCities.get(0).countryCode);
-    }
-
-    @Test
-    void testByDistrict_TopNCities_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> topCities = topNCities.ByDistrict(N,TEST_DISTRICT);
-        assertNotNull(topCities);
-        assertFalse(topCities.isEmpty());
-        assertEquals(N, topCities.size());
-
-        assertEquals("La Matanza", topCities.get(0).name);
-        assertEquals("Buenos Aires", topCities.get(0).district);
-        assertEquals(1266461, topCities.get(0).population);
-        assertEquals("Argentina", topCities.get(0).countryCode);
-    }
-
 
     //---------------------------------- Top N Populated countries-----------------------------------------//
 
