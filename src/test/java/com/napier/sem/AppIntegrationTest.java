@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.Features.AllCapitalCities;
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
 import com.napier.sem.Features.TopNCountries;
@@ -20,6 +21,9 @@ public class AppIntegrationTest
     static AllCountries allCountries;
     static AllCities allCities;
     static TopNCountries topNCountries;
+    static AllCapitalCities allCapitalCities;
+
+
 
     @BeforeAll
     static void init()
@@ -30,6 +34,7 @@ public class AppIntegrationTest
         allCountries = new AllCountries(reportHelper);
         allCities = new AllCities(reportHelper);
         topNCountries = new TopNCountries(reportHelper);
+        allCapitalCities = new AllCapitalCities(reportHelper);
     }
 
     //---------------------------------- Top N Populated countries-----------------------------------------//
@@ -74,6 +79,47 @@ public class AppIntegrationTest
         assertEquals(11201000, topCountries.get(0).population);
         assertEquals("Jamaica", topCountries.get(4).name);
         assertEquals(2583000, topCountries.get(4).population);
+    }
+
+    //---------------------------------- All Capital Cities Population -----------------------------------------//
+
+    @Test
+    void testByWorld_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByWorld();
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("Seoul", largestPopulationCapitalCity.name);
+        assertEquals(9981619, largestPopulationCapitalCity.population);
+        assertEquals("South Korea", largestPopulationCapitalCity.countryCode);
+    }
+
+    @Test
+    void testByContinent_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByContinent("Africa");
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("Cairo", largestPopulationCapitalCity.name);
+        assertEquals(6789479, largestPopulationCapitalCity.population);
+        assertEquals("Egypt", largestPopulationCapitalCity.countryCode);
+    }
+
+    @Test
+    void testByRegion_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByRegion("Caribbean");
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("La Habana", largestPopulationCapitalCity.name);
+        assertEquals(2256000, largestPopulationCapitalCity.population);
+        assertEquals("Cuba", largestPopulationCapitalCity.countryCode);
     }
 
     //---------------------------------- All Cities Population -----------------------------------------//
