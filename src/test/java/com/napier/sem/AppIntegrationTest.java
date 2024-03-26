@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.Features.AllCapitalCities;
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
 import com.napier.sem.Features.TopNCountries;
@@ -20,6 +21,14 @@ public class AppIntegrationTest
     static AllCountries allCountries;
     static AllCities allCities;
     static TopNCountries topNCountries;
+    static AllCapitalCities allCapitalCities;
+
+
+    static final String TEST_CONTINENT = "Africa";
+    static final String TEST_REGION = "Caribbean";
+    static final String TEST_COUNTRY = "Spain";
+    static final String TEST_DISTRICT = "Buenos Aires";
+    static final int N = 5;
 
     @BeforeAll
     static void init()
@@ -30,6 +39,7 @@ public class AppIntegrationTest
         allCountries = new AllCountries(reportHelper);
         allCities = new AllCities(reportHelper);
         topNCountries = new TopNCountries(reportHelper);
+        allCapitalCities = new AllCapitalCities(reportHelper);
     }
 
     //---------------------------------- Top N Populated countries-----------------------------------------//
@@ -37,7 +47,7 @@ public class AppIntegrationTest
     @Test
     void testByWorld_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
     {
-        ArrayList<Country> topCountries = topNCountries.ByWorld(5);
+        ArrayList<Country> topCountries = topNCountries.ByWorld(N);
         assertNotNull(topCountries);
         assertFalse(topCountries.isEmpty());
         assertEquals(5, topCountries.size());
@@ -51,10 +61,10 @@ public class AppIntegrationTest
     @Test
     void testByContinent_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
     {
-        ArrayList<Country> topCountries = topNCountries.ByContinent(5, "Africa");
+        ArrayList<Country> topCountries = topNCountries.ByContinent(N, TEST_CONTINENT);
         assertNotNull(topCountries);
         assertFalse(topCountries.isEmpty());
-        assertEquals(5, topCountries.size());
+        assertEquals(N, topCountries.size());
 
         assertEquals("Nigeria", topCountries.get(0).name);
         assertEquals(111506000, topCountries.get(0).population);
@@ -65,7 +75,7 @@ public class AppIntegrationTest
     @Test
     void testByRegion_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
     {
-        ArrayList<Country> topCountries = topNCountries.ByRegion(5, "Caribbean");
+        ArrayList<Country> topCountries = topNCountries.ByRegion(N, TEST_REGION);
         assertNotNull(topCountries);
         assertFalse(topCountries.isEmpty());
         assertEquals(5, topCountries.size());
@@ -74,6 +84,47 @@ public class AppIntegrationTest
         assertEquals(11201000, topCountries.get(0).population);
         assertEquals("Jamaica", topCountries.get(4).name);
         assertEquals(2583000, topCountries.get(4).population);
+    }
+
+    //---------------------------------- All Capital Cities Population -----------------------------------------//
+
+    @Test
+    void testByWorld_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByWorld();
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("Seoul", largestPopulationCapitalCity.name);
+        assertEquals(9981619, largestPopulationCapitalCity.population);
+        assertEquals("South Korea", largestPopulationCapitalCity.countryCode);
+    }
+
+    @Test
+    void testByContinent_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByContinent(TEST_CONTINENT);
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("Cairo", largestPopulationCapitalCity.name);
+        assertEquals(6789479, largestPopulationCapitalCity.population);
+        assertEquals("Egypt", largestPopulationCapitalCity.countryCode);
+    }
+
+    @Test
+    void testByRegion_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByRegion(TEST_REGION);
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("La Habana", largestPopulationCapitalCity.name);
+        assertEquals(2256000, largestPopulationCapitalCity.population);
+        assertEquals("Cuba", largestPopulationCapitalCity.countryCode);
     }
 
     //---------------------------------- All Cities Population -----------------------------------------//
@@ -94,7 +145,7 @@ public class AppIntegrationTest
     @Test
     void testByContinent_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> cities = allCities.ByContinent("Africa");
+        ArrayList<City> cities = allCities.ByContinent(TEST_CONTINENT);
         assertNotNull(cities);
 
         City largestPopulationCity = cities.get(0);
@@ -107,7 +158,7 @@ public class AppIntegrationTest
     @Test
     void testByRegion_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> cities = allCities.ByRegion("Caribbean");
+        ArrayList<City> cities = allCities.ByRegion(TEST_REGION);
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
 
@@ -122,7 +173,7 @@ public class AppIntegrationTest
     @Test
     void testByCountry_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> cities = allCities.ByCountry("Spain");
+        ArrayList<City> cities = allCities.ByCountry(TEST_COUNTRY);
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
 
@@ -137,7 +188,7 @@ public class AppIntegrationTest
     @Test
     void testByDistrict_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
-        ArrayList<City> cities = allCities.ByDistrict("Buenos Aires");
+        ArrayList<City> cities = allCities.ByDistrict(TEST_DISTRICT);
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
 
@@ -171,7 +222,7 @@ public class AppIntegrationTest
     @Test
     void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
     {
-        ArrayList<Country> countries = allCountries.ByContinent("Africa");
+        ArrayList<Country> countries = allCountries.ByContinent(TEST_CONTINENT);
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
@@ -188,7 +239,7 @@ public class AppIntegrationTest
     @Test
     void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
     {
-        ArrayList<Country> countries = allCountries.ByRegion("Caribbean");
+        ArrayList<Country> countries = allCountries.ByRegion(TEST_REGION);
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
 
