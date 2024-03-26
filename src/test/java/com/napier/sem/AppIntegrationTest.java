@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
+import com.napier.sem.Features.TopNCountries;
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
@@ -18,6 +19,7 @@ public class AppIntegrationTest
     static App app;
     static AllCountries allCountries;
     static AllCities allCities;
+    static TopNCountries topNCountries;
 
     @BeforeAll
     static void init()
@@ -27,15 +29,52 @@ public class AppIntegrationTest
         ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
         allCountries = new AllCountries(reportHelper);
         allCities = new AllCities(reportHelper);
+        topNCountries = new TopNCountries(reportHelper);
     }
 
     //---------------------------------- Top N Populated countries-----------------------------------------//
 
+    @Test
+    void testByWorld_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
+    {
+        ArrayList<Country> topCountries = topNCountries.ByWorld(5);
+        assertNotNull(topCountries);
+        assertFalse(topCountries.isEmpty());
+        assertEquals(5, topCountries.size());
 
+        assertEquals("China", topCountries.get(0).name);
+        assertEquals(1277558000, topCountries.get(0).population);
+        assertEquals("Brazil", topCountries.get(4).name);
+        assertEquals(170115000, topCountries.get(4).population);
+    }
 
+    @Test
+    void testByContinent_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
+    {
+        ArrayList<Country> topCountries = topNCountries.ByContinent(5, "Africa");
+        assertNotNull(topCountries);
+        assertFalse(topCountries.isEmpty());
+        assertEquals(5, topCountries.size());
 
+        assertEquals("Nigeria", topCountries.get(0).name);
+        assertEquals(111506000, topCountries.get(0).population);
+        assertEquals("South Africa", topCountries.get(4).name);
+        assertEquals(40377000, topCountries.get(4).population);
+    }
 
+    @Test
+    void testByRegion_TopNPopulatedCountries_ShouldProvide_CountriesFromLargestPopulationFirst()
+    {
+        ArrayList<Country> topCountries = topNCountries.ByContinent(5, "Caribbean");
+        assertNotNull(topCountries);
+        assertFalse(topCountries.isEmpty());
+        assertEquals(5, topCountries.size());
 
+        assertEquals("Cuba", topCountries.get(0).name);
+        assertEquals(11201000, topCountries.get(0).population);
+        assertEquals("Jamaica", topCountries.get(4).name);
+        assertEquals(2583000, topCountries.get(4).population);
+    }
 
     //---------------------------------- All Cities Population -----------------------------------------//
     @Test
@@ -162,6 +201,4 @@ public class AppIntegrationTest
         assertEquals("La Habana", largestPopulationCountry.capitalName);
         assertEquals(11201000, largestPopulationCountry.population);
     }
-
-
 }
