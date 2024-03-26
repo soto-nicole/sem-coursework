@@ -163,14 +163,14 @@ public class AppTest
     @Test
     void printSpecificPopulationTestNull()
     {
-        app.displaySpecificPopulation(null);
+        app.displaySpecificPopulation(null, "World");
     }
 
     @Test
     void printSpecificPopulationTestEmpty()
     {
         Population population = new Population();
-        app.displaySpecificPopulation(population);
+        app.displaySpecificPopulation(population, "World");
     }
 
     @Test
@@ -184,6 +184,6 @@ public class AppTest
         population.populationOutsideCities = 1500000;
         population.populationOutsideCitiesPercentage = 50.00F;
 
-        app.displaySpecificPopulation(population);
+        app.displaySpecificPopulation(population, "Country");
     }
 }
