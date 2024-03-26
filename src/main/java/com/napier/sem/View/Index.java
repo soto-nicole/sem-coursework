@@ -125,8 +125,8 @@ public class Index {
         keyValues.put("22", () -> app.displayCapitalCities(topNCapitalCities.ByRegion(getN(scanner), region)));
 
         //---------       Total population of people, within and outwith cities by continent    ---------------
-        keyValues.put("23", () -> app.displayPopulation(allPopulations.ByContinent()));
-        keyValues.put("24", () -> app.displayPopulation(allPopulations.ByRegion()));
+        keyValues.put("23", () -> app.displayPopulations(allPopulations.ByContinent()));
+        keyValues.put("24", () -> app.displayPopulations(allPopulations.ByRegion()));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }

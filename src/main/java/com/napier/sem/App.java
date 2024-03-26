@@ -174,7 +174,7 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
-    public void displayPopulation(ArrayList<Population> populations)
+    public void displayPopulations(ArrayList<Population> populations)
     {
         if (populations == null)
         {
