@@ -2,7 +2,7 @@ package com.napier.sem.Helpers;
 
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
-import com.napier.sem.Utils.DatabaseUtil;
+import com.napier.sem.Models.Population;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -82,5 +82,37 @@ public class ReportHelper
             return null;
         }
         return cities;
+    }
+
+    /**
+     * Helper method to get the population information by using the SQL queries
+     * @param strSelect SQL query that will return the population information needed for the reports
+     * @return ArrayList from Population objects that contains the required data being fetched
+     */
+    public ArrayList<Population> getPopulationReport(String strSelect)
+    {
+        ArrayList<Population> populations = new ArrayList<>();
+        try
+        {
+            Statement stmt = this.con.createStatement();
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            while (rset.next())
+            {
+                Population population = new Population();
+                population.areaName = rset.getString("AreaName");
+                population.population = rset.getInt("Population");
+                population.populationCities = rset.getInt("PopulationCities");
+                population.populationOutsideCities = rset.getInt("PopulationOutsideCities");
+                populations.add(population);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report");
+            return null;
+        }
+        return populations;
     }
 }
