@@ -122,6 +122,7 @@ public class ReportHelper
     /**
      * Helper method to get the population information by using the SQL queries
      * @param strSelect SQL query that will return the population information needed for the reports
+     * @param type A string that denotes the area type that the query will be conducted for, affecting the resulting columns
      * @return Population object that contains the required data being fetched
      */
 

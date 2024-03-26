@@ -30,7 +30,7 @@ public class SpecificPopulation {
      * Gets a report of the total population of a specific continent, including the number of people living within and outside of cities     *
      *
      * @param continent The name of the continent, constraining the population returned to within the specified continent
-     *                  * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
+     * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
     public Population ByContinent(String continent) {
@@ -49,7 +49,7 @@ public class SpecificPopulation {
      * Gets a report of the total population of a specific region, including the number of people living within and outside of cities     *
      *
      * @param region The name of the region, constraining the population returned to within the specified region
-     *               * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
+     * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
     public Population ByRegion(String region) {
@@ -68,7 +68,7 @@ public class SpecificPopulation {
      * Gets a report of the total population of a specific country, including the number of people living within and outside of cities     *
      *
      * @param country The name of the country, constraining the population returned to within the specified country
-     *                * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
+     * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
     public Population ByCountry(String country) {

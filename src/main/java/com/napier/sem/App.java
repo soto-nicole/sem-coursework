@@ -174,6 +174,10 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Displays the population details in a formatted table
+     * @param populations The list of Population objects that will be displayed
+     */
     public void displayPopulations(ArrayList<Population> populations)
     {
         if (populations == null)
@@ -195,6 +199,11 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Displays the population details in a formatted table
+     * @param population The population object that will be displayed
+     * @param type The area type that population data will be displayed for - affects displayed columns
+     */
     public void displaySpecificPopulation(Population population, String type)
     {
         if (population == null)
