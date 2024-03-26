@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.Population;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -120,4 +121,40 @@ public class AppTest
         app.displayCapitalCities(capitalCities);
     }
 
+    @Test
+    void printPopulationsTestNull()
+    {
+        app.displayPopulations(null);
+    }
+
+    @Test
+    void printPopulationsTestEmpty()
+    {
+        ArrayList<Population> populations = new ArrayList<Population>();
+        app.displayPopulations(populations);
+    }
+    @Test
+    void printPopulationsTestContainsNull()
+    {
+        ArrayList<Population> populations = new ArrayList<Population>();
+        populations.add(null);
+        app.displayPopulations(populations);
+    }
+
+    @Test
+    void printPopulations()
+    {
+        ArrayList<Population> populations = new ArrayList<Population>();
+        Population population = new Population();
+        population.areaName = "China";
+        population.population = 3000000;
+        population.populationCities = 1500000;
+        population.populationCitiesPercentage = 50.00F;
+        population.populationOutsideCities = 1500000;
+        population.populationOutsideCitiesPercentage = 50.00F;
+        populations.add(population);
+
+
+        app.displayPopulations(populations);
+    }
 }

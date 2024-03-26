@@ -72,6 +72,7 @@ public class Index {
         System.out.println("  22)  Top populated capital cities in a region in descending order");
         System.out.println();
         System.out.println("  23)  Total population of people within and outside of cities in each continent");
+        System.out.println("  24)  Total population of people within and outside of cities in each region");
     }
 
     /**
@@ -124,7 +125,8 @@ public class Index {
         keyValues.put("22", () -> app.displayCapitalCities(topNCapitalCities.ByRegion(getN(scanner), region)));
 
         //---------       Total population of people, within and outwith cities by continent    ---------------
-        keyValues.put("23", () -> app.displayPopulation(allPopulations.ByContinent()));
+        keyValues.put("23", () -> app.displayPopulations(allPopulations.ByContinent()));
+        keyValues.put("24", () -> app.displayPopulations(allPopulations.ByRegion()));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
