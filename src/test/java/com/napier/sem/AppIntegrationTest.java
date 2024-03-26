@@ -126,6 +126,33 @@ public class AppIntegrationTest
         assertEquals("Cuba", topCities.get(0).countryCode);
     }
 
+    @Test
+    void testByCountry_TopNCities_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> topCities = topNCities.ByCountry(N,TEST_COUNTRY);
+        assertNotNull(topCities);
+        assertFalse(topCities.isEmpty());
+        assertEquals(N, topCities.size());
+
+        assertEquals("Madrid", topCities.get(0).name);
+        assertEquals("Madrid", topCities.get(0).district);
+        assertEquals(2879052, topCities.get(0).population);
+        assertEquals("Spain", topCities.get(0).countryCode);
+    }
+
+    @Test
+    void testByDistrict_TopNCities_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> topCities = topNCities.ByDistrict(N,TEST_DISTRICT);
+        assertNotNull(topCities);
+        assertFalse(topCities.isEmpty());
+        assertEquals(N, topCities.size());
+
+        assertEquals("La Matanza", topCities.get(0).name);
+        assertEquals("Buenos Aires", topCities.get(0).district);
+        assertEquals(1266461, topCities.get(0).population);
+        assertEquals("Argentina", topCities.get(0).countryCode);
+    }
     //---------------------------------- Top N Populated countries-----------------------------------------//
 
     @Test
@@ -169,6 +196,7 @@ public class AppIntegrationTest
         assertEquals("Jamaica", topCountries.get(4).name);
         assertEquals(2583000, topCountries.get(4).population);
     }
+
 
     //---------------------------------- All Capital Cities Population -----------------------------------------//
 
