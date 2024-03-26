@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReportHelper
 {
@@ -116,5 +117,44 @@ public class ReportHelper
             return null;
         }
         return populations;
+    }
+
+    /**
+     * Helper method to get the population information by using the SQL queries
+     * @param strSelect SQL query that will return the population information needed for the reports
+     * @return Population object that contains the required data being fetched
+     */
+
+    public Population getSpecificPopulationReport(String strSelect, String type)
+    {
+        Population population = new Population();
+        try
+        {
+            Statement stmt = this.con.createStatement();
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            while (rset.next())
+            {
+                if (Objects.equals(type, "World"))
+                {
+                    population.areaName = "World";
+                } else {
+                    population.areaName = rset.getString("AreaName");
+                }
+
+                population.population = rset.getLong("TotalPopulation");
+                population.populationCities = rset.getLong("PopulationCities");
+                population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
+                population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
+                population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report");
+            return null;
+        }
+        return population;
     }
 }

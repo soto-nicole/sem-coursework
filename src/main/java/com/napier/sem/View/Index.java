@@ -20,6 +20,7 @@ public class Index {
     private TopNCapitalCities topNCapitalCities;
     private TopNCities topNCities;
     private AllPopulations allPopulations;
+    private SpecificPopulation specificPopulation;
 
     public Index()
     {
@@ -31,6 +32,7 @@ public class Index {
         this.topNCapitalCities = new TopNCapitalCities(reportHelper);
         this.topNCities = new TopNCities(reportHelper);
         this.allPopulations = new AllPopulations(reportHelper);
+        this.specificPopulation = new SpecificPopulation(reportHelper);
     }
 
     /**
@@ -74,6 +76,8 @@ public class Index {
         System.out.println("  23)  Total population of people within and outside of cities in each continent");
         System.out.println("  24)  Total population of people within and outside of cities in each region");
         System.out.println("  25)  Total population of people within and outside of cities in each country");
+        System.out.println();
+        System.out.println("  26)  Display the total population, population of people within and outside of cities in the world");
     }
 
     /**
@@ -129,6 +133,9 @@ public class Index {
         keyValues.put("23", () -> app.displayPopulations(allPopulations.ByContinent()));
         keyValues.put("24", () -> app.displayPopulations(allPopulations.ByRegion()));
         keyValues.put("25", () -> app.displayPopulations(allPopulations.ByCountry()));
+
+        //---------       Total population of people, within and outwith cities in a specific area   ---------------
+        keyValues.put("26", () -> app.displaySpecificPopulation(specificPopulation.ByWorld()));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
