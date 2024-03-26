@@ -142,11 +142,15 @@ public class ReportHelper
                     population.areaName = rset.getString("AreaName");
                 }
 
+                if (!Objects.equals(type, "District") && !Objects.equals(type, "City")) {
+                    population.populationCities = rset.getLong("PopulationCities");
+                    population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
+                    population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
+                    population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
+                }
+
                 population.population = rset.getLong("TotalPopulation");
-                population.populationCities = rset.getLong("PopulationCities");
-                population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
-                population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
-                population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
+
             }
         }
         catch (Exception e)

@@ -7,6 +7,7 @@ import com.napier.sem.View.Index;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class App
@@ -194,7 +195,7 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
-    public void displaySpecificPopulation(Population population)
+    public void displaySpecificPopulation(Population population, String type)
     {
         if (population == null)
         {
@@ -202,10 +203,20 @@ public class App
             return;
         }
 
-        System.out.printf("%-45s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+        String populationString;
 
-        String populationString = String.format("%-45s %-25s %-25s %-25s %-25s %-25s",
-                population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
+        if (!Objects.equals(type, "District") && !Objects.equals(type, "City")) {
+            System.out.printf("%-45s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+
+            populationString = String.format("%-45s %-25s %-25s %-25s %-25s %-25s",
+                    population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
+        } else {
+            System.out.printf("%-45s %-25s %n", "AreaName", "TotalPopulation");
+
+            populationString = String.format("%-45s %-25s",
+                    population.areaName, population.population);
+        }
+
         System.out.println(populationString);
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
