@@ -122,6 +122,7 @@ public class ReportHelper
     /**
      * Helper method to get the population information by using the SQL queries
      * @param strSelect SQL query that will return the population information needed for the reports
+     * @param type A string that denotes the area type that the query will be conducted for, affecting the resulting columns
      * @return Population object that contains the required data being fetched
      */
 
@@ -142,11 +143,15 @@ public class ReportHelper
                     population.areaName = rset.getString("AreaName");
                 }
 
+                if (!Objects.equals(type, "District") && !Objects.equals(type, "City")) {
+                    population.populationCities = rset.getLong("PopulationCities");
+                    population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
+                    population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
+                    population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
+                }
+
                 population.population = rset.getLong("TotalPopulation");
-                population.populationCities = rset.getLong("PopulationCities");
-                population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
-                population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
-                population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
+
             }
         }
         catch (Exception e)
