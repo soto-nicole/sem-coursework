@@ -16,7 +16,7 @@ public class TopNCapitalCities
 
     /**
      * Gets a list of the top N capital cities in the world by their population number in descending order
-     *
+     * @param N The number of top populated capital cities to be returned
      * @return ArrayList that contains City objects in the world with their respective properties : Name, Country and Population
      */
     public ArrayList<City> ByWorld(int N)

@@ -170,7 +170,6 @@ public class App
                     capitalCity.name, capitalCity.countryCode, capitalCity.population);
             System.out.println(capitalCityString);
         }
-
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 

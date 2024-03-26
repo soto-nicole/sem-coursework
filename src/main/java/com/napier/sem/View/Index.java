@@ -78,6 +78,7 @@ public class Index {
         System.out.println("  25)  Total population of people within and outside of cities in each country");
         System.out.println();
         System.out.println("  26)  Display the total population, population of people within and outside of cities in the world");
+        System.out.println("  27)  Display the total population, population of people within and outside of cities in a continent");
     }
 
     /**
@@ -136,6 +137,7 @@ public class Index {
 
         //---------       Total population of people, within and outwith cities in a specific area   ---------------
         keyValues.put("26", () -> app.displaySpecificPopulation(specificPopulation.ByWorld()));
+        keyValues.put("27", () -> app.displaySpecificPopulation(specificPopulation.ByContinent(continent)));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
