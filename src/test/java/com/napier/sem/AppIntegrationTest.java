@@ -4,6 +4,7 @@ import com.napier.sem.Features.*;
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,8 @@ public class AppIntegrationTest
     static AllCapitalCities allCapitalCities;
     static TopNCities topNCities;
     static TopNCapitalCities topNCapitalCities;
+    static AllPopulations allPopulations;
+
 
 
     static final String TEST_CONTINENT = "Africa";
@@ -41,7 +44,82 @@ public class AppIntegrationTest
         allCapitalCities = new AllCapitalCities(reportHelper);
         topNCities = new TopNCities(reportHelper);
         topNCapitalCities = new TopNCapitalCities(reportHelper);
+        allPopulations = new AllPopulations(reportHelper);
     }
+
+    //-----------------------Population Within and Outwith Cities Integration Tests---------------------------//
+    @Test
+    void testPopulationByContinent_ShouldProvideCorrectPopulationData()
+    {
+        ArrayList<Population> populations = allPopulations.ByContinent();
+        assertNotNull(populations);
+        assertFalse(populations.isEmpty());
+
+        Population asia = null;
+        for (Population population : populations)
+        {
+            if ("Asia".equals(population.areaName))
+            {
+                asia = population;
+                break;
+            }
+        }
+
+        assertNotNull(asia);
+        assertEquals(3705025700L, asia.population);
+        assertEquals(697604103L, asia.populationCities);
+        assertEquals(18.8286, asia.populationCitiesPercentage, 0.001);
+        assertEquals(3007421597L, asia.populationOutsideCities);
+        assertEquals(81.1714, asia.populationOutsideCitiesPercentage, 0.001);
+    }
+
+    @Test
+    void testPopulationByRegion_ShouldProvideCorrectPopulationData()
+    {
+        ArrayList<Population> populations = allPopulations.ByRegion();
+        assertNotNull(populations);
+        assertFalse(populations.isEmpty());
+
+        Population caribbean = null;
+        for (Population population : populations)
+        {
+            if ("Caribbean".equals(population.areaName))
+            {
+                caribbean = population;
+                break;
+            }
+        }
+
+        assertNotNull(caribbean);
+        assertEquals(38140000, caribbean.population);
+        assertEquals(11067550, caribbean.populationCities);
+        assertEquals(29.0182, caribbean.populationCitiesPercentage, 0.001);
+        assertEquals(27072450, caribbean.populationOutsideCities);
+        assertEquals(70.9818, caribbean.populationOutsideCitiesPercentage, 0.001);
+    }
+
+    @Test
+    void testPopulationByCountry_ShouldProvideCorrectPopulationData()
+    {
+        ArrayList<Population> populations = allPopulations.ByCountry();
+        Population angola = null;
+        for (Population population : populations)
+        {
+            if ("Angola".equals(population.areaName))
+            {
+                angola = population;
+                break;
+            }
+        }
+
+        assertNotNull(angola);
+        assertEquals(12878000, angola.population);
+        assertEquals(2561600, angola.populationCities);
+        assertEquals(19.8913, angola.populationCitiesPercentage, 0.001);
+        assertEquals(10316400, angola.populationOutsideCities);
+        assertEquals(80.1087, angola.populationOutsideCitiesPercentage, 0.001);
+    }
+
 
     //---------------------------------- Top N Populated Capital cities-----------------------------------------//
     @Test
@@ -126,6 +204,33 @@ public class AppIntegrationTest
         assertEquals("Cuba", topCities.get(0).countryCode);
     }
 
+    @Test
+    void testByCountry_TopNCities_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> topCities = topNCities.ByCountry(N,TEST_COUNTRY);
+        assertNotNull(topCities);
+        assertFalse(topCities.isEmpty());
+        assertEquals(N, topCities.size());
+
+        assertEquals("Madrid", topCities.get(0).name);
+        assertEquals("Madrid", topCities.get(0).district);
+        assertEquals(2879052, topCities.get(0).population);
+        assertEquals("Spain", topCities.get(0).countryCode);
+    }
+
+    @Test
+    void testByDistrict_TopNCities_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> topCities = topNCities.ByDistrict(N,TEST_DISTRICT);
+        assertNotNull(topCities);
+        assertFalse(topCities.isEmpty());
+        assertEquals(N, topCities.size());
+
+        assertEquals("La Matanza", topCities.get(0).name);
+        assertEquals("Buenos Aires", topCities.get(0).district);
+        assertEquals(1266461, topCities.get(0).population);
+        assertEquals("Argentina", topCities.get(0).countryCode);
+    }
     //---------------------------------- Top N Populated countries-----------------------------------------//
 
     @Test
@@ -169,6 +274,7 @@ public class AppIntegrationTest
         assertEquals("Jamaica", topCountries.get(4).name);
         assertEquals(2583000, topCountries.get(4).population);
     }
+
 
     //---------------------------------- All Capital Cities Population -----------------------------------------//
 
