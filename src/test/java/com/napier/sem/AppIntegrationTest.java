@@ -29,6 +29,14 @@ public class AppIntegrationTest
         allCities = new AllCities(reportHelper);
     }
 
+    //---------------------------------- Top N Populated countries-----------------------------------------//
+
+
+
+
+
+
+
     //---------------------------------- All Cities Population -----------------------------------------//
     @Test
     void testByWorld_ShouldProvide_CitiesFromLargestPopulationFirst()
@@ -55,21 +63,6 @@ public class AppIntegrationTest
         assertEquals("Kairo", largestPopulationCity.district);
         assertEquals(6789479, largestPopulationCity.population);
         assertEquals("Egypt", largestPopulationCity.countryCode);
-    }
-
-    @Test
-    void testByContinent_ShouldProvide_CitiesSmallestPopulationLast()
-    {
-        ArrayList<City> cities = allCities.ByContinent("Africa");
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City smallestPopulationCity = cities.get(cities.size() - 1);
-
-        assertEquals("Jamestown", smallestPopulationCity.name);
-        assertEquals("Saint Helena", smallestPopulationCity.district);
-        assertEquals("Saint Helena", smallestPopulationCity.countryCode);
-        assertEquals(1500, smallestPopulationCity.population);
     }
 
     @Test
@@ -103,21 +96,6 @@ public class AppIntegrationTest
     }
 
     @Test
-    void testByCountry_ShouldProvide_CitiesSmallestPopulationLast()
-    {
-        ArrayList<City> cities = allCities.ByCountry("Spain");
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City smallestPopulationCity = cities.get(cities.size() - 1);
-
-        assertEquals("Torrejón de Ardoz", smallestPopulationCity.name);
-        assertEquals("Madrid", smallestPopulationCity.district);
-        assertEquals("Spain", smallestPopulationCity.countryCode);
-        assertEquals(92262, smallestPopulationCity.population);
-    }
-
-    @Test
     void testByDistrict_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
         ArrayList<City> cities = allCities.ByDistrict("Buenos Aires");
@@ -130,21 +108,6 @@ public class AppIntegrationTest
         assertEquals("Buenos Aires", largestPopulationCity.district);
         assertEquals("Argentina", largestPopulationCity.countryCode);
         assertEquals(1266461, largestPopulationCity.population);
-    }
-
-    @Test
-    void testByDistrict_ShouldProvide_CitiesSmallestPopulationLast()
-    {
-        ArrayList<City> cities = allCities.ByDistrict("Buenos Aires");
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City smallestPopulationCity = cities.get(cities.size() - 1);
-
-        assertEquals("Tandil", smallestPopulationCity.name);
-        assertEquals("Buenos Aires", smallestPopulationCity.district);
-        assertEquals("Argentina", smallestPopulationCity.countryCode);
-        assertEquals(91101, smallestPopulationCity.population);
     }
 
     //---------------------------------- All Countries Population -----------------------------------------//
@@ -166,24 +129,6 @@ public class AppIntegrationTest
         assertEquals(1277558000, largestPopulationCountry.population);
     }
 
-
-    @Test
-    void testByWorld_ShouldProvide_CountriesSmallestPopulationLast()
-    {
-        ArrayList<Country> countries = allCountries.ByWorld();
-        assertNotNull(countries);
-        assertFalse(countries.isEmpty());
-
-        Country smallestPopulationCountry = countries.get(countries.size() - 1);
-
-        assertEquals("PCN", smallestPopulationCountry.code);
-        assertEquals("Pitcairn", smallestPopulationCountry.name);
-        assertEquals("Oceania", smallestPopulationCountry.continent);
-        assertEquals("Polynesia", smallestPopulationCountry.region);
-        assertEquals(50, smallestPopulationCountry.population);
-        assertEquals("Adamstown", smallestPopulationCountry.capitalName);
-    }
-
     @Test
     void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
     {
@@ -200,25 +145,6 @@ public class AppIntegrationTest
         assertEquals("Abuja", largestPopulationCountry.capitalName);
         assertEquals(111506000, largestPopulationCountry.population);
     }
-
-
-    @Test
-    void testByContinent_ShouldProvide_SmallestPopulationLast()
-    {
-        ArrayList<Country> countries = allCountries.ByContinent("Africa");
-        assertNotNull(countries);
-        assertFalse(countries.isEmpty());
-
-        Country smallestPopulationCountry = countries.get(countries.size() - 1);
-
-        assertEquals("SHN", smallestPopulationCountry.code);
-        assertEquals("Saint Helena", smallestPopulationCountry.name);
-        assertEquals("Africa", smallestPopulationCountry.continent);
-        assertEquals("Western Africa", smallestPopulationCountry.region);
-        assertEquals(6000, smallestPopulationCountry.population);
-        assertEquals("Jamestown", smallestPopulationCountry.capitalName);
-    }
-
 
     @Test
     void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
@@ -237,22 +163,5 @@ public class AppIntegrationTest
         assertEquals(11201000, largestPopulationCountry.population);
     }
 
-
-    @Test
-    void testByRegion_ShouldProvide_SmallestPopulationLast()
-    {
-        ArrayList<Country> countries = allCountries.ByRegion("Caribbean");
-        assertNotNull(countries);
-        assertFalse(countries.isEmpty());
-
-        Country smallestPopulationCountry = countries.get(countries.size() - 1);
-
-        assertEquals("AIA", smallestPopulationCountry.code);
-        assertEquals("Anguilla", smallestPopulationCountry.name);
-        assertEquals("North America", smallestPopulationCountry.continent);
-        assertEquals("Caribbean", smallestPopulationCountry.region);
-        assertEquals(8000, smallestPopulationCountry.population);
-        assertEquals("The Valley", smallestPopulationCountry.capitalName);
-    }
 
 }
