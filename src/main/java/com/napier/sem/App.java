@@ -195,6 +195,23 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    public void displaySpecificPopulation(Population population)
+    {
+        if (population == null)
+        {
+            System.out.println("No population");
+            return;
+        }
+
+        System.out.printf("%-45s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+
+        String populationString = String.format("%-45s %-25s %-25s %-25s %-25s %-25s",
+                population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
+        System.out.println(populationString);
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
     public void connect(String location, int delay)
     {
         DatabaseUtil.connect(location, delay);
