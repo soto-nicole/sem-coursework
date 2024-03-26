@@ -1,6 +1,7 @@
 package com.napier.sem;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
 
@@ -173,6 +174,26 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    public void displayPopulation(ArrayList<Population> populations)
+    {
+        if (populations == null)
+        {
+            System.out.println("No populations");
+            return;
+        }
+
+        System.out.printf("%-15s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+
+        for (Population population : populations)
+        {
+            if (population == null) continue;
+            String populationString = String.format("%-15s %-25s %-25s %-25s %-25s %-25s",
+                    population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
+            System.out.println(populationString);
+        }
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
 
     public void connect(String location, int delay)
     {
