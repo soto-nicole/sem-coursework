@@ -182,12 +182,12 @@ public class App
             return;
         }
 
-        System.out.printf("%-15s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+        System.out.printf("%-35s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
 
         for (Population population : populations)
         {
             if (population == null) continue;
-            String populationString = String.format("%-15s %-25s %-25s %-25s %-25s %-25s",
+            String populationString = String.format("%-35s %-25s %-25s %-25s %-25s %-25s",
                     population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
             System.out.println(populationString);
         }
