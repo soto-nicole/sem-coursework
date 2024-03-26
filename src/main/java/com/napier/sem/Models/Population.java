@@ -12,13 +12,21 @@ public class Population
     /**
      * The total number of people within the area
      */
-    public int population;
+    public long population;
     /**
      * The total number of people who live within cities
      */
-    public int populationCities;
+    public long populationCities;
+    /**
+     * The total number of people who live within cities as a percentage of the total population of the area
+     */
+    public float populationCitiesPercentage;
     /**
      * The total number of people who live outwith cities
      */
-    public int populationOutsideCities;
+    public long populationOutsideCities;
+    /**
+     * The total number of people who live outside of cities as a percentage of the total population of the area
+     */
+    public float populationOutsideCitiesPercentage;
 }

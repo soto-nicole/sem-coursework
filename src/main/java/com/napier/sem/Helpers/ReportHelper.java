@@ -101,9 +101,11 @@ public class ReportHelper
             {
                 Population population = new Population();
                 population.areaName = rset.getString("AreaName");
-                population.population = rset.getInt("Population");
-                population.populationCities = rset.getInt("PopulationCities");
-                population.populationOutsideCities = rset.getInt("PopulationOutsideCities");
+                population.population = rset.getLong("TotalPopulation");
+                population.populationCities = rset.getLong("PopulationCities");
+                population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
+                population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
+                population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
                 populations.add(population);
             }
         }

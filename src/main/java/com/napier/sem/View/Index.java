@@ -19,6 +19,7 @@ public class Index {
     private AllCapitalCities allCapitalCities;
     private TopNCapitalCities topNCapitalCities;
     private TopNCities topNCities;
+    private AllPopulations allPopulations;
 
     public Index()
     {
@@ -29,6 +30,7 @@ public class Index {
         this.allCapitalCities = new AllCapitalCities(reportHelper);
         this.topNCapitalCities = new TopNCapitalCities(reportHelper);
         this.topNCities = new TopNCities(reportHelper);
+        this.allPopulations = new AllPopulations(reportHelper);
     }
 
     /**
@@ -68,6 +70,8 @@ public class Index {
         System.out.println("  20)  Top populated capital cities in the world in descending order");
         System.out.println("  21)  Top populated capital cities in a continent in descending order");
         System.out.println("  22)  Top populated capital cities in a region in descending order");
+        System.out.println();
+        System.out.println("  23)  Total population of people within and outside of cities in each continent");
     }
 
     /**
@@ -118,6 +122,9 @@ public class Index {
         keyValues.put("20", () -> app.displayCapitalCities(topNCapitalCities.ByWorld(getN(scanner))));
         keyValues.put("21", () -> app.displayCapitalCities(topNCapitalCities.ByContinent(getN(scanner), continent)));
         keyValues.put("22", () -> app.displayCapitalCities(topNCapitalCities.ByRegion(getN(scanner), region)));
+
+        //---------       Total population of people, within and outwith cities by continent    ---------------
+        keyValues.put("23", () -> app.displayPopulation(allPopulations.ByContinent()));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
