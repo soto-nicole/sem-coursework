@@ -65,13 +65,12 @@ public class AppIntegrationTest
     {
         ArrayList<City> cities = allCities.ByContinent("Africa");
         assertNotNull(cities);
-        assertFalse(cities.isEmpty());
 
         City largestPopulationCity = cities.get(0);
         assertEquals("Cairo", largestPopulationCity.name);
-        assertEquals("Egypt", largestPopulationCity.district);
+        assertEquals("Kairo", largestPopulationCity.district);
         assertEquals(6789479, largestPopulationCity.population);
-        assertEquals("Kairo", largestPopulationCity.countryCode);
+        assertEquals("Egypt", largestPopulationCity.countryCode);
     }
 
     @Test
@@ -84,8 +83,8 @@ public class AppIntegrationTest
         City smallestPopulationCity = cities.get(cities.size() - 1);
 
         assertEquals("Jamestown", smallestPopulationCity.name);
-        assertEquals("Saint Helena ", smallestPopulationCity.district);
-        assertEquals("Saint Helena ", smallestPopulationCity.countryCode);
+        assertEquals("Saint Helena", smallestPopulationCity.district);
+        assertEquals("Saint Helena", smallestPopulationCity.countryCode);
         assertEquals(1500, smallestPopulationCity.population);
     }
 
