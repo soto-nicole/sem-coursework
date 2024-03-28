@@ -81,6 +81,7 @@ public class Index {
         System.out.println("  27)  Display the total population, population of people within and outside of cities in a continent");
         System.out.println("  28)  Display the total population, population of people within and outside of cities in a region");
         System.out.println("  29)  Display the total population, population of people within and outside of cities in a country");
+        System.out.println("  30)  Display the total population, population of people within and outside of cities in a district");
     }
 
     /**
@@ -138,10 +139,11 @@ public class Index {
         keyValues.put("25", () -> app.displayPopulations(allPopulations.ByCountry()));
 
         //---------       Total population of people, within and outwith cities in a specific area type  ---------------
-        keyValues.put("26", () -> app.displaySpecificPopulation(specificPopulation.ByWorld()));
-        keyValues.put("27", () -> app.displaySpecificPopulation(specificPopulation.ByContinent(continent)));
-        keyValues.put("28", () -> app.displaySpecificPopulation(specificPopulation.ByRegion(region)));
-        keyValues.put("29", () -> app.displaySpecificPopulation(specificPopulation.ByCountry(country)));
+        keyValues.put("26", () -> app.displaySpecificPopulation(specificPopulation.ByWorld(), "World"));
+        keyValues.put("27", () -> app.displaySpecificPopulation(specificPopulation.ByContinent(continent), "Continent"));
+        keyValues.put("28", () -> app.displaySpecificPopulation(specificPopulation.ByRegion(region), "Region"));
+        keyValues.put("29", () -> app.displaySpecificPopulation(specificPopulation.ByCountry(country), "Country"));
+        keyValues.put("30", () -> app.displaySpecificPopulation(specificPopulation.ByDistrict(district), "District"));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
