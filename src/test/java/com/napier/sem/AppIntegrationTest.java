@@ -23,6 +23,7 @@ public class AppIntegrationTest
     static TopNCities topNCities;
     static TopNCapitalCities topNCapitalCities;
     static AllPopulations allPopulations;
+    static SpecificPopulation specificPopulation;
 
 
 
@@ -45,7 +46,63 @@ public class AppIntegrationTest
         topNCities = new TopNCities(reportHelper);
         topNCapitalCities = new TopNCapitalCities(reportHelper);
         allPopulations = new AllPopulations(reportHelper);
+        specificPopulation = new SpecificPopulation(reportHelper);
     }
+    // --------------------- Specific population different areas --------------------------------------------//
+    @Test
+    void testByWorld_ShouldProvideCorrectPopulationData()
+    {
+        Population worldPopulation = specificPopulation.ByWorld();
+        assertNotNull(worldPopulation);
+        assertEquals("World", worldPopulation.areaName);
+        assertEquals(6078749450L, worldPopulation.population);
+        assertEquals(1429559884, worldPopulation.populationCities);
+        assertEquals(23.5173, worldPopulation.populationCitiesPercentage, 0.001);
+        assertEquals(4649189566L, worldPopulation.populationOutsideCities);
+        assertEquals(76.4827, worldPopulation.populationOutsideCitiesPercentage, 0.001);
+    }
+
+    @Test
+    void testByContinent_ShouldProvideCorrectPopulationData()
+    {
+        Population africaPopulation = specificPopulation.ByContinent(TEST_CONTINENT);
+        assertNotNull(africaPopulation);
+        assertEquals(TEST_CONTINENT, africaPopulation.areaName);
+        assertEquals(784475000, africaPopulation.population);
+        assertEquals(135838579, africaPopulation.populationCities);
+        assertEquals(17.3159, africaPopulation.populationCitiesPercentage, 0.001);
+        assertEquals(648636421, africaPopulation.populationOutsideCities);
+        assertEquals(82.6841, africaPopulation.populationOutsideCitiesPercentage, 0.001);
+    }
+
+    @Test
+    void testByRegion_ShouldProvideCorrectPopulationData()
+    {
+        Population caribbeanPopulation = specificPopulation.ByRegion(TEST_REGION);
+        assertNotNull(caribbeanPopulation);
+        assertEquals(TEST_REGION, caribbeanPopulation.areaName);
+        assertEquals(38140000, caribbeanPopulation.population);
+        assertEquals(11067550, caribbeanPopulation.populationCities);
+        assertEquals(29.0182, caribbeanPopulation.populationCitiesPercentage, 0.001);
+        assertEquals(27072450, caribbeanPopulation.populationOutsideCities);
+        assertEquals(70.9818, caribbeanPopulation.populationOutsideCitiesPercentage, 0.001);
+    }
+
+    @Test
+    void testByCountry_ShouldProvideCorrectPopulationData()
+    {
+        Population spainPopulation = specificPopulation.ByCountry(TEST_COUNTRY);
+        assertNotNull(spainPopulation);
+        assertEquals(TEST_COUNTRY, spainPopulation.areaName);
+        assertEquals(39441700, spainPopulation.population);
+        assertEquals(16669189, spainPopulation.populationCities);
+        assertEquals(42.2629, spainPopulation.populationCitiesPercentage, 0.001);
+        assertEquals(22772511, spainPopulation.populationOutsideCities);
+        assertEquals(57.7371, spainPopulation.populationOutsideCitiesPercentage, 0.001);
+    }
+
+
+
 
     //-----------------------Population Within and Outwith Cities Integration Tests---------------------------//
     @Test
