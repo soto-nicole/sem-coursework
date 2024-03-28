@@ -6,6 +6,7 @@ import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
+import com.napier.sem.View.Index;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -498,5 +499,43 @@ public class AppIntegrationTest
         assertEquals("Caribbean", largestPopulationCountry.region);
         assertEquals("La Habana", largestPopulationCountry.capitalName);
         assertEquals(11201000, largestPopulationCountry.population);
+    }
+
+    @Test
+    public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions() {
+        Index index = new Index();
+        String menuText = index.generateMenuOptionsText();
+
+        assertTrue(menuText.contains("Welcome to the report system"));
+        assertTrue(menuText.contains("List of countries in the world by population in descending order"));
+        assertTrue(menuText.contains("List of countries in a continent by population in descending order"));
+        assertTrue(menuText.contains("List of countries in a region by population in descending order"));
+        assertTrue(menuText.contains("List of cities in the world by population in descending order"));
+        assertTrue(menuText.contains("List of cities of a continent by population in descending order"));
+        assertTrue(menuText.contains("List of cities in a region by population in descending order"));
+        assertTrue(menuText.contains("List of cities in a country by population in descending order"));
+        assertTrue(menuText.contains("List of cities in a district by population in descending order"));
+        assertTrue(menuText.contains("Top populated countries in the world"));
+        assertTrue(menuText.contains("Top populated countries in a continent"));
+        assertTrue(menuText.contains("Top populated countries in a region"));
+        assertTrue(menuText.contains("Top populated cities in the world"));
+        assertTrue(menuText.contains("Top populated cities in a continent"));
+        assertTrue(menuText.contains("Top populated cities in a region"));
+        assertTrue(menuText.contains("Top populated cities in a country"));
+        assertTrue(menuText.contains("Top populated cities in a district"));
+        assertTrue(menuText.contains("List of capital cities in the world by population in descending order"));
+        assertTrue(menuText.contains("List of capital cities in a continent by population in descending order"));
+        assertTrue(menuText.contains("List of capital cities in a region by population in descending order"));
+        assertTrue(menuText.contains("Top populated capital cities in the world in descending order"));
+        assertTrue(menuText.contains("Top populated capital cities in a continent in descending order"));
+        assertTrue(menuText.contains("Top populated capital cities in a region in descending order"));
+        assertTrue(menuText.contains("Total population of people within and outside of cities in each continent"));
+        assertTrue(menuText.contains("Total population of people within and outside of cities in each region"));
+        assertTrue(menuText.contains("Total population of people within and outside of cities in each country"));
+        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in the world"));
+        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a continent"));
+        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a region"));
+        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a country"));
+        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a district"));
     }
 }

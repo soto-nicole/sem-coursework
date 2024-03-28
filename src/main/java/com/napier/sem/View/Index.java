@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-
-
 public class Index {
     private ReportHelper reportHelper;
     private AllCountries allCountries;
@@ -36,53 +34,65 @@ public class Index {
     }
 
     /**
-     * Displaying the menu options for user interaction with the terminal
+     * Generates the menu options text for user interaction with ui in the terminal
+     * @return string containing the menu options.
+     */
+    public String generateMenuOptionsText()
+    {
+        StringBuilder menu = new StringBuilder();
+        menu.append("=========================================\n");
+        menu.append("|      Welcome to the report system     |\n");
+        menu.append("=========================================\n\n");
+
+        menu.append("  1) List of countries in the world by population in descending order\n");
+        menu.append("  2) List of countries in a continent by population in descending order\n");
+        menu.append("  3) List of countries in a region by population in descending order\n\n");
+
+        menu.append("  4) List of cities in the world by population in descending order\n");
+        menu.append("  5) List of cities of a continent by population in descending order\n");
+        menu.append("  6) List of cities in a region by population in descending order\n");
+        menu.append("  7) List of cities in a country by population in descending order\n");
+        menu.append("  8) List of cities in a district by population in descending order\n\n");
+
+        menu.append("  9) Top populated countries in the world\n");
+        menu.append(" 10) Top populated countries in a continent\n");
+        menu.append(" 11) Top populated countries in a region\n\n");
+
+        menu.append(" 12) Top populated cities in the world\n");
+        menu.append(" 13) Top populated cities in a continent\n");
+        menu.append(" 14) Top populated cities in a region\n");
+        menu.append(" 15) Top populated cities in a country\n");
+        menu.append(" 16) Top populated cities in a district\n\n");
+
+        menu.append(" 17) List of capital cities in the world by population in descending order\n");
+        menu.append(" 18) List of capital cities in a continent by population in descending order\n");
+        menu.append(" 19) List of capital cities in a region by population in descending order\n\n");
+
+        menu.append(" 20) Top populated capital cities in the world in descending order\n");
+        menu.append(" 21) Top populated capital cities in a continent in descending order\n");
+        menu.append(" 22) Top populated capital cities in a region in descending order\n\n");
+
+        menu.append(" 23) Total population of people within and outside of cities in each continent\n");
+        menu.append(" 24) Total population of people within and outside of cities in each region\n");
+        menu.append(" 25) Total population of people within and outside of cities in each country\n\n");
+
+        menu.append(" 26) Display the total population, population of people within and outside of cities in the world\n");
+        menu.append(" 27) Display the total population, population of people within and outside of cities in a continent\n");
+        menu.append(" 28) Display the total population, population of people within and outside of cities in a region\n");
+        menu.append(" 29) Display the total population, population of people within and outside of cities in a country\n");
+        menu.append(" 30) Display the total population, population of people within and outside of cities in a district\n");
+
+        return menu.toString();
+    }
+
+    /**
+     * Displaying the menu options for user interaction with the terminal.
      */
     public void displayOptions()
     {
-        System.out.println("=========================================");
-        System.out.println("|      Welcome to the report system     |");
-        System.out.println("=========================================\n");
-
-        System.out.println("  1)   List of countries in the world by population in descending order");
-        System.out.println("  2)   List of countries in a continent by population in descending order");
-        System.out.println("  3)   List of countries in a region by population in descending order");
-        System.out.println();
-
-        System.out.println("  4)   List of cities in the world by population in descending order");
-        System.out.println("  5)   List of cities of a continent by population in descending order");
-        System.out.println("  6)   List of cities in a region by population in descending order");
-        System.out.println("  7)   List of cities in a country by population in descending order");
-        System.out.println("  8)   List of cities in a district by population in descending order");
-        System.out.println();
-        System.out.println("  9)   Top populated countries in the world");
-        System.out.println("  10)  Top populated countries in a continent");
-        System.out.println("  11)  Top populated countries in a region");
-        System.out.println();
-        System.out.println("  12)  Top populated cities in the world");
-        System.out.println("  13)  Top populated cities in a continent");
-        System.out.println("  14)  Top populated cities in a region");
-        System.out.println("  15)  Top populated cities in a country");
-        System.out.println("  16)  Top populated cities in a district");
-        System.out.println();
-        System.out.println("  17)  List of capital cities in the world by population in descending order");
-        System.out.println("  18)  List of capital cities in a continent by population in descending order");
-        System.out.println("  19)  List of capital cities in a region by population in descending order");
-        System.out.println();
-        System.out.println("  20)  Top populated capital cities in the world in descending order");
-        System.out.println("  21)  Top populated capital cities in a continent in descending order");
-        System.out.println("  22)  Top populated capital cities in a region in descending order");
-        System.out.println();
-        System.out.println("  23)  Total population of people within and outside of cities in each continent");
-        System.out.println("  24)  Total population of people within and outside of cities in each region");
-        System.out.println("  25)  Total population of people within and outside of cities in each country");
-        System.out.println();
-        System.out.println("  26)  Display the total population, population of people within and outside of cities in the world");
-        System.out.println("  27)  Display the total population, population of people within and outside of cities in a continent");
-        System.out.println("  28)  Display the total population, population of people within and outside of cities in a region");
-        System.out.println("  29)  Display the total population, population of people within and outside of cities in a country");
-        System.out.println("  30)  Display the total population, population of people within and outside of cities in a district");
+        System.out.println(generateMenuOptionsText());
     }
+
 
     /**
      * Gets the action based on the user's choice and returns it as a Runnable.
