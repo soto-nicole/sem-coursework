@@ -97,4 +97,18 @@ public class SpecificPopulation {
                 "WHERE city.district = '" + district + "' " +
                 "GROUP BY city.district", "District");
     }
+
+    /**
+     * Gets a report of the total population of a specific city
+     *
+     * @param city The name of the city, constraining the population returned to within the specified city
+     * @return a Population object that contains the respective properties : AreaName, Population,
+     */
+
+
+    public Population ByCity(String city) {
+        return reportHelper.getSpecificPopulationReport("SELECT city.name AS AreaName, city.population AS TotalPopulation " +
+                "FROM city " +
+                "WHERE city.name = '" + city + "' ","City");
+    }
 }

@@ -71,7 +71,8 @@ public class Index
                 " 27) Display the total population, population of people within and outside of cities in a continent\n" +
                 " 28) Display the total population, population of people within and outside of cities in a region\n" +
                 " 29) Display the total population, population of people within and outside of cities in a country\n" +
-                " 30) Display the total population, population of people within and outside of cities in a district\n";
+                " 30) Display the total population of people in a district\n" +
+                " 31) Display the total population of people in a city";
     }
 
 
@@ -98,6 +99,7 @@ public class Index
         String region = "Caribbean";
         String country = "Spain";
         String district = "Buenos Aires";
+        String city = "Seoul";
 
         //---------       All countries by population in descending order --------------
         keyValues.put("1", () -> app.displayCountries(allCountries.ByWorld()));
@@ -144,6 +146,7 @@ public class Index
         keyValues.put("28", () -> app.displaySpecificPopulation(specificPopulation.ByRegion(region), "Region"));
         keyValues.put("29", () -> app.displaySpecificPopulation(specificPopulation.ByCountry(country), "Country"));
         keyValues.put("30", () -> app.displaySpecificPopulation(specificPopulation.ByDistrict(district), "District"));
+        keyValues.put("31", () -> app.displaySpecificPopulation(specificPopulation.ByCity(city), "City"));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }
