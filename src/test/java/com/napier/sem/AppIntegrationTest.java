@@ -107,6 +107,14 @@ public class AppIntegrationTest
         assertEquals(57.7371, spainPopulation.populationOutsideCitiesPercentage, 0.001);
     }
 
+    @Test
+    void testByDistrict_ShouldProvideCorrectPopulationData()
+    {
+        Population buenosAiresPopulation = specificPopulation.ByDistrict(TEST_DISTRICT);
+        assertNotNull(buenosAiresPopulation);
+        assertEquals(TEST_DISTRICT, buenosAiresPopulation.areaName);
+        assertEquals(10530136, buenosAiresPopulation.population);
+    }
 
     //-----------------------Population Within and Outwith Cities Integration Tests---------------------------//
     @Test
