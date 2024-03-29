@@ -514,7 +514,8 @@ public class AppIntegrationTest
 
    //---------------------------------- index tests --------------------------------------//
     @Test
-    public void testGetN_ReturnsCorrectValue() {
+    public void testGetN_ReturnsCorrectValue()
+    {
         String input = "5\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
@@ -527,7 +528,8 @@ public class AppIntegrationTest
     }
 
     @Test
-    public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions() {
+    public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions()
+    {
         Index index = new Index();
         String menuText = index.generateMenuOptionsText();
 
@@ -549,4 +551,25 @@ public class AppIntegrationTest
         System.setOut(System.out);
     }
 
+    @Test
+    public void testGetUserOption_ValidChoice_ReturnsCorrectAction()
+    {
+        App app = new App();
+        Scanner scanner = new Scanner(System.in);
+        Index index = new Index();
+
+        Runnable action = index.getUserOption(app, "1", scanner);
+        action.run();
+    }
+
+    @Test
+    public void testGetUserOption_InvalidChoice_ReturnsDefaultAction()
+    {
+        App app = new App();
+        Scanner scanner = new Scanner(System.in);
+        Index index = new Index();
+
+        Runnable action = index.getUserOption(app, "87", scanner);
+        action.run();
+    }
 }
