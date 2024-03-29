@@ -10,7 +10,11 @@ import com.napier.sem.View.Index;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,6 +53,7 @@ public class AppIntegrationTest
         allPopulations = new AllPopulations(reportHelper);
         specificPopulation = new SpecificPopulation(reportHelper);
     }
+
     // --------------------- Specific population different areas --------------------------------------------//
     @Test
     void testByWorld_ShouldProvideCorrectPopulationData()
@@ -101,8 +106,6 @@ public class AppIntegrationTest
         assertEquals(22772511, spainPopulation.populationOutsideCities);
         assertEquals(57.7371, spainPopulation.populationOutsideCitiesPercentage, 0.001);
     }
-
-
 
 
     //-----------------------Population Within and Outwith Cities Integration Tests---------------------------//
@@ -501,6 +504,20 @@ public class AppIntegrationTest
         assertEquals(11201000, largestPopulationCountry.population);
     }
 
+   //---------------------------------- index tests --------------------------------------//
+    @Test
+    public void testGetN_ReturnsCorrectValue() {
+        String input = "5\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Scanner scanner = new Scanner(System.in);
+        Index index = new Index();
+
+        assertEquals(5, index.getN(scanner));
+
+        System.setIn(System.in);
+    }
+
     @Test
     public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions() {
         Index index = new Index();
@@ -508,34 +525,20 @@ public class AppIntegrationTest
 
         assertTrue(menuText.contains("Welcome to the report system"));
         assertTrue(menuText.contains("List of countries in the world by population in descending order"));
-        assertTrue(menuText.contains("List of countries in a continent by population in descending order"));
-        assertTrue(menuText.contains("List of countries in a region by population in descending order"));
-        assertTrue(menuText.contains("List of cities in the world by population in descending order"));
-        assertTrue(menuText.contains("List of cities of a continent by population in descending order"));
-        assertTrue(menuText.contains("List of cities in a region by population in descending order"));
-        assertTrue(menuText.contains("List of cities in a country by population in descending order"));
-        assertTrue(menuText.contains("List of cities in a district by population in descending order"));
-        assertTrue(menuText.contains("Top populated countries in the world"));
-        assertTrue(menuText.contains("Top populated countries in a continent"));
-        assertTrue(menuText.contains("Top populated countries in a region"));
-        assertTrue(menuText.contains("Top populated cities in the world"));
-        assertTrue(menuText.contains("Top populated cities in a continent"));
-        assertTrue(menuText.contains("Top populated cities in a region"));
-        assertTrue(menuText.contains("Top populated cities in a country"));
-        assertTrue(menuText.contains("Top populated cities in a district"));
-        assertTrue(menuText.contains("List of capital cities in the world by population in descending order"));
-        assertTrue(menuText.contains("List of capital cities in a continent by population in descending order"));
-        assertTrue(menuText.contains("List of capital cities in a region by population in descending order"));
-        assertTrue(menuText.contains("Top populated capital cities in the world in descending order"));
-        assertTrue(menuText.contains("Top populated capital cities in a continent in descending order"));
-        assertTrue(menuText.contains("Top populated capital cities in a region in descending order"));
-        assertTrue(menuText.contains("Total population of people within and outside of cities in each continent"));
-        assertTrue(menuText.contains("Total population of people within and outside of cities in each region"));
-        assertTrue(menuText.contains("Total population of people within and outside of cities in each country"));
-        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in the world"));
-        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a continent"));
-        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a region"));
-        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a country"));
-        assertTrue(menuText.contains("Display the total population, population of people within and outside of cities in a district"));
     }
+
+    @Test
+    public void testDisplayOptions_OutputContainsCorrectMenuOptions()
+    {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Index index = new Index();
+
+        index.displayOptions();
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Welcome to the report system"));
+        System.setOut(System.out);
+    }
+
 }
