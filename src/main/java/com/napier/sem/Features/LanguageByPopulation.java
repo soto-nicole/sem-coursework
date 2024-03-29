@@ -25,7 +25,7 @@ public class LanguageByPopulation {
     {
         //(speakers / SUM(country.population) FROM country  * 100) AS % of world_pop
 
-        return reportHelper.getLanguageReport("SELECT language, percentage " +
+        return reportHelper.getLanguageReport("SELECT language as LanguageName, ROUND(country.population * (percentage/100)) as TotalLanguageSpeakers, percentage " +
                 "From countrylanguage " +
                 "JOIN country ON countrylanguage.CountryCode = country.Code " +
                 "WHERE language = 'Chinese' " +

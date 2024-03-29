@@ -175,8 +175,8 @@ public class ReportHelper
             while (rset.next())
             {
                 LanguageSpeakers language = new LanguageSpeakers();
-                language.languageName = rset.getString("language");
-//                language.totalSpeakers = rset.getLong("");
+                language.languageName = rset.getString("LanguageName");
+                language.totalSpeakers = rset.getLong("TotalLanguageSpeakers");
                 language.totalSpeakersPercentage = rset.getFloat("percentage");
                 languages.add(language);
             }

@@ -240,13 +240,13 @@ public class App
             return;
         }
 
-        System.out.printf("%-30s %-30s %n", "Language", "Population (%)");
+        System.out.printf("%-30s %-30s %-30s %n", "Language", "TotalPopulation", "Population (%)");
 
         for (LanguageSpeakers language : languages)
         {
             if (language == null) continue;
-            String languageString = String.format("%-30s %-30s ",
-                    language.languageName, language.totalSpeakersPercentage);
+            String languageString = String.format("%-30s %-30s %-30s ",
+                    language.languageName, language.totalSpeakers, language.totalSpeakersPercentage);
             System.out.println(languageString);
         }
 
