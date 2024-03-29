@@ -25,14 +25,12 @@ public class LanguageByPopulation {
     {
         //(speakers / SUM(country.population) FROM country  * 100) AS % of world_pop
 
-        return reportHelper.getLanguageReport("SELECT language as LanguageName, ROUND(country.population * (percentage/100)) as TotalLanguageSpeakers, percentage " +
+        return reportHelper.getLanguageReport("SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers " +
                 "From countrylanguage " +
                 "JOIN country ON countrylanguage.CountryCode = country.Code " +
-                "WHERE language = 'Chinese' " +
-                "OR language = 'English' " +
-                "OR language = 'Hindi' " +
-                "OR language = 'Spanish' " +
-                "OR language = 'Arabic' " +
-                "ORDER BY language DESC ");
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC"
+        );
     }
 }
