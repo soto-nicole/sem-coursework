@@ -3,6 +3,7 @@ package com.napier.sem.View;
 import com.napier.sem.App;
 import com.napier.sem.Features.*;
 import com.napier.sem.Helpers.ReportHelper;
+import com.napier.sem.Models.LanguageSpeakers;
 import com.napier.sem.Utils.DatabaseUtil;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class Index
     private final TopNCities topNCities;
     private final AllPopulations allPopulations;
     private final SpecificPopulation specificPopulation;
+    private final LanguageByPopulation languages;
 
     public Index()
     {
@@ -32,6 +34,7 @@ public class Index
         this.topNCities = new TopNCities(reportHelper);
         this.allPopulations = new AllPopulations(reportHelper);
         this.specificPopulation = new SpecificPopulation(reportHelper);
+        this.languages = new LanguageByPopulation(reportHelper);
     }
 
     /**
@@ -72,7 +75,8 @@ public class Index
                 " 28) Display the total population, population of people within and outside of cities in a region\n" +
                 " 29) Display the total population, population of people within and outside of cities in a country\n" +
                 " 30) Display the total population of people in a district\n" +
-                " 31) Display the total population of people in a city";
+                " 31) Display the total population of people in a city\n" +
+                " 32) Display the total number of people who speak certain languages in the world, as well as this total as a percentage of the world population";
     }
 
 
@@ -147,6 +151,9 @@ public class Index
         keyValues.put("29", () -> app.displaySpecificPopulation(specificPopulation.ByCountry(country), "Country"));
         keyValues.put("30", () -> app.displaySpecificPopulation(specificPopulation.ByDistrict(district), "District"));
         keyValues.put("31", () -> app.displaySpecificPopulation(specificPopulation.ByCity(city), "City"));
+
+        //---------       Total population of people who speak certain languages  ---------------
+        keyValues.put("32", () -> app.displayLanguages(languages.ByWorld()));
 
         return keyValues.getOrDefault(choice, () -> System.out.println("Invalid choice."));
     }

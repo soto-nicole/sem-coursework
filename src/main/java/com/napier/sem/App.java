@@ -1,6 +1,7 @@
 package com.napier.sem;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.LanguageSpeakers;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
@@ -227,6 +228,27 @@ public class App
         }
 
         System.out.println(populationString);
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+    public void displayLanguages(ArrayList<LanguageSpeakers> languages)
+    {
+        if (languages == null)
+        {
+            System.out.println("No languages");
+            return;
+        }
+
+        System.out.printf("%-30s %-30s %n", "Language", "Population (%)");
+
+        for (LanguageSpeakers language : languages)
+        {
+            if (language == null) continue;
+            String languageString = String.format("%-30s %-30s ",
+                    language.languageName, language.totalSpeakersPercentage);
+            System.out.println(languageString);
+        }
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
