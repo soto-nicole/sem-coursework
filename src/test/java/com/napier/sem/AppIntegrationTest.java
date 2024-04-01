@@ -572,4 +572,14 @@ public class AppIntegrationTest
         Runnable action = index.getUserOption(app, "87", scanner);
         action.run();
     }
+
+    @Test
+    public void testDatabaseConnection() {
+        App app = new App();
+        app.connect("localhost:33060", 30000);
+        assertNotNull(DatabaseUtil.getConnection(), "The database connection should be established.");
+    }
+
+
+
 }
