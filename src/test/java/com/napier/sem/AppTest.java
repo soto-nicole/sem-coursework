@@ -26,13 +26,13 @@ public class AppTest
     @Test
     void printCountriesTestEmpty()
     {
-        ArrayList<Country> countries = new ArrayList<Country>();
+        ArrayList<Country> countries = new ArrayList<>();
         app.displayCountries(countries);
     }
     @Test
     void printCountriesTestContainsNull()
     {
-        ArrayList<Country> countries = new ArrayList<Country>();
+        ArrayList<Country> countries = new ArrayList<>();
         countries.add(null);
         app.displayCountries(countries);
     }
@@ -40,7 +40,7 @@ public class AppTest
     @Test
     void printCountries()
     {
-        ArrayList<Country> countries = new ArrayList<Country>();
+        ArrayList<Country> countries = new ArrayList<>();
         Country country = new Country();
         country.code = "ABW";
         country.name = "Aruba";
@@ -53,22 +53,22 @@ public class AppTest
         app.displayCountries(countries);
     }
     @Test
-    void displayCitiesTestNull()
+    void printCitiesTestNull()
     {
         app.displayCities(null);
     }
 
     @Test
-    void displayCitiesTestEmpty()
+    void printCitiesTestEmpty()
     {
-        ArrayList<City> cities = new ArrayList<City>();
+        ArrayList<City> cities = new ArrayList<>();
         app.displayCities(cities);
     }
 
     @Test
-    void displayCitiesTestContainsNull()
+    void printCitiesTestContainsNull()
     {
-        ArrayList<City> cities = new ArrayList<City>();
+        ArrayList<City> cities = new ArrayList<>();
         cities.add(null);
         app.displayCities(cities);
     }
@@ -76,7 +76,7 @@ public class AppTest
     @Test
     void displayCities()
     {
-        ArrayList<City> cities = new ArrayList<City>();
+        ArrayList<City> cities = new ArrayList<>();
         City city = new City();
         city.name = "Kabul";
         city.countryCode = "Afghanistan";
@@ -96,13 +96,13 @@ public class AppTest
     @Test
     void printCapitalCitiesTestEmpty()
     {
-        ArrayList<City> capitalCities = new ArrayList<City>();
+        ArrayList<City> capitalCities = new ArrayList<>();
         app.displayCapitalCities(capitalCities);
     }
     @Test
     void printCapitalCitiesTestContainsNull()
     {
-        ArrayList<City> capitalCities = new ArrayList<City>();
+        ArrayList<City> capitalCities = new ArrayList<>();
         capitalCities.add(null);
         app.displayCapitalCities(capitalCities);
     }
@@ -110,7 +110,7 @@ public class AppTest
     @Test
     void printCapitalCities()
     {
-        ArrayList<City> capitalCities = new ArrayList<City>();
+        ArrayList<City> capitalCities = new ArrayList<>();
         City capitalCity = new City();
         capitalCity.name = "Kabul";
         capitalCity.countryCode = "Afghanistan";
@@ -130,13 +130,13 @@ public class AppTest
     @Test
     void printPopulationsTestEmpty()
     {
-        ArrayList<Population> populations = new ArrayList<Population>();
+        ArrayList<Population> populations = new ArrayList<>();
         app.displayPopulations(populations);
     }
     @Test
     void printPopulationsTestContainsNull()
     {
-        ArrayList<Population> populations = new ArrayList<Population>();
+        ArrayList<Population> populations = new ArrayList<>();
         populations.add(null);
         app.displayPopulations(populations);
     }
@@ -144,7 +144,7 @@ public class AppTest
     @Test
     void printPopulations()
     {
-        ArrayList<Population> populations = new ArrayList<Population>();
+        ArrayList<Population> populations = new ArrayList<>();
         Population population = new Population();
         population.areaName = "China";
         population.population = 3000000;
@@ -154,11 +154,9 @@ public class AppTest
         population.populationOutsideCitiesPercentage = 50.00F;
         populations.add(population);
 
-
         app.displayPopulations(populations);
     }
 
-    //-----------
 
     @Test
     void printSpecificPopulationTestNull()
