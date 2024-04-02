@@ -21,8 +21,6 @@ public class LanguageByPopulation {
 
     public ArrayList<Language> ByWorld()
     {
-        //(speakers / SUM(country.population) FROM country  * 100) AS % of world_pop
-
         return reportHelper.getLanguageReport("SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
                 "From countrylanguage " +
                 "JOIN country ON countrylanguage.CountryCode = country.Code " +
