@@ -119,6 +119,16 @@ public class AppIntegrationTest
         assertEquals(10530136, buenosAiresPopulation.population);
     }
 
+    @Test
+    void testByCity_ShouldProvideCorrectPopulationData()
+    {
+        Population cityPopulation = specificPopulation.ByCity("Seoul");
+        assertNotNull(cityPopulation);
+        assertEquals("Seoul", cityPopulation.areaName);
+        assertEquals(9981619, cityPopulation.population);
+    }
+
+
     //-----------------------Population Within and Outwith Cities Integration Tests---------------------------//
     @Test
     void testPopulationByContinent_ShouldProvideCorrectPopulationData()
@@ -593,6 +603,15 @@ public class AppIntegrationTest
     public void restoreStreams() {
         System.setOut(originalOut);
     }
+
+    @Test
+    public void testDisplayCountriesWithNull()
+    {
+        app.displayCountries(null);
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No countries");
+    }
+
     @Test
     public void testDisplayCountries()
     {
@@ -606,6 +625,7 @@ public class AppIntegrationTest
 
         ArrayList<Country> countries = new ArrayList<>();
         countries.add(country);
+        countries.add(null);
 
         app.displayCountries(countries);
 
@@ -619,6 +639,14 @@ public class AppIntegrationTest
     }
 
     @Test
+    public void testDisplayCitiesWithNull()
+    {
+        app.displayCities(null);
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No cities");
+    }
+
+    @Test
     public void testDisplayCities()
     {
         ArrayList<City> cities = new ArrayList<>();
@@ -628,6 +656,7 @@ public class AppIntegrationTest
         city.district = "Seoul";
         city.population = 9981619;
         cities.add(city);
+        cities.add(null);
 
         app.displayCities(cities);
 
@@ -639,6 +668,14 @@ public class AppIntegrationTest
     }
 
     @Test
+    public void testDisplayCapitalCitiesWithNull()
+    {
+        app.displayCapitalCities(null);
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No capital cities");
+    }
+
+    @Test
     public void testDisplayCapitalCities()
     {
         ArrayList<City> capitalCities = new ArrayList<>();
@@ -647,6 +684,7 @@ public class AppIntegrationTest
         city.countryCode = "Indonesia";
         city.population = 9604900;
         capitalCities.add(city);
+        capitalCities.add(null);
 
         app.displayCapitalCities(capitalCities);
 
@@ -654,6 +692,14 @@ public class AppIntegrationTest
         assertContains(capturedOutput, "Jakarta");
         assertContains(capturedOutput, "Indonesia");
         assertContains(capturedOutput, String.valueOf(city.population));
+    }
+
+    @Test
+    public void testDisplayPopulationsWithNull()
+    {
+        app.displayPopulations(null);
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No populations");
     }
 
     @Test
@@ -668,6 +714,7 @@ public class AppIntegrationTest
         population.populationOutsideCities = 4649189566L;
         population.populationOutsideCitiesPercentage = 76.4827f;
         populations.add(population);
+        populations.add(null);
 
         app.displayPopulations(populations);
 
@@ -678,6 +725,14 @@ public class AppIntegrationTest
         assertContains(capturedOutput, String.valueOf(population.populationCitiesPercentage));
         assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
         assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
+    }
+
+    @Test
+    public void testDisplaySpecificPopulationWithNull()
+    {
+        app.displaySpecificPopulation(null, "City");
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No population");
     }
 
     @Test
@@ -694,6 +749,27 @@ public class AppIntegrationTest
         assertContains(capturedOutput, String.valueOf(population.population));
     }
 
+    @Test
+    public void testDisplaySpecificPopulationNonCityOrDistrict()
+    {
+        Population population = new Population();
+        population.areaName = "Africa";
+        population.population = 784475000;
+        population.populationCities = 135838579;
+        population.populationCitiesPercentage = 17.3159f;
+        population.populationOutsideCities = 648636421;
+        population.populationOutsideCitiesPercentage = 82.6841f;
+
+        app.displaySpecificPopulation(population, "Continent");
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "Africa");
+        assertContains(capturedOutput, String.valueOf(population.population));
+        assertContains(capturedOutput, String.valueOf(population.populationCities));
+        assertContains(capturedOutput, String.valueOf(population.populationCitiesPercentage));
+        assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
+        assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
+    }
     private void assertContains(String capturedOutput, String expectedContent)
     {
         assertTrue(capturedOutput.contains(expectedContent), String.format("Output should contain '%s'. Captured output: %s", expectedContent, capturedOutput));
