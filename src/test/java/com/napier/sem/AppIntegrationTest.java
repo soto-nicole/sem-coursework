@@ -8,14 +8,12 @@ import com.napier.sem.Models.Language;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -879,5 +877,25 @@ public class AppIntegrationTest
 
         String output = outContent.toString();
         assertTrue(output.contains("Failed to get languages report"));
+    }
+
+    //-----------------------Database util integration test ----------------------------------------------//
+    @Test
+    void testDisconnectShouldCloseConnection()
+    {
+        assertNotNull(DatabaseUtil.getConnection(), "Connection should not be null before disconnect.");
+        DatabaseUtil.disconnect();
+
+        SQLException exception = assertThrows(SQLException.class, () ->
+                DatabaseUtil.getConnection().createStatement().executeQuery("SELECT 1"), "Expected SQLException to be thrown if the connection is closed.");
+
+        assertTrue(exception.getMessage().contains("closed"));
+    }
+
+    @AfterAll
+    static void tearDown()
+    {
+        DatabaseUtil.connect("localhost:33060", 30000);
+        DatabaseUtil.disconnect();
     }
 }
