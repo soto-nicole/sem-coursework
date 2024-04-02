@@ -1,7 +1,7 @@
 package com.napier.sem;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
-import com.napier.sem.Models.LanguageSpeakers;
+import com.napier.sem.Models.Language;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
@@ -232,7 +232,7 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
-    public void displayLanguages(ArrayList<LanguageSpeakers> languages)
+    public void displayLanguages(ArrayList<Language> languages)
     {
         if (languages == null)
         {
@@ -242,7 +242,7 @@ public class App
 
         System.out.printf("%-30s %-30s %-30s %n", "Language", "TotalPopulation", "WorldPercentage (%)");
 
-        for (LanguageSpeakers language : languages)
+        for (Language language : languages)
         {
             if (language == null) continue;
             String languageString = String.format("%-30s %-30s %-30s ",

@@ -2,7 +2,7 @@ package com.napier.sem.Helpers;
 
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
-import com.napier.sem.Models.LanguageSpeakers;
+import com.napier.sem.Models.Language;
 import com.napier.sem.Models.Population;
 
 import java.sql.Connection;
@@ -164,9 +164,9 @@ public class ReportHelper
         return population;
     }
 
-    public ArrayList<LanguageSpeakers> getLanguageReport(String strSelect)
+    public ArrayList<Language> getLanguageReport(String strSelect)
     {
-        ArrayList<LanguageSpeakers> languages = new ArrayList<>();
+        ArrayList<Language> languages = new ArrayList<>();
         try
         {
             Statement stmt = this.con.createStatement();
@@ -174,7 +174,7 @@ public class ReportHelper
 
             while (rset.next())
             {
-                LanguageSpeakers language = new LanguageSpeakers();
+                Language language = new Language();
                 language.languageName = rset.getString("LanguageName");
                 language.totalSpeakers = rset.getLong("TotalLanguageSpeakers");
                 language.totalSpeakersPercentage = rset.getFloat("WorldPercentage");

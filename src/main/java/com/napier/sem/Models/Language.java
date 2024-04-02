@@ -1,6 +1,6 @@
 package com.napier.sem.Models;
 
-public class LanguageSpeakers {
+public class Language {
     /**
      * The name of the language the number of speakers is being reported for
      */
@@ -9,7 +9,6 @@ public class LanguageSpeakers {
      * The total number of people in the world who speak this language
      */
     public long totalSpeakers;
-    public long totalWorldPopulation;
     /**
      * The total number of people in the world who speak this language as a percentage of the world population
      */

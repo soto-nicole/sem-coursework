@@ -1,9 +1,7 @@
 package com.napier.sem.Features;
 
 import com.napier.sem.Helpers.ReportHelper;
-import com.napier.sem.Models.City;
-import com.napier.sem.Models.LanguageSpeakers;
-import com.napier.sem.Models.Population;
+import com.napier.sem.Models.Language;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,7 @@ public class LanguageByPopulation {
      * @return ArrayList that contains LanguageSpeakers objects in the world with their respective properties : LanguageName, TotalSpeakers and TotalSpeakersPercentage
      */
 
-    public ArrayList<LanguageSpeakers> ByWorld()
+    public ArrayList<Language> ByWorld()
     {
         //(speakers / SUM(country.population) FROM country  * 100) AS % of world_pop
 
