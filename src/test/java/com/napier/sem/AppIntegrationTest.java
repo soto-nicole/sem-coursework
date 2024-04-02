@@ -4,6 +4,7 @@ import com.napier.sem.Features.*;
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.Language;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
@@ -31,6 +32,7 @@ public class AppIntegrationTest
     static TopNCapitalCities topNCapitalCities;
     static AllPopulations allPopulations;
     static SpecificPopulation specificPopulation;
+    static LanguageByPopulation languageByPopulation;
 
 
 
@@ -55,6 +57,23 @@ public class AppIntegrationTest
         topNCapitalCities = new TopNCapitalCities(reportHelper);
         allPopulations = new AllPopulations(reportHelper);
         specificPopulation = new SpecificPopulation(reportHelper);
+        languageByPopulation = new LanguageByPopulation(reportHelper);
+    }
+
+    //-------------------- Spoken languages tests -----------------------------------------------------------//
+
+    @Test
+    void testByWorld_ShouldProvide_LanguagesFromLargestAmountOfSpeakers()
+    {
+        ArrayList<Language> languages = languageByPopulation.ByWorld();
+
+        assertNotNull(languages);
+        assertFalse(languages.isEmpty());
+
+        Language languageWithMostSpeakers = languages.get(0);
+        assertEquals("Chinese", languageWithMostSpeakers.languageName);
+        assertEquals(1191843539, languageWithMostSpeakers.totalSpeakers);
+        assertEquals(19.6067, languageWithMostSpeakers.totalSpeakersPercentage, 0.001);
     }
 
     // --------------------- Specific population different areas --------------------------------------------//
