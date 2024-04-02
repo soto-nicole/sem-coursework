@@ -835,4 +835,41 @@ public class AppIntegrationTest
         assertTrue(output.contains("Failed to get country report"));
     }
 
+    @Test
+    void testGetCityReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getCityReport(queryNotValidThrowsException);
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get city report"));
+    }
+
+    @Test
+    void testGetPopulationReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getPopulationReport(queryNotValidThrowsException);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get population report"));
+    }
+
+    @Test
+    void testGetSpecificPopulationReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getSpecificPopulationReport(queryNotValidThrowsException, "World");
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get population report"));
+    }
+
+
+
 }
