@@ -119,6 +119,16 @@ public class AppIntegrationTest
         assertEquals(10530136, buenosAiresPopulation.population);
     }
 
+    @Test
+    void testByCity_ShouldProvideCorrectPopulationData()
+    {
+        Population cityPopulation = specificPopulation.ByCity("Seoul");
+        assertNotNull(cityPopulation);
+        assertEquals("Seoul", cityPopulation.areaName);
+        assertEquals(9981619, cityPopulation.population);
+    }
+
+
     //-----------------------Population Within and Outwith Cities Integration Tests---------------------------//
     @Test
     void testPopulationByContinent_ShouldProvideCorrectPopulationData()
