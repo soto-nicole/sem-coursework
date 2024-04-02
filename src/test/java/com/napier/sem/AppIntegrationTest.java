@@ -7,7 +7,9 @@ import com.napier.sem.Models.Country;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -37,7 +39,8 @@ public class AppIntegrationTest
     static final String TEST_COUNTRY = "Spain";
     static final String TEST_DISTRICT = "Buenos Aires";
     static final int N = 5;
-
+    private final PrintStream originalOut = System.out;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     @BeforeAll
     static void init()
     {
@@ -580,6 +583,119 @@ public class AppIntegrationTest
         assertNotNull(DatabaseUtil.getConnection(), "The database connection should be established.");
     }
 
+    //---------------------- Tests App ---------------------------------------------------//
+    @BeforeEach
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
 
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
+    @Test
+    public void testDisplayCountries()
+    {
+        Country country = new Country();
+        country.code = "CHN";
+        country.name = "China";
+        country.continent = "Asia";
+        country.region = "Eastern Asia";
+        country.population = 1277558000;
+        country.capitalName = "Peking";
 
+        ArrayList<Country> countries = new ArrayList<>();
+        countries.add(country);
+
+        app.displayCountries(countries);
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "CHN");
+        assertContains(capturedOutput, "China");
+        assertContains(capturedOutput, "Asia");
+        assertContains(capturedOutput, "Eastern Asia");
+        assertContains(capturedOutput, String.valueOf(country.population));
+        assertContains(capturedOutput, "Peking");
+    }
+
+    @Test
+    public void testDisplayCities()
+    {
+        ArrayList<City> cities = new ArrayList<>();
+        City city = new City();
+        city.name = "Seoul";
+        city.countryCode = "South Korea";
+        city.district = "Seoul";
+        city.population = 9981619;
+        cities.add(city);
+
+        app.displayCities(cities);
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "Seoul");
+        assertContains(capturedOutput, "South Korea");
+        assertContains(capturedOutput, "Seoul");
+        assertContains(capturedOutput, String.valueOf(city.population));
+    }
+
+    @Test
+    public void testDisplayCapitalCities()
+    {
+        ArrayList<City> capitalCities = new ArrayList<>();
+        City city = new City();
+        city.name = "Jakarta";
+        city.countryCode = "Indonesia";
+        city.population = 9604900;
+        capitalCities.add(city);
+
+        app.displayCapitalCities(capitalCities);
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "Jakarta");
+        assertContains(capturedOutput, "Indonesia");
+        assertContains(capturedOutput, String.valueOf(city.population));
+    }
+
+    @Test
+    public void testDisplayPopulations()
+    {
+        ArrayList<Population> populations = new ArrayList<>();
+        Population population = new Population();
+        population.areaName = "World";
+        population.population = 6078749450L;
+        population.populationCities = 1429559884;
+        population.populationCitiesPercentage = 23.5173f;
+        population.populationOutsideCities = 4649189566L;
+        population.populationOutsideCitiesPercentage = 76.4827f;
+        populations.add(population);
+
+        app.displayPopulations(populations);
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "World");
+        assertContains(capturedOutput, String.valueOf(population.population));
+        assertContains(capturedOutput, String.valueOf(population.populationCities));
+        assertContains(capturedOutput, String.valueOf(population.populationCitiesPercentage));
+        assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
+        assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
+    }
+
+    @Test
+    public void testDisplaySpecificPopulation()
+    {
+        Population population = new Population();
+        population.areaName = "Seoul";
+        population.population = 9981619;
+
+        app.displaySpecificPopulation(population, "City");
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "Seoul");
+        assertContains(capturedOutput, String.valueOf(population.population));
+    }
+
+    private void assertContains(String capturedOutput, String expectedContent)
+    {
+        assertTrue(capturedOutput.contains(expectedContent), String.format("Output should contain '%s'. Captured output: %s", expectedContent, capturedOutput));
+    }
 }
