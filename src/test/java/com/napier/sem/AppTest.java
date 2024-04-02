@@ -3,6 +3,7 @@ package com.napier.sem;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Models.Population;
+import com.napier.sem.Models.Language;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -183,5 +184,38 @@ public class AppTest
         population.populationOutsideCitiesPercentage = 50.00F;
 
         app.displaySpecificPopulation(population, "Country");
+    }
+
+    @Test
+    void printLanguagesTestNull()
+    {
+        app.displayLanguages(null);
+    }
+
+    @Test
+    void printLanguagesTestEmpty()
+    {
+        ArrayList<Language> languages = new ArrayList<>();
+        app.displayLanguages(languages);
+    }
+    @Test
+    void printLanguagesTestContainsNull()
+    {
+        ArrayList<Language> languages = new ArrayList<>();
+        languages.add(null);
+        app.displayLanguages(languages);
+    }
+
+    @Test
+    void printLanguages()
+    {
+        ArrayList<Language> languages = new ArrayList<>();
+        Language language = new Language();
+        language.languageName = "English";
+        language.totalSpeakers = 347077867;
+        language.totalSpeakersPercentage = 5.7097F;
+        languages.add(language);
+
+        app.displayLanguages(languages);
     }
 }
