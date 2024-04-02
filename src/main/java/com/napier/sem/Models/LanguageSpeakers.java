@@ -9,6 +9,7 @@ public class LanguageSpeakers {
      * The total number of people in the world who speak this language
      */
     public long totalSpeakers;
+    public long totalWorldPopulation;
     /**
      * The total number of people in the world who speak this language as a percentage of the world population
      */
