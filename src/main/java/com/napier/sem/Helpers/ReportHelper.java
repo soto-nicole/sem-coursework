@@ -2,6 +2,7 @@ package com.napier.sem.Helpers;
 
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.Language;
 import com.napier.sem.Models.Population;
 
 import java.sql.Connection;
@@ -161,5 +162,31 @@ public class ReportHelper
             return null;
         }
         return population;
+    }
+
+    public ArrayList<Language> getLanguageReport(String strSelect)
+    {
+        ArrayList<Language> languages = new ArrayList<>();
+        try
+        {
+            Statement stmt = this.con.createStatement();
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            while (rset.next())
+            {
+                Language language = new Language();
+                language.languageName = rset.getString("LanguageName");
+                language.totalSpeakers = rset.getLong("TotalLanguageSpeakers");
+                language.totalSpeakersPercentage = rset.getFloat("WorldPercentage");
+                languages.add(language);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get languages report");
+            return null;
+        }
+        return languages;
     }
 }
