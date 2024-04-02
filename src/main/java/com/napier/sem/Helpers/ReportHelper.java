@@ -177,7 +177,6 @@ public class ReportHelper
                 LanguageSpeakers language = new LanguageSpeakers();
                 language.languageName = rset.getString("LanguageName");
                 language.totalSpeakers = rset.getLong("TotalLanguageSpeakers");
-//                language.totalWorldPopulation = rset.getLong("TotalWorldPopulation");
                 language.totalSpeakersPercentage = rset.getFloat("WorldPercentage");
                 languages.add(language);
             }
