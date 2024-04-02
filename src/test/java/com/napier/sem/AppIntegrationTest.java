@@ -35,7 +35,6 @@ public class AppIntegrationTest
     static LanguageByPopulation languageByPopulation;
 
 
-
     static final String TEST_CONTINENT = "Africa";
     static final String TEST_REGION = "Caribbean";
     static final String TEST_COUNTRY = "Spain";
@@ -789,8 +788,96 @@ public class AppIntegrationTest
         assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
         assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
     }
+    @Test
+    public void testDisplayLanguagesWithNull()
+    {
+        app.displayLanguages(null);
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No languages");
+    }
+
+    @Test
+    public void testDisplayLanguages()
+    {
+        ArrayList<Language> languages = new ArrayList<>();
+        Language chineseLanguage = new Language();
+        chineseLanguage.languageName = "Chinese";
+        chineseLanguage.totalSpeakers = 1191843539;
+        chineseLanguage.totalSpeakersPercentage = 19.6067f;
+
+        languages.add(chineseLanguage);
+        languages.add(null);
+
+        app.displayLanguages(languages);
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "Chinese");
+        assertContains(capturedOutput, "1191843539");
+        assertContains(capturedOutput, "19.6067");
+    }
+
     private void assertContains(String capturedOutput, String expectedContent)
     {
         assertTrue(capturedOutput.contains(expectedContent), String.format("Output should contain '%s'. Captured output: %s", expectedContent, capturedOutput));
+    }
+
+    //---------------------- Exception tests in ReportHelper ----------------------//
+    @Test
+    void testGetCountryReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getCountryReport(queryNotValidThrowsException);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get country report"));
+    }
+
+    @Test
+    void testGetCityReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getCityReport(queryNotValidThrowsException);
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get city report"));
+    }
+
+    @Test
+    void testGetPopulationReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getPopulationReport(queryNotValidThrowsException);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get population report"));
+    }
+
+    @Test
+    void testGetSpecificPopulationReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getSpecificPopulationReport(queryNotValidThrowsException, "World");
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get population report"));
+    }
+
+    @Test
+    void testGetLanguageReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
+
+        reportHelper.getLanguageReport(queryNotValidThrowsException);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get languages report"));
     }
 }
