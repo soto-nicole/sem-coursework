@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -870,6 +869,15 @@ public class AppIntegrationTest
         assertTrue(output.contains("Failed to get population report"));
     }
 
+    @Test
+    void testGetLanguageReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
+    {
+        ReportHelper reportHelper = new ReportHelper(DatabaseUtil.getConnection());
+        String queryNotValidThrowsException = "SELECT * FROM NonExistingTableToFail";
 
+        reportHelper.getLanguageReport(queryNotValidThrowsException);
 
+        String output = outContent.toString();
+        assertTrue(output.contains("Failed to get languages report"));
+    }
 }
