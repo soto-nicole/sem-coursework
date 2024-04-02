@@ -35,7 +35,6 @@ public class AppIntegrationTest
     static LanguageByPopulation languageByPopulation;
 
 
-
     static final String TEST_CONTINENT = "Africa";
     static final String TEST_REGION = "Caribbean";
     static final String TEST_COUNTRY = "Spain";
@@ -789,6 +788,34 @@ public class AppIntegrationTest
         assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
         assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
     }
+    @Test
+    public void testDisplayLanguagesWithNull()
+    {
+        app.displayLanguages(null);
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "No languages");
+    }
+
+    @Test
+    public void testDisplayLanguages()
+    {
+        ArrayList<Language> languages = new ArrayList<>();
+        Language chineseLanguage = new Language();
+        chineseLanguage.languageName = "Chinese";
+        chineseLanguage.totalSpeakers = 1191843539;
+        chineseLanguage.totalSpeakersPercentage = 19.6067f;
+
+        languages.add(chineseLanguage);
+        languages.add(null);
+
+        app.displayLanguages(languages);
+
+        String capturedOutput = outContent.toString();
+        assertContains(capturedOutput, "Chinese");
+        assertContains(capturedOutput, "1191843539");
+        assertContains(capturedOutput, "19.6067");
+    }
+
     private void assertContains(String capturedOutput, String expectedContent)
     {
         assertTrue(capturedOutput.contains(expectedContent), String.format("Output should contain '%s'. Captured output: %s", expectedContent, capturedOutput));
