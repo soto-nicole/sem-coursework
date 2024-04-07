@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
@@ -90,7 +91,7 @@ public class AppTest
     }
 
     @Test
-    void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinent()
+    void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinentInDB()
     {
         //Arrange
         ReportHelper mockReportHelperClass = mock(ReportHelper.class);
@@ -114,7 +115,7 @@ public class AppTest
     }
 
     @Test
-    void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegion()
+    void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegionInDB()
     {
         //Arrange
         ReportHelper mockReportHelperClass = mock(ReportHelper.class);
@@ -174,8 +175,127 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    @Test
+    void testAllCities_ByWorld_ShouldRetrieve_AllCitiesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCities allCities = new AllCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        expectedCities.add(new City());
+
+        String queryWorld = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "ORDER BY city.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryWorld)).thenReturn(expectedCities);
+        List<City> cities = allCities.ByWorld();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        verify(mockReportHelperClass).getCityReport(queryWorld);
+    }
+
+    @Test
+    void testAllCities_ByContinent_ShouldRetrieve_AllCitiesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCities allCities = new AllCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        expectedCities.add(new City());
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY city.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCities);
+        List<City> cities = allCities.ByContinent(TEST_CONTINENT);
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
+    @Test
+    void testAllCities_ByRegion_ShouldRetrieve_AllCitiesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCities allCities = new AllCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        expectedCities.add(new City());
 
 
+        String queryRegion = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "ORDER BY city.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryRegion)).thenReturn(expectedCities);
+        List<City> cities = allCities.ByRegion(TEST_REGION);
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        verify(mockReportHelperClass).getCityReport(queryRegion);
+    }
+
+    @Test
+    void testAllCities_ByCountry_ShouldRetrieve_AllCitiesInDB_ForSpecificCountry()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCities allCities = new AllCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        expectedCities.add(new City());
+
+
+        String queryCountry = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Name = '" + TEST_COUNTRY + "' " +
+                "ORDER BY city.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryCountry)).thenReturn(expectedCities);
+        List<City> cities = allCities.ByCountry(TEST_COUNTRY);
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        verify(mockReportHelperClass).getCityReport(queryCountry);
+    }
+
+    @Test
+    void testAllCities_ByDistrict_ShouldRetrieve_AllCitiesInDB_ForSpecificDistrict()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCities allCities = new AllCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        expectedCities.add(new City());
+
+
+        String queryDistrict = "SELECT city.Name, city.District, city.Population, country.Name as CountryName " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE city.District = '" + TEST_DISTRICT + "' " +
+                "ORDER BY city.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryDistrict)).thenReturn(expectedCities);
+        List<City> cities = allCities.ByDistrict(TEST_DISTRICT);
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        verify(mockReportHelperClass).getCityReport(queryDistrict);
+    }
 
 
 
