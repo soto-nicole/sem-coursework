@@ -396,17 +396,18 @@ public class AppTest
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.capital = city.id " +
-                "AND country.Continent = '" + TEST_REGION + "' " +
+                "AND country.Region = '" + TEST_REGION + "' " +
                 "ORDER BY city.Population DESC ";
 
         //Act
         when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCapitalCities);
-        List<City> capitalCities = allCapitalCities.ByContinent(TEST_REGION);
+        List<City> capitalCities = allCapitalCities.ByRegion(TEST_REGION);
 
         //Assert
         assertEquals(expectedCapitalCities, capitalCities);
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
+
 
     //----------------------- 4. Unit tests: Population ------------------------------------//
 
