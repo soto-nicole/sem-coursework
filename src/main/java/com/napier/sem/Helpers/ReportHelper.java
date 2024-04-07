@@ -88,11 +88,7 @@ public class ReportHelper
 
             while (set.next())
             {
-                City city = new City();
-                city.name = set.getString("Name");
-                city.countryCode = set.getString("CountryName");
-                city.district = set.getString("District");
-                city.population = set.getInt("Population");
+                City city = cityResultSet(set);
                 cities.add(city);
             }
         }
@@ -104,6 +100,29 @@ public class ReportHelper
         }
         return cities;
     }
+
+    /**
+     * Helper method to process a single ResultSet row and convert it to a City object
+     * @param set The ResultSet to extract the city data.
+     * @return City object which is populated with the data of ResultSet row
+     */
+    private City cityResultSet(ResultSet set)
+    {
+        City city = new City();
+        try
+        {
+            city.name = set.getString("Name");
+            city.countryCode = set.getString("CountryName");
+            city.district = set.getString("District");
+            city.population = set.getInt("Population");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error converting ResultSet to City: " + e.getMessage());
+        }
+        return city;
+    }
+
 
     /**
      * Helper method to get the population information by using the SQL queries
