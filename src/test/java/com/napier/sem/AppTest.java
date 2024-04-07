@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.Features.AllCapitalCities;
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
 import com.napier.sem.Helpers.ReportHelper;
@@ -91,7 +92,7 @@ public class AppTest
     }
 
     @Test
-    void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinentInDB()
+    void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinent()
     {
         //Arrange
         ReportHelper mockReportHelperClass = mock(ReportHelper.class);
@@ -115,7 +116,7 @@ public class AppTest
     }
 
     @Test
-    void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegionInDB()
+    void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegion()
     {
         //Arrange
         ReportHelper mockReportHelperClass = mock(ReportHelper.class);
@@ -298,18 +299,7 @@ public class AppTest
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    //----------------------- 3. Unit tests: Capital Cities ------------------------------------//
     @Test
     void printCapitalCitiesTestNull()
     {
@@ -343,6 +333,82 @@ public class AppTest
 
         app.displayCapitalCities(capitalCities);
     }
+
+    @Test
+    void testAllCapitalCities_ByWorld_ShouldRetrieve_AllCapitalCitiesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCapitalCities allCapitalCities = new AllCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        expectedCapitalCities.add(new City());
+
+        String queryWorld = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "ORDER BY city.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryWorld)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = allCapitalCities.ByWorld();
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        verify(mockReportHelperClass).getCityReport(queryWorld);
+    }
+
+    @Test
+    void testAllCapitalCities_ByContinent_ShouldRetrieve_AllCapitalCitiesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCapitalCities allCapitalCities = new AllCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        expectedCapitalCities.add(new City());
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "AND country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY city.Population DESC ";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = allCapitalCities.ByContinent(TEST_CONTINENT);
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
+    @Test
+    void testAllCapitalCities_ByRegion_ShouldRetrieve_AllCapitalCitiesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCapitalCities allCapitalCities = new AllCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        expectedCapitalCities.add(new City());
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "AND country.Continent = '" + TEST_REGION + "' " +
+                "ORDER BY city.Population DESC ";
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = allCapitalCities.ByContinent(TEST_REGION);
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
+    //----------------------- 4. Unit tests: Population ------------------------------------//
 
     @Test
     void printPopulationsTestNull()
