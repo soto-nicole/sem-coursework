@@ -1,5 +1,7 @@
 package com.napier.sem;
 
+import com.napier.sem.Features.AllCountries;
+import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Models.Population;
@@ -8,16 +10,26 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class AppTest
 {
+    static final String TEST_CONTINENT = "Africa";
+    static final String TEST_REGION = "Caribbean";
+    static final String TEST_COUNTRY = "Spain";
+    static final String TEST_DISTRICT = "Buenos Aires";
     static  App app;
+
     @BeforeAll
     static void init()
     {
         app = new App();
     }
 
+    //----------------------- 1. Unit tests: Countries ------------------------------------//
     @Test
     void printCountriesTestNull()
     {
@@ -53,6 +65,80 @@ public class AppTest
 
         app.displayCountries(countries);
     }
+
+    @Test
+    void testAllCountries_ByWorld_ShouldRetrieve_AllCountriesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCountries allCountries = new AllCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        expectedCountries.add(new Country());
+
+        String queryWorld = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryWorld)).thenReturn(expectedCountries);
+        List<Country> countries = allCountries.ByWorld();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        verify(mockReportHelperClass).getCountryReport(queryWorld);
+    }
+
+    @Test
+    void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCountries allCountries = new AllCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        expectedCountries.add(new Country());
+
+        String queryContinent = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY country.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryContinent)).thenReturn(expectedCountries);
+        List<Country> countries = allCountries.ByContinent(TEST_CONTINENT);
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        verify(mockReportHelperClass).getCountryReport(queryContinent);
+    }
+
+    @Test
+    void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllCountries allCountries = new AllCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        expectedCountries.add(new Country());
+
+        String queryRegion = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "ORDER BY country.Population DESC";
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryRegion)).thenReturn(expectedCountries);
+        List<Country> countries = allCountries.ByRegion(TEST_REGION);
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        verify(mockReportHelperClass).getCountryReport(queryRegion);
+    }
+
+
+    //----------------------- 2. Unit tests: Cities ------------------------------------//
     @Test
     void printCitiesTestNull()
     {
@@ -87,6 +173,22 @@ public class AppTest
 
         app.displayCities(cities);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     void printCapitalCitiesTestNull()
