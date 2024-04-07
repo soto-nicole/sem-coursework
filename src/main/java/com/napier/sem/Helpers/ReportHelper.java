@@ -35,13 +35,7 @@ public class ReportHelper
 
             while (set.next())
             {
-                Country country = new Country();
-                country.code = set.getString("Code");
-                country.name = set.getString("Name");
-                country.continent = set.getString("Continent");
-                country.region = set.getString("Region");
-                country.population = set.getInt("Population");
-                country.capitalName = set.getString("CapitalName");
+                Country country = countryResultSet(set);
                 countries.add(country);
             }
         }
@@ -53,6 +47,31 @@ public class ReportHelper
         }
         return countries;
     }
+
+    /**
+     * Converts a ResultSet row into a Country object
+     * @param set The ResultSet to extract the country data.
+     * @return Country object which is populated with the data of ResultSet
+     */
+    private Country countryResultSet(ResultSet set)
+    {
+        Country country = new Country();
+        try
+        {
+            country.code = set.getString("Code");
+            country.name = set.getString("Name");
+            country.continent = set.getString("Continent");
+            country.region = set.getString("Region");
+            country.population = set.getInt("Population");
+            country.capitalName = set.getString("CapitalName");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error converting ResultSet to Country: " + e.getMessage());
+        }
+        return country;
+    }
+
 
     /**
      * Helper method to get the country information by using the SQL queries
