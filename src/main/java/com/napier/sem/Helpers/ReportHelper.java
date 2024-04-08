@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class ReportHelper
 {
-    private final Connection con;
+    private Connection con;
 
     public ReportHelper(Connection connection)
     {
@@ -72,7 +72,6 @@ public class ReportHelper
         return country;
     }
 
-
     /**
      * Helper method to get the country information by using the SQL queries
      * @param strSelect SQL query that will return the city information needed for the reports
@@ -102,9 +101,9 @@ public class ReportHelper
     }
 
     /**
-     * Helper method to process a single ResultSet row and convert it to a City object
+     * Converts a ResultSet row into a City object
      * @param set The ResultSet to extract the city data.
-     * @return City object which is populated with the data of ResultSet row
+     * @return City object which is populated with the data of ResultSet
      */
     private City cityResultSet(ResultSet set)
     {
@@ -123,7 +122,6 @@ public class ReportHelper
         return city;
     }
 
-
     /**
      * Helper method to get the population information by using the SQL queries
      * @param strSelect SQL query that will return the population information needed for the reports
@@ -135,17 +133,11 @@ public class ReportHelper
         try
         {
             Statement stmt = this.con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet set = stmt.executeQuery(strSelect);
 
-            while (rset.next())
+            while (set.next())
             {
-                Population population = new Population();
-                population.areaName = rset.getString("AreaName");
-                population.population = rset.getLong("TotalPopulation");
-                population.populationCities = rset.getLong("PopulationCities");
-                population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
-                population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
-                population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
+                Population population = populationResultSet(set);
                 populations.add(population);
             }
         }
@@ -159,38 +151,47 @@ public class ReportHelper
     }
 
     /**
+     * Converts a ResultSet row into a Population object
+     * @param set The ResultSet to extract the population data.
+     * @return Population object which is populated with the data of ResultSet.
+     */
+    private Population populationResultSet(ResultSet set)
+    {
+        Population population = new Population();
+        try
+        {
+            population.areaName = set.getString("AreaName");
+            population.population = set.getLong("TotalPopulation");
+            population.populationCities = set.getLong("PopulationCities");
+            population.populationCitiesPercentage = set.getFloat("PopulationCityPercentage");
+            population.populationOutsideCities = set.getLong("PopulationOutsideCities");
+            population.populationOutsideCitiesPercentage = set.getFloat("PopulationOutsideCityPercentage");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error converting ResultSet to Population: " + e.getMessage());
+        }
+        return population;
+    }
+
+
+    /**
      * Helper method to get the population information by using the SQL queries
      * @param strSelect SQL query that will return the population information needed for the reports
      * @param type A string that denotes the area type that the query will be conducted for, affecting the resulting columns
      * @return Population object that contains the required data being fetched
      */
-
     public Population getSpecificPopulationReport(String strSelect, String type)
     {
         Population population = new Population();
         try
         {
             Statement stmt = this.con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet set = stmt.executeQuery(strSelect);
 
-            while (rset.next())
+            while (set.next())
             {
-                if (Objects.equals(type, "World"))
-                {
-                    population.areaName = "World";
-                } else {
-                    population.areaName = rset.getString("AreaName");
-                }
-
-                if (!Objects.equals(type, "District") && !Objects.equals(type, "City")) {
-                    population.populationCities = rset.getLong("PopulationCities");
-                    population.populationCitiesPercentage = rset.getFloat("PopulationCityPercentage");
-                    population.populationOutsideCities = rset.getLong("PopulationOutsideCities");
-                    population.populationOutsideCitiesPercentage = rset.getFloat("PopulationOutsideCityPercentage");
-                }
-
-                population.population = rset.getLong("TotalPopulation");
-
+                population = processPopulationResultSet(set, type);
             }
         }
         catch (Exception e)
@@ -201,6 +202,42 @@ public class ReportHelper
         }
         return population;
     }
+
+    /**
+     *
+     * @param set The ResultSet from which to extract population data
+     * @param type is a string which wil indicate the type of population report that will be generated (world, district...)
+     * @return Population object which is populated with the data of ResultSet for a specific type.
+     */
+    private Population processPopulationResultSet(ResultSet set, String type)
+    {
+        Population population = new Population();
+        try
+        {
+            if (Objects.equals(type, "World"))
+            {
+                population.areaName = "World";
+            } else {
+                population.areaName = set.getString("AreaName");
+            }
+
+            if (!Objects.equals(type, "District") && !Objects.equals(type, "City")) {
+                population.populationCities = set.getLong("PopulationCities");
+                population.populationCitiesPercentage = set.getFloat("PopulationCityPercentage");
+                population.populationOutsideCities = set.getLong("PopulationOutsideCities");
+                population.populationOutsideCitiesPercentage = set.getFloat("PopulationOutsideCityPercentage");
+            }
+
+            population.population = set.getLong("TotalPopulation");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error processing ResultSet for Population: " + e.getMessage());
+        }
+        return population;
+    }
+
+
 
     public ArrayList<Language> getLanguageReport(String strSelect)
     {
