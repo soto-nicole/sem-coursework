@@ -1,9 +1,6 @@
 package com.napier.sem;
 
-import com.napier.sem.Features.AllCapitalCities;
-import com.napier.sem.Features.AllCities;
-import com.napier.sem.Features.AllCountries;
-import com.napier.sem.Features.AllPopulations;
+import com.napier.sem.Features.*;
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
@@ -601,5 +598,29 @@ public class AppTest
         languages.add(language);
 
         app.displayLanguages(languages);
+    }
+    @Test
+    void testByWorld_ShouldRetrieve_LanguagesInDB()
+    {
+        // Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        LanguageByPopulation languageByPopulation = new LanguageByPopulation(mockReportHelperClass);
+
+        ArrayList<Language> expectedLanguages = new ArrayList<>();
+        expectedLanguages.add(new Language());
+
+        String queryWorld = "SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC";
+        //Act
+        when(mockReportHelperClass.getLanguageReport(queryWorld)).thenReturn(expectedLanguages);
+        List<Language> languages = languageByPopulation.ByWorld();
+
+        // Assert
+        assertEquals(expectedLanguages, languages);
+        verify(mockReportHelperClass).getLanguageReport(queryWorld);
     }
 }
