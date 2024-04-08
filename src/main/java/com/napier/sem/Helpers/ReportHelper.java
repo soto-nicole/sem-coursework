@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class ReportHelper
 {
-    private Connection con;
+    private final Connection con;
 
     public ReportHelper(Connection connection)
     {
