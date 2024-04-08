@@ -191,7 +191,7 @@ public class ReportHelper
 
             while (set.next())
             {
-                population = processPopulationResultSet(set, type);
+                 population = processPopulationResultSet(set, type);
             }
         }
         catch (Exception e)
@@ -237,22 +237,22 @@ public class ReportHelper
         return population;
     }
 
-
-
+    /**
+     * Helper method to get the languages information by using the SQL queries
+     * @param strSelect SQL query that will return the languages information needed for the reports
+     * @return Language object that contains the required data being fetched
+     */
     public ArrayList<Language> getLanguageReport(String strSelect)
     {
         ArrayList<Language> languages = new ArrayList<>();
         try
         {
             Statement stmt = this.con.createStatement();
-            ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet set = stmt.executeQuery(strSelect);
 
-            while (rset.next())
+            while (set.next())
             {
-                Language language = new Language();
-                language.languageName = rset.getString("LanguageName");
-                language.totalSpeakers = rset.getLong("TotalLanguageSpeakers");
-                language.totalSpeakersPercentage = rset.getFloat("WorldPercentage");
+                Language language = languageResultSet(set);
                 languages.add(language);
             }
         }
@@ -263,5 +263,26 @@ public class ReportHelper
             return null;
         }
         return languages;
+    }
+
+    /**
+     *
+     * @param set The ResultSet to extract the language data from
+     * @return Language object populated with data from the ResultSet row.
+     */
+    private Language languageResultSet(ResultSet set)
+    {
+        Language language = new Language();
+        try
+        {
+            language.languageName = set.getString("LanguageName");
+            language.totalSpeakers = set.getLong("TotalLanguageSpeakers");
+            language.totalSpeakersPercentage = set.getFloat("WorldPercentage");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error processing ResultSet for Language: " + e.getMessage());
+        }
+        return language;
     }
 }
