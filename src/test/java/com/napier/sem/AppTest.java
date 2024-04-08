@@ -538,6 +538,22 @@ public class AppTest
     }
 
     @Test
+    void printSpecificPopulationDistrict()
+    {
+        Population population = new Population();
+        population.areaName = TEST_DISTRICT;
+        app.displaySpecificPopulation(population, "District");
+    }
+
+    @Test
+    void printSpecificPopulationCity()
+    {
+        Population population = new Population();
+        population.areaName = "London";
+        app.displaySpecificPopulation(population, "City");
+    }
+
+    @Test
     void printSpecificPopulation()
     {
         Population population = new Population();
@@ -552,7 +568,7 @@ public class AppTest
     }
 
 
-    //----------------------- 6. Unit tests: Languages ------------------------------------//
+    //----------------------- 6. Unit tests: Languages  ------------------------------------//
 
     @Test
     void printLanguagesTestNull()
