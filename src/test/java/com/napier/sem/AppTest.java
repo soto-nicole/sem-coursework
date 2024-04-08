@@ -3,6 +3,7 @@ package com.napier.sem;
 import com.napier.sem.Features.AllCapitalCities;
 import com.napier.sem.Features.AllCities;
 import com.napier.sem.Features.AllCountries;
+import com.napier.sem.Features.AllPopulations;
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
@@ -410,7 +411,6 @@ public class AppTest
 
 
     //----------------------- 4. Unit tests: Population ------------------------------------//
-
     @Test
     void printPopulationsTestNull()
     {
@@ -447,7 +447,83 @@ public class AppTest
         app.displayPopulations(populations);
     }
 
+    @Test
+    void testAllPopulation_ByContinent_ShouldRetrieve_AllPopulationInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllPopulations allPopulations = new AllPopulations(mockReportHelperClass);
+        ArrayList<Population> expectedPopulation = new ArrayList<>();
+        expectedPopulation.add(new Population());
 
+        String queryContinent = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "GROUP BY country.continent ";
+
+        //Act
+        when(mockReportHelperClass.getPopulationReport(queryContinent)).thenReturn(expectedPopulation);
+        List<Population> populations = allPopulations.ByContinent();
+
+        //Assert
+        assertEquals(expectedPopulation, populations);
+        verify(mockReportHelperClass).getPopulationReport(queryContinent);
+    }
+
+    @Test
+    void testAllPopulation_ByRegion_ShouldRetrieve_AllPopulationInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllPopulations allPopulations = new AllPopulations(mockReportHelperClass);
+        ArrayList<Population> expectedPopulation = new ArrayList<>();
+        expectedPopulation.add(new Population());
+
+        String queryRegion = "SELECT country.region AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "GROUP BY country.region";
+
+        //Act
+        when(mockReportHelperClass.getPopulationReport(queryRegion)).thenReturn(expectedPopulation);
+        List<Population> populations = allPopulations.ByRegion();
+
+        //Assert
+        assertEquals(expectedPopulation, populations);
+        verify(mockReportHelperClass).getPopulationReport(queryRegion);
+    }
+
+    @Test
+    void testAllPopulation_ByCountry_ShouldRetrieve_AllPopulationInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        AllPopulations allPopulations = new AllPopulations(mockReportHelperClass);
+        ArrayList<Population> expectedPopulation = new ArrayList<>();
+        expectedPopulation.add(new Population());
+
+        String queryRegion = "SELECT country.Name AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "GROUP BY country.Name";
+
+        //Act
+        when(mockReportHelperClass.getPopulationReport(queryRegion)).thenReturn(expectedPopulation);
+        List<Population> populations = allPopulations.ByCountry();
+
+        //Assert
+        assertEquals(expectedPopulation, populations);
+        verify(mockReportHelperClass).getPopulationReport(queryRegion);
+    }
+
+
+    //----------------------- 5. Unit tests: Specific Population ------------------------------------//
     @Test
     void printSpecificPopulationTestNull()
     {
@@ -474,6 +550,9 @@ public class AppTest
 
         app.displaySpecificPopulation(population, "Country");
     }
+
+
+    //----------------------- 6. Unit tests: Languages ------------------------------------//
 
     @Test
     void printLanguagesTestNull()
