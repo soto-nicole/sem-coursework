@@ -1042,6 +1042,7 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryCity, "City");
     }
 
+    //----------------------- 6. Unit tests: Languages ------------------------------------//
     @Test
     void printLanguagesTestNull()
     {
@@ -1408,9 +1409,85 @@ public class AppTest
         assertNull(result);
     }
 
+    @Test
+    void testGetLanguageReport_ShouldFetchLanguageData() throws Exception
+    {
+        // Arrange
+        String languageSqlQuery = "SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC";
 
-    //TODO: Report helper tests for languages
-    //Note: make sure the exceptions are also tested to cover the methods as much as possible
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
 
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(languageSqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("LanguageName")).thenReturn("Chinese");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
 
+        // Act
+        ArrayList<Language> languages = reportHelper.getLanguageReport(languageSqlQuery);
+
+        // Assert
+        assertNotNull(languages);
+        Language language = languages.get(0);
+        assertEquals("Chinese", language.languageName);
+    }
+
+    @Test
+    void testGetLanguageReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String languageSqlQuery  = "SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC";
+        ;
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockStatement.executeQuery(languageSqlQuery)).thenThrow(new SQLException("Failed to get language report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Language> result = reportHelper.getLanguageReport(languageSqlQuery);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void testGetLanguageReportWithSQLException_InResultSet() throws Exception
+    {
+        //Arrange
+        ResultSet mockResultSet = mock(ResultSet.class);
+        Statement mockStatement = mock(Statement.class);
+        Connection mockConnection = mock(Connection.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString(anyString())).thenThrow(new SQLException("Data could not be accessed"));
+
+        //Act
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+        ArrayList<Language> languages = reportHelper.getLanguageReport("SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC");
+
+        //Assert
+        assertFalse(languages.isEmpty());
+    }
 }
