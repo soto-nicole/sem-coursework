@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class LanguageByPopulation {
 
-    private ReportHelper reportHelper;
+    private final ReportHelper reportHelper;
 
     public LanguageByPopulation(ReportHelper reportHelper) {
         this.reportHelper = reportHelper;

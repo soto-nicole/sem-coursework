@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Index
 {
-    private final ReportHelper reportHelper;
+    private final  ReportHelper reportHelper;
     private final AllCountries allCountries;
     private final TopNCountries topNCountries;
     private final AllCities allCities;

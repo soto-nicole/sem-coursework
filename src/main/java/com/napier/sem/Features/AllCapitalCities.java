@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class AllCapitalCities
 {
-    private ReportHelper reportHelper;
+    private final ReportHelper reportHelper;
 
     public AllCapitalCities(ReportHelper reportHelper)
     {
