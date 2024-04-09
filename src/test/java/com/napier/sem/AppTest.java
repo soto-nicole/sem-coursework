@@ -8,10 +8,12 @@ import com.napier.sem.Models.Population;
 import com.napier.sem.Models.Language;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -564,9 +566,6 @@ public class AppTest
         app.displaySpecificPopulation(population, "Country");
     }
 
-
-    //----------------------- 6. Unit tests: Languages  ------------------------------------//
-
     @Test
     void printLanguagesTestNull()
     {
@@ -622,5 +621,103 @@ public class AppTest
         // Assert
         assertEquals(expectedLanguages, languages);
         verify(mockReportHelperClass).getLanguageReport(queryWorld);
+    }
+
+    //TODO: Tests for SpecificPopulation, TopNCountries, TopNCities, TopNCapitalCities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------- Report Helper tests  ------------------------------------//
+    //1. Test to ensure that the getCountryReport method in the ReportHelper class is correctly fetching the country data from the database and transforming it into a list of Country objects
+    @Test
+    void testGetCountryReport_ShouldFetchCountryData() throws Exception
+    {
+        // Arrange
+        String countrySqlQuery = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(countrySqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("Code")).thenReturn("USA");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Country> countries = reportHelper.getCountryReport(countrySqlQuery);
+
+        // Assert
+        assertNotNull(countries);
+        Country country = countries.get(0);
+        assertEquals("USA", country.code);
+    }
+
+    //2. Test for SQL exception
+    @Test
+    void testGetCountryReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String countrySqlQuery = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(countrySqlQuery)).thenThrow(new SQLException("Failed to get country report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Country> result = reportHelper.getCountryReport(countrySqlQuery);
+
+        // Assert
+        assertNull(result);
+    }
+
+    //3. SQL Exception when extracting ResultSet
+    @Test
+    void testGetCountryReportWithSQLException_InResultSet() throws Exception
+    {
+        //Arrange
+        ResultSet mockResultSet = mock(ResultSet.class);
+        Statement mockStatement = mock(Statement.class);
+        Connection mockConnection = mock(Connection.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString(anyString())).thenThrow(new SQLException("Data could not be accessed"));
+
+        //Act
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+        ArrayList<Country> countries = reportHelper.getCountryReport("SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC");
+
+        //Assert
+        assertFalse(countries.isEmpty());
     }
 }

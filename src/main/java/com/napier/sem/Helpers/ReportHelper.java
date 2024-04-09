@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class ReportHelper
 {
-    private Connection con;
+    private final Connection con;
 
     public ReportHelper(Connection connection)
     {
@@ -68,6 +68,7 @@ public class ReportHelper
         catch (Exception e)
         {
             System.out.println("Error converting ResultSet to Country: " + e.getMessage());
+            return  null;
         }
         return country;
     }
