@@ -23,6 +23,7 @@ public class AppTest
     static final String TEST_REGION = "Caribbean";
     static final String TEST_COUNTRY = "Spain";
     static final String TEST_DISTRICT = "Buenos Aires";
+    static final int TEST_N = 5;
     static  App app;
 
     @BeforeAll
@@ -136,6 +137,95 @@ public class AppTest
 
         //Assert
         assertEquals(expectedCountries, countries);
+        verify(mockReportHelperClass).getCountryReport(queryRegion);
+    }
+
+    @Test
+    void testTopNCountries_ByWorld_ShouldRetrieve_TopNCountriesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCountries topNCountries = new TopNCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCountries.add(new Country());
+        }
+
+        String queryWorld = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryWorld)).thenReturn(expectedCountries);
+        List<Country> countries = topNCountries.ByWorld(TEST_N);
+        int countriesLength = countries.size();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        assertEquals(countriesLength, TEST_N);
+        verify(mockReportHelperClass).getCountryReport(queryWorld);
+    }
+
+    @Test
+    void testTopNCountries_ByContinent_ShouldRetrieve_TopNCountriesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCountries topNCountries = new TopNCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCountries.add(new Country());
+        }
+
+        String queryContinent = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryContinent)).thenReturn(expectedCountries);
+        List<Country> countries = topNCountries.ByContinent(TEST_N, TEST_CONTINENT);
+        int countriesLength = countries.size();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        assertEquals(countriesLength, TEST_N);
+        verify(mockReportHelperClass).getCountryReport(queryContinent);
+    }
+
+    @Test
+    void testTopNCountries_ByRegion_ShouldRetrieve_TopNCountriesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCountries topNCountries = new TopNCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCountries.add(new Country());
+        }
+
+        String queryRegion = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryRegion)).thenReturn(expectedCountries);
+        List<Country> countries = topNCountries.ByRegion(TEST_N, TEST_REGION);
+        int countriesLength = countries.size();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        assertEquals(countriesLength, TEST_N);
         verify(mockReportHelperClass).getCountryReport(queryRegion);
     }
 
