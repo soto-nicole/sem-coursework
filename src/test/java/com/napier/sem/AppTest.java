@@ -645,6 +645,35 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    @Test
+    void testTopNCapitalCities_ByWorld_ShouldRetrieve_TopNCapitalCitiesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCapitalCities topNCapitalCities = new TopNCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCapitalCities.add(new City());
+        }
+
+        String queryWorld = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryWorld)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = topNCapitalCities.ByWorld(TEST_N);
+        int capitalCitiesLength = capitalCities.size();
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        assertEquals(capitalCitiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryWorld);
+    }
 
     //----------------------- 4. Unit tests: Population ------------------------------------//
     @Test
@@ -860,7 +889,7 @@ public class AppTest
         verify(mockReportHelperClass).getLanguageReport(queryWorld);
     }
 
-    //TODO: Tests for SpecificPopulation, TopNCountries, TopNCities, TopNCapitalCities
+    //TODO: Tests for SpecificPopulation, TopNCapitalCities
 
 
 
