@@ -522,7 +522,7 @@ public class AppTest
         String queryDistrict = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
-                "WHERE country.Name = '" + TEST_COUNTRY + "'" +
+                "WHERE city.District = '" + TEST_DISTRICT + "'" +
                 "ORDER BY city.Population DESC " +
                 "LIMIT " + TEST_N;
 
