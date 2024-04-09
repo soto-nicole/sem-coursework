@@ -23,6 +23,7 @@ public class AppTest
     static final String TEST_REGION = "Caribbean";
     static final String TEST_COUNTRY = "Spain";
     static final String TEST_DISTRICT = "Buenos Aires";
+    static final String TEST_CITY = "Seoul";
     static final int TEST_N = 5;
     static  App app;
 
@@ -996,6 +997,49 @@ public class AppTest
         //Assert
         assertEquals(expectedPopulation, population);
         verify(mockReportHelperClass).getSpecificPopulationReport(queryCountry, "Country");
+    }
+
+    @Test
+    void testSpecificPopulation_ByDistrict_ShouldRetrieve_PopulationInDB_ForSpecificDistrict()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryDistrict  = "SELECT city.district AS AreaName, COALESCE(SUM(city.population), 0) AS TotalPopulation " +
+                "FROM city " +
+                "WHERE city.district = '" + TEST_DISTRICT + "' " +
+                "GROUP BY city.district";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryDistrict, "District")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByDistrict(TEST_DISTRICT);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryDistrict, "District");
+    }
+
+    @Test
+    void testSpecificPopulation_ByCity_ShouldRetrieve_PopulationInDB_ForSpecificCity()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryCity  = "SELECT city.name AS AreaName, city.population AS TotalPopulation " +
+                "FROM city " +
+                "WHERE city.name = '" + TEST_CITY + "' ";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryCity, "City")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByCity(TEST_CITY);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryCity, "City");
     }
 
     @Test
