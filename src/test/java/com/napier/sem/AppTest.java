@@ -675,6 +675,37 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    @Test
+    void testTopNCapitalCities_ByContinent_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCapitalCities topNCapitalCities = new TopNCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCapitalCities.add(new City());
+        }
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "AND country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = topNCapitalCities.ByContinent(TEST_N, TEST_CONTINENT);
+        int capitalCitiesLength = capitalCities.size();
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        assertEquals(capitalCitiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
     //----------------------- 4. Unit tests: Population ------------------------------------//
     @Test
     void printPopulationsTestNull()
