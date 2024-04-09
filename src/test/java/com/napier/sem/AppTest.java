@@ -684,7 +684,6 @@ public class AppTest
         Connection mockConnection = mock(Connection.class);
         Statement mockStatement = mock(Statement.class);
 
-        when(mockConnection.createStatement()).thenReturn(mockStatement);
         when(mockStatement.executeQuery(countrySqlQuery)).thenThrow(new SQLException("Failed to get country report"));
 
         ReportHelper reportHelper = new ReportHelper(mockConnection);
@@ -720,4 +719,159 @@ public class AppTest
         //Assert
         assertFalse(countries.isEmpty());
     }
+
+    @Test
+    void testGetCityReport_ShouldFetchCityData() throws Exception
+    {
+        // Arrange
+        String citySqlQuery = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "ORDER BY city.Population DESC";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(citySqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("Name")).thenReturn("London");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<City> cities = reportHelper.getCityReport(citySqlQuery);
+
+        // Assert
+        assertNotNull(cities);
+        City city = cities.get(0);
+        assertEquals("London", city.name);
+    }
+
+    @Test
+    void testGetCityReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String citySqlQuery = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "ORDER BY city.Population DESC";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockStatement.executeQuery(citySqlQuery)).thenThrow(new SQLException("Failed to get city report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<City> result = reportHelper.getCityReport(citySqlQuery);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void testGetCityReportWithSQLException_InResultSet() throws Exception
+    {
+        // Arrange
+        ResultSet mockResultSet = mock(ResultSet.class);
+        Statement mockStatement = mock(Statement.class);
+        Connection mockConnection = mock(Connection.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString(anyString())).thenThrow(new SQLException("Data could not be accessed"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+        // Act
+        ArrayList<City> cities = reportHelper.getCityReport("SELECT city.Name, city.CountryCode, city.District, city.Population FROM city ORDER BY city.Population DESC");
+
+        // Assert
+        assertFalse(cities.isEmpty());
+    }
+
+    @Test
+    void testGetPopulationReport_ShouldFetchPopulationData() throws Exception
+    {
+        // Arrange
+        String populationSqlQuery = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "GROUP BY country.continent ";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(populationSqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("AreaName")).thenReturn("Europe");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Population> populations = reportHelper.getPopulationReport(populationSqlQuery);
+
+        // Assert
+        assertNotNull(populations);
+        Population population = populations.get(0);
+        assertEquals("Europe", population.areaName);
+    }
+    @Test
+    void testGetPopulationReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String populationSqlQuery = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "GROUP BY country.continent ";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(populationSqlQuery)).thenThrow(new SQLException("Failed to get population report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Population> result = reportHelper.getPopulationReport(populationSqlQuery);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void testGetPopulationReportWithSQLException_InResultSet() throws Exception
+    {
+        // Arrange
+        ResultSet mockResultSet = mock(ResultSet.class);
+        Statement mockStatement = mock(Statement.class);
+        Connection mockConnection = mock(Connection.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString(anyString())).thenThrow(new SQLException("Data could not be accessed"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+        // Act
+        ArrayList<Population> populations = reportHelper.getPopulationReport("SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "GROUP BY country.continent ");
+
+        // Assert
+        assertFalse(populations.isEmpty());
+    }
+
+
 }
