@@ -895,6 +895,29 @@ public class AppTest
     }
 
     @Test
+    void testSpecificPopulation_ByWorld_ShouldRetrieve_PopulationInDB_ForWorld()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryWorld = "SELECT COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode ";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryWorld, "World")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByWorld();
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryWorld, "World");
+    }
+
+    @Test
     void printLanguagesTestNull()
     {
         app.displayLanguages(null);
@@ -951,7 +974,7 @@ public class AppTest
         verify(mockReportHelperClass).getLanguageReport(queryWorld);
     }
 
-    //TODO: Tests for SpecificPopulation, TopNCapitalCities
+    //TODO: Tests for SpecificPopulation
 
 
 
