@@ -417,6 +417,36 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    @Test
+    void testTopNCities_ByContinent_ShouldRetrieve_TopNCitiesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCities topNCities = new TopNCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCities.add(new City());
+        }
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCities);
+        List<City> cities = topNCities.ByContinent(TEST_N, TEST_CONTINENT);
+        int citiesLength = cities.size();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        assertEquals(citiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
     //----------------------- 3. Unit tests: Capital Cities ------------------------------------//
     @Test
     void printCapitalCitiesTestNull()
