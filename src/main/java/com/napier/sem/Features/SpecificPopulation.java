@@ -2,10 +2,10 @@ package com.napier.sem.Features;
 
 import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Population;
-import java.util.ArrayList;
 
-public class SpecificPopulation {
-    private ReportHelper reportHelper;
+public class SpecificPopulation
+{
+    private final ReportHelper reportHelper;
 
     public SpecificPopulation(ReportHelper reportHelper) {
         this.reportHelper = reportHelper;

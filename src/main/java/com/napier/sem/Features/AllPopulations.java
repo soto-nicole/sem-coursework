@@ -5,7 +5,7 @@ import com.napier.sem.Models.Population;
 import java.util.ArrayList;
 
 public class AllPopulations {
-    private ReportHelper reportHelper;
+    private final ReportHelper reportHelper;
 
     public AllPopulations(ReportHelper reportHelper) {
         this.reportHelper = reportHelper;

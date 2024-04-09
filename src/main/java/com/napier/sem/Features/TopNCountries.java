@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TopNCountries
 {
-    private ReportHelper reportHelper;
+    private final ReportHelper reportHelper;
 
     public TopNCountries(ReportHelper reportHelper)
     {
