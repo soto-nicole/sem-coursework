@@ -945,6 +945,33 @@ public class AppTest
     }
 
     @Test
+    void testSpecificPopulation_ByRegion_ShouldRetrieve_PopulationInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryRegion = "SELECT country.Region AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "GROUP BY country.Region";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryRegion, "Region")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByRegion(TEST_REGION);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryRegion, "Region");
+    }
+
+    @Test
     void printLanguagesTestNull()
     {
         app.displayLanguages(null);
