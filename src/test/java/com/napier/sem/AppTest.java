@@ -1099,8 +1099,6 @@ public class AppTest
         verify(mockReportHelperClass).getLanguageReport(queryWorld);
     }
 
-    //TODO: Tests for SpecificPopulation
-
 
 
 
@@ -1349,9 +1347,69 @@ public class AppTest
         assertFalse(populations.isEmpty());
     }
 
+    @Test
+    void testGetSpecificPopulationReport_ShouldFetchPopulationData() throws Exception
+    {
+        // Arrange
+        String populationSqlQuery = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY country.continent";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(populationSqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("AreaName")).thenReturn("Africa");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        Population population = reportHelper.getSpecificPopulationReport(populationSqlQuery, "Continent");
+
+        // Assert
+        assertNotNull(population);
+        assertEquals("Africa", population.areaName);
+    }
+
+    @Test
+    void testGetSpecificPopulationReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String populationSqlQuery = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY country.continent";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(populationSqlQuery)).thenThrow(new SQLException("Failed to get population report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        Population result = reportHelper.getSpecificPopulationReport(populationSqlQuery, "Continent");
+
+        // Assert
+        assertNull(result);
+    }
 
 
-    //TODO: Report helper tests for Specific population and languages
+    //TODO: Report helper tests for languages
     //Note: make sure the exceptions are also tested to cover the methods as much as possible
 
 
