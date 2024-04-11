@@ -23,6 +23,8 @@ public class AppTest
     static final String TEST_REGION = "Caribbean";
     static final String TEST_COUNTRY = "Spain";
     static final String TEST_DISTRICT = "Buenos Aires";
+    static final String TEST_CITY = "Seoul";
+    static final int TEST_N = 5;
     static  App app;
 
     @BeforeAll
@@ -136,6 +138,95 @@ public class AppTest
 
         //Assert
         assertEquals(expectedCountries, countries);
+        verify(mockReportHelperClass).getCountryReport(queryRegion);
+    }
+
+    @Test
+    void testTopNCountries_ByWorld_ShouldRetrieve_TopNCountriesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCountries topNCountries = new TopNCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCountries.add(new Country());
+        }
+
+        String queryWorld = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryWorld)).thenReturn(expectedCountries);
+        List<Country> countries = topNCountries.ByWorld(TEST_N);
+        int countriesLength = countries.size();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        assertEquals(countriesLength, TEST_N);
+        verify(mockReportHelperClass).getCountryReport(queryWorld);
+    }
+
+    @Test
+    void testTopNCountries_ByContinent_ShouldRetrieve_TopNCountriesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCountries topNCountries = new TopNCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCountries.add(new Country());
+        }
+
+        String queryContinent = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryContinent)).thenReturn(expectedCountries);
+        List<Country> countries = topNCountries.ByContinent(TEST_N, TEST_CONTINENT);
+        int countriesLength = countries.size();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        assertEquals(countriesLength, TEST_N);
+        verify(mockReportHelperClass).getCountryReport(queryContinent);
+    }
+
+    @Test
+    void testTopNCountries_ByRegion_ShouldRetrieve_TopNCountriesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCountries topNCountries = new TopNCountries(mockReportHelperClass);
+        ArrayList<Country> expectedCountries = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCountries.add(new Country());
+        }
+
+        String queryRegion = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name as CapitalName " +
+                "FROM country " +
+                "JOIN city ON country.Capital = city.ID " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "ORDER BY country.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCountryReport(queryRegion)).thenReturn(expectedCountries);
+        List<Country> countries = topNCountries.ByRegion(TEST_N, TEST_REGION);
+        int countriesLength = countries.size();
+
+        //Assert
+        assertEquals(expectedCountries, countries);
+        assertEquals(countriesLength, TEST_N);
         verify(mockReportHelperClass).getCountryReport(queryRegion);
     }
 
@@ -298,7 +389,154 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryDistrict);
     }
 
+    @Test
+    void testTopNCities_ByWorld_ShouldRetrieve_TopNCitiesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCities topNCities = new TopNCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCities.add(new City());
+        }
 
+        String queryWorld = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryWorld)).thenReturn(expectedCities);
+        List<City> cities = topNCities.ByWorld(TEST_N);
+        int citiesLength = cities.size();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        assertEquals(citiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryWorld);
+    }
+
+    @Test
+    void testTopNCities_ByContinent_ShouldRetrieve_TopNCitiesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCities topNCities = new TopNCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCities.add(new City());
+        }
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCities);
+        List<City> cities = topNCities.ByContinent(TEST_N, TEST_CONTINENT);
+        int citiesLength = cities.size();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        assertEquals(citiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
+    @Test
+    void testTopNCities_ByRegion_ShouldRetrieve_TopNCitiesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCities topNCities = new TopNCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCities.add(new City());
+        }
+
+        String queryRegion = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.region = '" + TEST_REGION + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryRegion)).thenReturn(expectedCities);
+        List<City> cities = topNCities.ByRegion(TEST_N, TEST_REGION);
+        int citiesLength = cities.size();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        assertEquals(citiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryRegion);
+    }
+
+    @Test
+    void testTopNCities_ByCountry_ShouldRetrieve_TopNCitiesInDB_ForSpecificCountry()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCities topNCities = new TopNCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCities.add(new City());
+        }
+
+        String queryCountry = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Name = '" + TEST_COUNTRY + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryCountry)).thenReturn(expectedCities);
+        List<City> cities = topNCities.ByCountry(TEST_N, TEST_COUNTRY);
+        int citiesLength = cities.size();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        assertEquals(citiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryCountry);
+    }
+
+    @Test
+    void testTopNCities_ByDistrict_ShouldRetrieve_TopNCitiesInDB_ForSpecificDistrict()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCities topNCities = new TopNCities(mockReportHelperClass);
+        ArrayList<City> expectedCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCities.add(new City());
+        }
+
+        String queryDistrict = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE city.District = '" + TEST_DISTRICT + "'" +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryDistrict)).thenReturn(expectedCities);
+        List<City> cities = topNCities.ByDistrict(TEST_N, TEST_DISTRICT);
+        int citiesLength = cities.size();
+
+        //Assert
+        assertEquals(expectedCities, cities);
+        assertEquals(citiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryDistrict);
+    }
     //----------------------- 3. Unit tests: Capital Cities ------------------------------------//
     @Test
     void printCapitalCitiesTestNull()
@@ -408,6 +646,97 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    @Test
+    void testTopNCapitalCities_ByWorld_ShouldRetrieve_TopNCapitalCitiesInDB()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCapitalCities topNCapitalCities = new TopNCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCapitalCities.add(new City());
+        }
+
+        String queryWorld = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryWorld)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = topNCapitalCities.ByWorld(TEST_N);
+        int capitalCitiesLength = capitalCities.size();
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        assertEquals(capitalCitiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryWorld);
+    }
+
+    @Test
+    void testTopNCapitalCities_ByContinent_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCapitalCities topNCapitalCities = new TopNCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCapitalCities.add(new City());
+        }
+
+        String queryContinent = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "AND country.Continent = '" + TEST_CONTINENT + "' " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryContinent)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = topNCapitalCities.ByContinent(TEST_N, TEST_CONTINENT);
+        int capitalCitiesLength = capitalCities.size();
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        assertEquals(capitalCitiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryContinent);
+    }
+
+    @Test
+    void testTopNCapitalCities_ByRegion_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        TopNCapitalCities topNCapitalCities = new TopNCapitalCities(mockReportHelperClass);
+        ArrayList<City> expectedCapitalCities = new ArrayList<>();
+        for (int i = 0; i < TEST_N; i++)
+        {
+            expectedCapitalCities.add(new City());
+        }
+
+        String queryRegion = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.capital = city.id " +
+                "AND country.Region = '" + TEST_REGION + "' " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT " + TEST_N;
+
+        //Act
+        when(mockReportHelperClass.getCityReport(queryRegion)).thenReturn(expectedCapitalCities);
+        List<City> capitalCities = topNCapitalCities.ByRegion(TEST_N, TEST_REGION);
+        int capitalCitiesLength = capitalCities.size();
+
+        //Assert
+        assertEquals(expectedCapitalCities, capitalCities);
+        assertEquals(capitalCitiesLength, TEST_N);
+        verify(mockReportHelperClass).getCityReport(queryRegion);
+    }
 
     //----------------------- 4. Unit tests: Population ------------------------------------//
     @Test
@@ -567,6 +896,154 @@ public class AppTest
     }
 
     @Test
+    void testSpecificPopulation_ByWorld_ShouldRetrieve_PopulationInDB_ForWorld()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryWorld = "SELECT COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
+                "FROM city " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode ";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryWorld, "World")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByWorld();
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryWorld, "World");
+    }
+
+    @Test
+    void testSpecificPopulation_ByContinent_ShouldRetrieve_PopulationInDB_ForSpecificContinent()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryContinent = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY country.continent";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryContinent, "Continent")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByContinent(TEST_CONTINENT);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryContinent, "Continent");
+    }
+
+    @Test
+    void testSpecificPopulation_ByRegion_ShouldRetrieve_PopulationInDB_ForSpecificRegion()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryRegion = "SELECT country.Region AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.Region = '" + TEST_REGION + "' " +
+                "GROUP BY country.Region";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryRegion, "Region")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByRegion(TEST_REGION);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryRegion, "Region");
+    }
+
+    @Test
+    void testSpecificPopulation_ByCountry_ShouldRetrieve_PopulationInDB_ForSpecificCountry()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryCountry  = "SELECT country.Name AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Name = '" + TEST_COUNTRY + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.Name = '" + TEST_COUNTRY + "' " +
+                "GROUP BY country.Name";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryCountry, "Country")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByCountry(TEST_COUNTRY);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryCountry, "Country");
+    }
+
+    @Test
+    void testSpecificPopulation_ByDistrict_ShouldRetrieve_PopulationInDB_ForSpecificDistrict()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryDistrict  = "SELECT city.district AS AreaName, COALESCE(SUM(city.population), 0) AS TotalPopulation " +
+                "FROM city " +
+                "WHERE city.district = '" + TEST_DISTRICT + "' " +
+                "GROUP BY city.district";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryDistrict, "District")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByDistrict(TEST_DISTRICT);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryDistrict, "District");
+    }
+
+    @Test
+    void testSpecificPopulation_ByCity_ShouldRetrieve_PopulationInDB_ForSpecificCity()
+    {
+        //Arrange
+        ReportHelper mockReportHelperClass = mock(ReportHelper.class);
+        SpecificPopulation specificPopulation = new SpecificPopulation(mockReportHelperClass);
+        Population expectedPopulation = new Population();
+
+        String queryCity  = "SELECT city.name AS AreaName, city.population AS TotalPopulation " +
+                "FROM city " +
+                "WHERE city.name = '" + TEST_CITY + "' ";
+
+        //Act
+        when(mockReportHelperClass.getSpecificPopulationReport(queryCity, "City")).thenReturn(expectedPopulation);
+        Population population = specificPopulation.ByCity(TEST_CITY);
+
+        //Assert
+        assertEquals(expectedPopulation, population);
+        verify(mockReportHelperClass).getSpecificPopulationReport(queryCity, "City");
+    }
+
+    //----------------------- 6. Unit tests: Languages ------------------------------------//
+    @Test
     void printLanguagesTestNull()
     {
         app.displayLanguages(null);
@@ -622,8 +1099,6 @@ public class AppTest
         assertEquals(expectedLanguages, languages);
         verify(mockReportHelperClass).getLanguageReport(queryWorld);
     }
-
-    //TODO: Tests for SpecificPopulation, TopNCountries, TopNCities, TopNCapitalCities
 
 
 
@@ -873,10 +1348,146 @@ public class AppTest
         assertFalse(populations.isEmpty());
     }
 
+    @Test
+    void testGetSpecificPopulationReport_ShouldFetchPopulationData() throws Exception
+    {
+        // Arrange
+        String populationSqlQuery = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY country.continent";
 
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
 
-    //TODO: Report helper tests for Specific population and languages
-    //Note: make sure the exceptions are also tested to cover the methods as much as possible
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(populationSqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("AreaName")).thenReturn("Africa");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
 
+        // Act
+        Population population = reportHelper.getSpecificPopulationReport(populationSqlQuery, "Continent");
 
+        // Assert
+        assertNotNull(population);
+        assertEquals("Africa", population.areaName);
+    }
+
+    @Test
+    void testGetSpecificPopulationReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String populationSqlQuery = "SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
+                "FROM country " +
+                "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY CountryCode) AS city_population ON country.Code = city_population.CountryCode " +
+                "WHERE country.continent = '" + TEST_CONTINENT + "' " +
+                "GROUP BY country.continent";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(populationSqlQuery)).thenThrow(new SQLException("Failed to get population report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        Population result = reportHelper.getSpecificPopulationReport(populationSqlQuery, "Continent");
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void testGetLanguageReport_ShouldFetchLanguageData() throws Exception
+    {
+        // Arrange
+        String languageSqlQuery = "SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC";
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+        ResultSet mockResultSet = mock(ResultSet.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(languageSqlQuery)).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
+        when(mockResultSet.getString("LanguageName")).thenReturn("Chinese");
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Language> languages = reportHelper.getLanguageReport(languageSqlQuery);
+
+        // Assert
+        assertNotNull(languages);
+        Language language = languages.get(0);
+        assertEquals("Chinese", language.languageName);
+    }
+
+    @Test
+    void testGetLanguageReport_ThrowsSQLException() throws Exception
+    {
+        // Arrange
+        String languageSqlQuery  = "SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC";
+        ;
+
+        Connection mockConnection = mock(Connection.class);
+        Statement mockStatement = mock(Statement.class);
+
+        when(mockStatement.executeQuery(languageSqlQuery)).thenThrow(new SQLException("Failed to get language report"));
+
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+
+        // Act
+        ArrayList<Language> result = reportHelper.getLanguageReport(languageSqlQuery);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void testGetLanguageReportWithSQLException_InResultSet() throws Exception
+    {
+        //Arrange
+        ResultSet mockResultSet = mock(ResultSet.class);
+        Statement mockStatement = mock(Statement.class);
+        Connection mockConnection = mock(Connection.class);
+
+        when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString(anyString())).thenThrow(new SQLException("Data could not be accessed"));
+
+        //Act
+        ReportHelper reportHelper = new ReportHelper(mockConnection);
+        ArrayList<Language> languages = reportHelper.getLanguageReport("SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
+                "From countrylanguage " +
+                "JOIN country ON countrylanguage.CountryCode = country.Code " +
+                "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                "GROUP BY language " +
+                "ORDER BY TotalLanguageSpeakers DESC");
+
+        //Assert
+        assertFalse(languages.isEmpty());
+    }
 }
