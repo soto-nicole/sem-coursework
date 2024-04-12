@@ -43,6 +43,11 @@
 
 
 ### Requirement table 
+
+```text
+There are a total of 32 requirements for this assignment, and 32 of them have been met, which is 100%.
+```
+
 | ID | Name                                                                                                                                       | Met | Screenshot                                                      |
 |----|--------------------------------------------------------------------------------------------------------------------------------------------|-----|-----------------------------------------------------------------|
 | 1  | All the countries in the world organised by largest population to smallest.                                                                | Yes | [View Screenshot](Screenshots/1-AllCountries-ByWorld.png)       |
@@ -78,3 +83,11 @@
 | 31 | Display the total population of people in a city                                                                                           | Yes | x                                                               |
 | 32 | Display the total number of people who speak certain languages in the world, as well as this total as a percentage of the world population | Yes | x                                                               |
 
+
+### Individual Contribution
+
+| Matriculation Number | Code Review 1 | Code Review 2 | Code Review 3 | Final Deliverable |
+|----------------------|---------------|---------------|---------------|-------------------|
+| 40626148             | 50            | 50            | 50            | 50                |
+| 40626170             | 50            | 50            | 50            | 50                |
+| **Total**            | **100**       | **100**       | **100**       | **100**           |
