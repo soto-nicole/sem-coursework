@@ -1529,4 +1529,28 @@ public class AppTest
         action.run();
     }
 
+    @Test
+    public void testDisplayOptions()
+    {
+
+        Index index = new Index();
+        index.displayOptions();
+
+        String expectedOutput = index.generateMenuOptionsText() + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    public void testGetN()
+    {
+        String simulatedUserInput = "5\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(simulatedUserInput.getBytes());
+        Scanner scanner = new Scanner(in);
+
+        Index index = new Index();
+        int result = index.getN(scanner);
+
+        assertEquals(5, result);
+        assertEquals("How many top N would you like to see?:" + System.lineSeparator(), outContent.toString());
+    }
 }
