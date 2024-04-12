@@ -44,38 +44,38 @@ public class Index
         return "=========================================\n" +
                 "|      Welcome to the report system     |\n" +
                 "=========================================\n\n" +
-                "  1) List of countries in the world by population in descending order\n" +
-                "  2) List of countries in a continent by population in descending order\n" +
-                "  3) List of countries in a region by population in descending order\n\n" +
-                "  4) List of cities in the world by population in descending order\n" +
-                "  5) List of cities of a continent by population in descending order\n" +
-                "  6) List of cities in a region by population in descending order\n" +
-                "  7) List of cities in a country by population in descending order\n" +
-                "  8) List of cities in a district by population in descending order\n\n" +
-                "  9) Top populated countries in the world\n" +
-                " 10) Top populated countries in a continent\n" +
-                " 11) Top populated countries in a region\n\n" +
-                " 12) Top populated cities in the world\n" +
-                " 13) Top populated cities in a continent\n" +
-                " 14) Top populated cities in a region\n" +
-                " 15) Top populated cities in a country\n" +
-                " 16) Top populated cities in a district\n\n" +
-                " 17) List of capital cities in the world by population in descending order\n" +
-                " 18) List of capital cities in a continent by population in descending order\n" +
-                " 19) List of capital cities in a region by population in descending order\n\n" +
-                " 20) Top populated capital cities in the world in descending order\n" +
-                " 21) Top populated capital cities in a continent in descending order\n" +
-                " 22) Top populated capital cities in a region in descending order\n\n" +
-                " 23) Total population of people within and outside of cities in each continent\n" +
-                " 24) Total population of people within and outside of cities in each region\n" +
-                " 25) Total population of people within and outside of cities in each country\n\n" +
+                "  1) All the countries in the world by population in descending order\n" +
+                "  2) All the countries in a continent by population in descending order\n" +
+                "  3) All the countries in a region by population in descending order\n\n" +
+                "  4) All the cities in the world by population in descending order\n" +
+                "  5) All the cities of a continent by population in descending order\n" +
+                "  6) All the cities in a region by population in descending order\n" +
+                "  7) All the cities in a country by population in descending order\n" +
+                "  8) All the cities in a district by population in descending order\n\n" +
+                "  9) Top N populated countries in the world in descending order\n" +
+                " 10) Top N populated countries in a continent in descending order\n" +
+                " 11) Top N populated countries in a region in descending order\n\n" +
+                " 12) Top N populated cities in the world in descending order\n" +
+                " 13) Top N populated cities in a continent in descending order\n" +
+                " 14) Top N populated cities in a region in descending order\n" +
+                " 15) Top N populated cities in a country in descending order\n" +
+                " 16) Top N populated cities in a district in descending order\n\n" +
+                " 17) All the capital cities in the world by population in descending order\n" +
+                " 18) All the capital cities in a continent by population in descending order\n" +
+                " 19) All the capital cities in a region by population in descending order\n\n" +
+                " 20) Top N populated capital cities in the world in descending order\n" +
+                " 21) Top N populated capital cities in a continent in descending order\n" +
+                " 22) Top N populated capital cities in a region in descending order\n\n" +
+                " 23) Total population of people, people living within and outside of cities in each continent\n" +
+                " 24) Total population of people, people living within outside of cities in each region\n" +
+                " 25) Total population of people, people living within and outside of cities in each country\n\n" +
                 " 26) Display the total population, population of people within and outside of cities in the world\n" +
                 " 27) Display the total population, population of people within and outside of cities in a continent\n" +
                 " 28) Display the total population, population of people within and outside of cities in a region\n" +
                 " 29) Display the total population, population of people within and outside of cities in a country\n" +
                 " 30) Display the total population of people in a district\n" +
                 " 31) Display the total population of people in a city\n" +
-                " 32) Display the total number of people who speak certain languages in the world, as well as this total as a percentage of the world population";
+                " 32) Display the total number of people who speak certain languages in the world and as a total percentage of the world population, in descending order of total speakers";
     }
 
 
