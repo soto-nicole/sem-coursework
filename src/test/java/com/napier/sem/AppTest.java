@@ -6,14 +6,23 @@ import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
 import com.napier.sem.Models.Population;
 import com.napier.sem.Models.Language;
+import com.napier.sem.View.Index;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -25,12 +34,26 @@ public class AppTest
     static final String TEST_DISTRICT = "Buenos Aires";
     static final String TEST_CITY = "Seoul";
     static final int TEST_N = 5;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
     static  App app;
 
     @BeforeAll
     static void init()
     {
         app = new App();
+    }
+
+    @BeforeEach
+    public void setUpStreams()
+    {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterEach
+    public void restoreStreams()
+    {
+        System.setOut(originalOut);
     }
 
     //----------------------- 1. Unit tests: Countries ------------------------------------//
@@ -1449,7 +1472,6 @@ public class AppTest
                 "WHERE language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
                 "GROUP BY language " +
                 "ORDER BY TotalLanguageSpeakers DESC";
-        ;
 
         Connection mockConnection = mock(Connection.class);
         Statement mockStatement = mock(Statement.class);
@@ -1478,7 +1500,7 @@ public class AppTest
         when(mockResultSet.next()).thenReturn(true, false);
         when(mockResultSet.getString(anyString())).thenThrow(new SQLException("Data could not be accessed"));
 
-        //Act
+        // Act
         ReportHelper reportHelper = new ReportHelper(mockConnection);
         ArrayList<Language> languages = reportHelper.getLanguageReport("SELECT language as LanguageName, SUM(ROUND(country.population * (percentage/100))) as TotalLanguageSpeakers, (SUM(ROUND(country.population * (percentage/100))) / (SELECT SUM(population) from country) * 100) as WorldPercentage " +
                 "From countrylanguage " +
@@ -1490,4 +1512,21 @@ public class AppTest
         //Assert
         assertFalse(languages.isEmpty());
     }
+
+    @Test
+    void testGetUserOptionValidInput()
+    {
+        //Arrange
+        App mockApp = mock(App.class);
+        Scanner mockScanner = new Scanner(new ByteArrayInputStream("5\n".getBytes()));
+        Index index = new Index();
+
+        //Act
+        Runnable action = index.getUserOption(mockApp, "1", mockScanner);
+
+        //Assert
+        assertNotNull(action);
+        action.run();
+    }
+
 }
