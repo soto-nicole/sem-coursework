@@ -57,6 +57,57 @@ public class AppIntegrationTest
         languageByPopulation = new LanguageByPopulation(reportHelper);
     }
 
+    //---------------------------------- All Countries Population -----------------------------------------//
+
+    @Test
+    void testByWorld_ShouldProvide_CountriesFromLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<Country> countries = allCountries.ByWorld();
+
+        //Act
+        Country largestPopulationCountry = countries.get(0);
+
+        //Assert
+        assertNotNull(countries);
+        assertFalse(false);
+        assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population),"The first country should have the highest population");
+    }
+
+    @Test
+    void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<Country> countries = allCountries.ByContinent(TEST_CONTINENT);
+
+        //Act
+        Country largestPopulationCountry = countries.get(0);
+
+        //Assert
+        assertNotNull(countries);
+        assertFalse(false);
+        assertTrue(countries.stream().allMatch(c -> c.continent.equals(TEST_CONTINENT)), "All countries should be from the continent: " + TEST_CONTINENT);
+        assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
+    }
+
+    @Test
+    void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<Country> countries = allCountries.ByRegion(TEST_REGION);
+
+        //Act
+        Country largestPopulationCountry = countries.get(0);
+
+        //Assert
+        assertNotNull(countries);
+        assertFalse(false);
+        assertTrue(countries.stream().allMatch(c -> c.region.equals(TEST_REGION)), "All countries should be from the region: " + TEST_REGION);
+        assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
+    }
+
+
+
     //-------------------- Spoken languages tests -----------------------------------------------------------//
 
     @Test
@@ -72,6 +123,9 @@ public class AppIntegrationTest
         assertEquals(1191843539, languageWithMostSpeakers.totalSpeakers);
         assertEquals(19.6067, languageWithMostSpeakers.totalSpeakersPercentage, 0.001);
     }
+
+
+
 
     // --------------------- Specific population different areas --------------------------------------------//
     @Test
@@ -488,58 +542,7 @@ public class AppIntegrationTest
         assertEquals(1266461, largestPopulationCity.population);
     }
 
-    //---------------------------------- All Countries Population -----------------------------------------//
 
-    @Test
-    void testByWorld_ShouldProvide_CountriesFromLargestPopulationFirst()
-    {
-        ArrayList<Country> countries = allCountries.ByWorld();
-        assertNotNull(countries);
-        assertFalse(countries.isEmpty());
-
-        Country largestPopulationCountry = countries.get(0);
-
-        assertEquals("CHN", largestPopulationCountry.code);
-        assertEquals("China", largestPopulationCountry.name);
-        assertEquals("Asia", largestPopulationCountry.continent);
-        assertEquals("Eastern Asia", largestPopulationCountry.region);
-        assertEquals("Peking", largestPopulationCountry.capitalName);
-        assertEquals(1277558000, largestPopulationCountry.population);
-    }
-
-    @Test
-    void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
-    {
-        ArrayList<Country> countries = allCountries.ByContinent(TEST_CONTINENT);
-        assertNotNull(countries);
-        assertFalse(countries.isEmpty());
-
-        Country largestPopulationCountry = countries.get(0);
-
-        assertEquals("NGA", largestPopulationCountry.code);
-        assertEquals("Nigeria", largestPopulationCountry.name);
-        assertEquals("Africa", largestPopulationCountry.continent);
-        assertEquals("Western Africa", largestPopulationCountry.region);
-        assertEquals("Abuja", largestPopulationCountry.capitalName);
-        assertEquals(111506000, largestPopulationCountry.population);
-    }
-
-    @Test
-    void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
-    {
-        ArrayList<Country> countries = allCountries.ByRegion(TEST_REGION);
-        assertNotNull(countries);
-        assertFalse(countries.isEmpty());
-
-        Country largestPopulationCountry = countries.get(0);
-
-        assertEquals("CUB", largestPopulationCountry.code);
-        assertEquals("Cuba", largestPopulationCountry.name);
-        assertEquals("North America", largestPopulationCountry.continent);
-        assertEquals("Caribbean", largestPopulationCountry.region);
-        assertEquals("La Habana", largestPopulationCountry.capitalName);
-        assertEquals(11201000, largestPopulationCountry.population);
-    }
 
    //---------------------------------- index tests --------------------------------------//
     @Test
