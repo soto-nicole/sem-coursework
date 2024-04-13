@@ -1381,7 +1381,10 @@ public class AppTest
 
 
     //----------------------- Report Helper tests  ------------------------------------//
-    //1. Test to ensure that the getCountryReport method in the ReportHelper class is correctly fetching the country data from the database and transforming it into a list of Country objects
+
+    /**
+     * 1. Test to ensure that the getCountryReport method in the ReportHelper class is correctly fetching the country data from the database and transforming it into a list of Country objects
+     */
     @Test
     void testGetCountryReport_ShouldFetchCountryData() throws Exception
     {
@@ -1410,7 +1413,9 @@ public class AppTest
         assertEquals("USA", country.code);
     }
 
-    //2. Test for SQL exception
+    /**
+     * 2. Test to ensure that the getCountryReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetCountryReport_ThrowsSQLException() throws Exception
     {
@@ -1434,7 +1439,9 @@ public class AppTest
         assertNull(result);
     }
 
-    //3. SQL Exception when extracting ResultSet
+    /**
+     * 3. Test to ensure that the getCountryReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetCountryReportWithSQLException_InResultSet() throws Exception
     {
@@ -1459,6 +1466,9 @@ public class AppTest
         assertFalse(countries.isEmpty());
     }
 
+    /**
+     * Test to ensure that the getCityReport method in the ReportHelper class is correctly fetching the City data from the database and transforming it into a list of City objects
+     */
     @Test
     void testGetCityReport_ShouldFetchCityData() throws Exception
     {
@@ -1487,6 +1497,9 @@ public class AppTest
         assertEquals("London", city.name);
     }
 
+    /**
+     * Test to ensure that the getCityReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetCityReport_ThrowsSQLException() throws Exception
     {
@@ -1510,6 +1523,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getCityReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetCityReportWithSQLException_InResultSet() throws Exception
     {
@@ -1531,6 +1547,9 @@ public class AppTest
         assertFalse(cities.isEmpty());
     }
 
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class is correctly fetching the Population data from the database and transforming it into a list of Population objects
+     */
     @Test
     void testGetPopulationReport_ShouldFetchPopulationData() throws Exception
     {
@@ -1560,6 +1579,10 @@ public class AppTest
         Population population = populations.get(0);
         assertEquals("Europe", population.areaName);
     }
+
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetPopulationReport_ThrowsSQLException() throws Exception
     {
@@ -1586,6 +1609,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetPopulationReportWithSQLException_InResultSet() throws Exception
     {
@@ -1612,6 +1638,9 @@ public class AppTest
         assertFalse(populations.isEmpty());
     }
 
+    /**
+     * Test to ensure that the getSpecificPopulationReport method in the ReportHelper class is correctly fetching the Population data from the database and transforming it into a Population object
+     */
     @Test
     void testGetSpecificPopulationReport_ShouldFetchPopulationData() throws Exception
     {
@@ -1644,6 +1673,9 @@ public class AppTest
         assertEquals("Africa", population.areaName);
     }
 
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetSpecificPopulationReport_ThrowsSQLException() throws Exception
     {
@@ -1673,6 +1705,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getLanguageReport method in the ReportHelper class is correctly fetching the Language data from the database and transforming it into a list of Language objects
+     */
     @Test
     void testGetLanguageReport_ShouldFetchLanguageData() throws Exception
     {
@@ -1703,6 +1738,9 @@ public class AppTest
         assertEquals("Chinese", language.languageName);
     }
 
+    /**
+     * Test to ensure that the getLanguageReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetLanguageReport_ThrowsSQLException() throws Exception
     {
@@ -1728,6 +1766,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getLanguageReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetLanguageReportWithSQLException_InResultSet() throws Exception
     {
@@ -1754,6 +1795,9 @@ public class AppTest
         assertFalse(languages.isEmpty());
     }
 
+    /**
+     * Test which mocks user input to ensure the Index.getUserOption() method takes the correct mock input and runs the resulting action
+     */
     @Test
     void testGetUserOptionValidInput()
     {
@@ -1770,6 +1814,9 @@ public class AppTest
         action.run();
     }
 
+    /**
+     * Tests that the Index.displayOptions() method returns the correct console output to display the user's options
+     */
     @Test
     public void testDisplayOptions()
     {
@@ -1781,6 +1828,9 @@ public class AppTest
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Tests that the Index.GetN(scanner) method correctly takes the user's numeric input
+     */
     @Test
     public void testGetN()
     {
