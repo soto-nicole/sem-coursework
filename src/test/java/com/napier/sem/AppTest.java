@@ -921,18 +921,28 @@ public class AppTest
     }
 
     //----------------------- 4. Unit tests: Population ------------------------------------//
+    /**
+     * Tests that the displayPopulations() method handles null input without error
+     */
     @Test
     void printPopulationsTestNull()
     {
         app.displayPopulations(null);
     }
 
+    /**
+     * Tests that the displayPopulations() method handles an empty array input without error
+     */
     @Test
     void printPopulationsTestEmpty()
     {
         ArrayList<Population> populations = new ArrayList<>();
         app.displayPopulations(populations);
     }
+
+    /**
+     * Tests that the displayPopulations() method handles an array which contains a null value without error
+     */
     @Test
     void printPopulationsTestContainsNull()
     {
@@ -941,6 +951,9 @@ public class AppTest
         app.displayPopulations(populations);
     }
 
+    /**
+     * Tests that the displayPopulations() method successfully prints Population array objects to the console
+     */
     @Test
     void printPopulations()
     {
@@ -957,6 +970,10 @@ public class AppTest
         app.displayPopulations(populations);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllPopulations.ByContinent() method successfully returns Population object(s) after a query
+     */
     @Test
     void testAllPopulation_ByContinent_ShouldRetrieve_AllPopulationInDB()
     {
@@ -982,6 +999,10 @@ public class AppTest
         verify(mockReportHelperClass).getPopulationReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllPopulations.ByRegion() method successfully returns Population object(s) after a query
+     */
     @Test
     void testAllPopulation_ByRegion_ShouldRetrieve_AllPopulationInDB_ForSpecificContinent()
     {
@@ -1007,6 +1028,10 @@ public class AppTest
         verify(mockReportHelperClass).getPopulationReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllPopulations.ByCountry() method successfully returns Population object(s) after a query
+     */
     @Test
     void testAllPopulation_ByCountry_ShouldRetrieve_AllPopulationInDB_ForSpecificRegion()
     {
@@ -1032,14 +1057,20 @@ public class AppTest
         verify(mockReportHelperClass).getPopulationReport(queryRegion);
     }
 
-
     //----------------------- 5. Unit tests: Specific Population ------------------------------------//
+
+    /**
+     * Tests that the displaySpecificPopulation () method handles null input without error
+     */
     @Test
     void printSpecificPopulationTestNull()
     {
         app.displaySpecificPopulation(null, "World");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles an empty Population object without error
+     */
     @Test
     void printSpecificPopulationTestEmpty()
     {
@@ -1047,6 +1078,9 @@ public class AppTest
         app.displaySpecificPopulation(population, "World");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles a District query and successfully prints a Population object to the console
+     */
     @Test
     void printSpecificPopulationDistrict()
     {
@@ -1055,6 +1089,9 @@ public class AppTest
         app.displaySpecificPopulation(population, "District");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles a City query and successfully prints a Population object to the console
+     */
     @Test
     void printSpecificPopulationCity()
     {
@@ -1063,6 +1100,9 @@ public class AppTest
         app.displaySpecificPopulation(population, "City");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles a Country query and successfully prints a Population object to the console
+     */
     @Test
     void printSpecificPopulation()
     {
@@ -1077,6 +1117,10 @@ public class AppTest
         app.displaySpecificPopulation(population, "Country");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByWorld() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByWorld_ShouldRetrieve_PopulationInDB_ForWorld()
     {
@@ -1100,6 +1144,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryWorld, "World");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByContinent() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByContinent_ShouldRetrieve_PopulationInDB_ForSpecificContinent()
     {
@@ -1127,6 +1175,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryContinent, "Continent");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByRegion() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByRegion_ShouldRetrieve_PopulationInDB_ForSpecificRegion()
     {
@@ -1154,6 +1206,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryRegion, "Region");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByCountry() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByCountry_ShouldRetrieve_PopulationInDB_ForSpecificCountry()
     {
@@ -1181,6 +1237,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryCountry, "Country");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByDistrict() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByDistrict_ShouldRetrieve_PopulationInDB_ForSpecificDistrict()
     {
@@ -1203,6 +1263,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryDistrict, "District");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByCity() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByCity_ShouldRetrieve_PopulationInDB_ForSpecificCity()
     {
