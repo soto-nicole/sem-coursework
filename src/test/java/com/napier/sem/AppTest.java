@@ -28,28 +28,64 @@ import static org.mockito.Mockito.*;
 
 public class AppTest
 {
+    /**
+     * Defines a static continent name to help test methods
+     */
     static final String TEST_CONTINENT = "Africa";
+    /**
+     * Defines a static region name to help test methods
+     */
     static final String TEST_REGION = "Caribbean";
+    /**
+     * Defines a static country name to help test methods
+     */
     static final String TEST_COUNTRY = "Spain";
+    /**
+     * Defines a static district name to help test methods
+     */
     static final String TEST_DISTRICT = "Buenos Aires";
+    /**
+     * Defines a static city name to help test methods
+     */
     static final String TEST_CITY = "Seoul";
+    /**
+     * Defines a static value for "N", mimicking user input, to help test methods
+     */
     static final int TEST_N = 5;
+    /**
+     * Defines a byte array output stream, to help test methods which print to the console.
+     */
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    /**
+     * Defines a print stream, to help test methods which print to the console.
+     */
     private final PrintStream originalOut = System.out;
-    static  App app;
+    /**
+     * Defines a new instance of the App class
+     */
+    static App app;
 
+    /**
+     * Before each test is run, create an instance of app to test with
+     */
     @BeforeAll
     static void init()
     {
         app = new App();
     }
 
+    /**
+     * Before each test is run, set up the streams which help the test print to the console.
+     */
     @BeforeEach
     public void setUpStreams()
     {
         System.setOut(new PrintStream(outContent));
     }
 
+    /**
+     * After each test is run, remove the print stream that was set
+     */
     @AfterEach
     public void restoreStreams()
     {
@@ -57,18 +93,29 @@ public class AppTest
     }
 
     //----------------------- 1. Unit tests: Countries ------------------------------------//
+
+    /**
+     * Tests that the displayCountries() method handles null input without error
+     */
     @Test
     void printCountriesTestNull()
     {
         app.displayCountries(null);
     }
 
+    /**
+     * Tests that the displayCountries() method handles an empty array input without error
+     */
     @Test
     void printCountriesTestEmpty()
     {
         ArrayList<Country> countries = new ArrayList<>();
         app.displayCountries(countries);
     }
+
+    /**
+     * Tests that the displayCountries() method handles an array which contains a null value without error
+     */
     @Test
     void printCountriesTestContainsNull()
     {
@@ -77,6 +124,9 @@ public class AppTest
         app.displayCountries(countries);
     }
 
+    /**
+     * Tests that the displayCountries() method successfully prints Country array objects to the console
+     */
     @Test
     void printCountries()
     {
@@ -93,6 +143,10 @@ public class AppTest
         app.displayCountries(countries);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCountries.ByWorld() method successfully returns Country object(s) after a query
+     */
     @Test
     void testAllCountries_ByWorld_ShouldRetrieve_AllCountriesInDB()
     {
@@ -116,6 +170,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCountries.ByContinent() method successfully returns Country object(s) after a query
+     */
     @Test
     void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinent()
     {
@@ -140,6 +198,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCountries.ByRegion() method successfully returns Country object(s) after a query
+     */
     @Test
     void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegion()
     {
@@ -164,6 +226,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCountries.ByWorld() method successfully returns the correct number of Country object(s) after a query
+     */
     @Test
     void testTopNCountries_ByWorld_ShouldRetrieve_TopNCountriesInDB()
     {
@@ -193,6 +259,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCountries.ByContinent() method successfully returns the correct number of Country object(s) after a query
+     */
     @Test
     void testTopNCountries_ByContinent_ShouldRetrieve_TopNCountriesInDB_ForSpecificContinent()
     {
@@ -223,6 +293,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCountries.ByRegion() method successfully returns the correct number of Country object(s) after a query
+     */
     @Test
     void testTopNCountries_ByRegion_ShouldRetrieve_TopNCountriesInDB_ForSpecificRegion()
     {
@@ -252,7 +326,6 @@ public class AppTest
         assertEquals(countriesLength, TEST_N);
         verify(mockReportHelperClass).getCountryReport(queryRegion);
     }
-
 
     //----------------------- 2. Unit tests: Cities ------------------------------------//
     @Test
