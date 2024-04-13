@@ -328,12 +328,19 @@ public class AppTest
     }
 
     //----------------------- 2. Unit tests: Cities ------------------------------------//
+
+    /**
+     * Tests that the displayCities() method handles null input without error
+     */
     @Test
     void printCitiesTestNull()
     {
         app.displayCities(null);
     }
 
+    /**
+     * Tests that the displayCities() method handles an empty array input without error
+     */
     @Test
     void printCitiesTestEmpty()
     {
@@ -341,6 +348,9 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    /**
+     * Tests that the displayCities() method handles an array which contains a null value without error
+     */
     @Test
     void printCitiesTestContainsNull()
     {
@@ -349,6 +359,9 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    /**
+     * Tests that the displayCities() method successfully prints City array objects to the console
+     */
     @Test
     void displayCities()
     {
@@ -363,6 +376,10 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByWorld() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByWorld_ShouldRetrieve_AllCitiesInDB()
     {
@@ -386,6 +403,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByContinent() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByContinent_ShouldRetrieve_AllCitiesInDB_ForSpecificContinent()
     {
@@ -410,6 +431,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByRegion() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByRegion_ShouldRetrieve_AllCitiesInDB_ForSpecificRegion()
     {
@@ -418,7 +443,6 @@ public class AppTest
         AllCities allCities = new AllCities(mockReportHelperClass);
         ArrayList<City> expectedCities = new ArrayList<>();
         expectedCities.add(new City());
-
 
         String queryRegion = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
@@ -435,6 +459,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByCountry() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByCountry_ShouldRetrieve_AllCitiesInDB_ForSpecificCountry()
     {
@@ -443,7 +471,6 @@ public class AppTest
         AllCities allCities = new AllCities(mockReportHelperClass);
         ArrayList<City> expectedCities = new ArrayList<>();
         expectedCities.add(new City());
-
 
         String queryCountry = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
@@ -460,6 +487,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryCountry);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByDistrict() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByDistrict_ShouldRetrieve_AllCitiesInDB_ForSpecificDistrict()
     {
@@ -468,7 +499,6 @@ public class AppTest
         AllCities allCities = new AllCities(mockReportHelperClass);
         ArrayList<City> expectedCities = new ArrayList<>();
         expectedCities.add(new City());
-
 
         String queryDistrict = "SELECT city.Name, city.District, city.Population, country.Name as CountryName " +
                 "FROM city " +
@@ -485,6 +515,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryDistrict);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByWorld() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByWorld_ShouldRetrieve_TopNCitiesInDB()
     {
@@ -514,6 +548,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByContinent() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByContinent_ShouldRetrieve_TopNCitiesInDB_ForSpecificContinent()
     {
@@ -544,6 +582,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByRegion() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByRegion_ShouldRetrieve_TopNCitiesInDB_ForSpecificRegion()
     {
@@ -574,6 +616,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByCountry() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByCountry_ShouldRetrieve_TopNCitiesInDB_ForSpecificCountry()
     {
@@ -604,6 +650,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryCountry);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByDistrict() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByDistrict_ShouldRetrieve_TopNCitiesInDB_ForSpecificDistrict()
     {
