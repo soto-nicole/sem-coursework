@@ -684,18 +684,28 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryDistrict);
     }
     //----------------------- 3. Unit tests: Capital Cities ------------------------------------//
+    /**
+     * Tests that the displayCapitalCities() method handles null input without error
+     */
     @Test
     void printCapitalCitiesTestNull()
     {
         app.displayCapitalCities(null);
     }
 
+    /**
+     * Tests that the displayCapitalCities() method handles an empty array input without error
+     */
     @Test
     void printCapitalCitiesTestEmpty()
     {
         ArrayList<City> capitalCities = new ArrayList<>();
         app.displayCapitalCities(capitalCities);
     }
+
+    /**
+     * Tests that the displayCapitalCities() method handles an array which contains a null value without error
+     */
     @Test
     void printCapitalCitiesTestContainsNull()
     {
@@ -704,6 +714,9 @@ public class AppTest
         app.displayCapitalCities(capitalCities);
     }
 
+    /**
+     * Tests that the displayCapitalCities() method successfully prints City array objects to the console
+     */
     @Test
     void printCapitalCities()
     {
@@ -714,10 +727,13 @@ public class AppTest
         capitalCity.population = 1780000;
         capitalCities.add(capitalCity);
 
-
         app.displayCapitalCities(capitalCities);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCapitalCities.ByWorld() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCapitalCities_ByWorld_ShouldRetrieve_AllCapitalCitiesInDB()
     {
@@ -742,6 +758,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCapitalCities.ByContinent() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCapitalCities_ByContinent_ShouldRetrieve_AllCapitalCitiesInDB_ForSpecificContinent()
     {
@@ -767,6 +787,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCapitalCities.ByRegion() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCapitalCities_ByRegion_ShouldRetrieve_AllCapitalCitiesInDB_ForSpecificRegion()
     {
@@ -792,6 +816,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCapitalCities.ByWorld() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCapitalCities_ByWorld_ShouldRetrieve_TopNCapitalCitiesInDB()
     {
@@ -822,6 +850,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCapitalCities.ByContinent() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCapitalCities_ByContinent_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificContinent()
     {
@@ -853,6 +885,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCapitalCities.ByRegion() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCapitalCities_ByRegion_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificRegion()
     {
