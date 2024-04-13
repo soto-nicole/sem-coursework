@@ -73,27 +73,27 @@
 ## Code Review 3 (Other 50% of features in any order):
 
 ### Population Within and Outwith Cities Queries
-- [ ] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each continent.
-- [ ] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each region.
-- [ ] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each country.
+- [x] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each continent.
+- [x] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each region.
+- [x] Implement query to retrieve the population of people, people living in cities, and people not living in cities in each country.
 --------------------------------------------------------
 ### Population Within and Outwith Cities Unit Tests
-- [ ] Create unit tests for displaying population of people, people living in cities, and people not living in cities
+- [x] Create unit tests for displaying population of people, people living in cities, and people not living in cities
 --------------------------------------------------------
 
 ### General Population Queries
-- [ ] Implement query to retrieve the population of the world.
-- [ ] Implement query to retrieve the population of a continent.
-- [ ] Implement query to retrieve the population of a region.
-- [ ] Implement query to retrieve the population of a country.
-- [ ] Implement query to retrieve the population of a district.
-- [ ] Implement query to retrieve the population of a city.
+- [x] Implement query to retrieve the population of the world.
+- [x] Implement query to retrieve the population of a continent.
+- [x] Implement query to retrieve the population of a region.
+- [x] Implement query to retrieve the population of a country.
+- [x] Implement query to retrieve the population of a district.
+- [x] Implement query to retrieve the population of a city.
 --------------------------------------------------------
 ### General Population Unit Tests
-- [ ] Create unit tests for displaying the population of a specific area
+- [x] Create unit tests for displaying the population of a specific area
 --------------------------------------------------------
 ### Spoken Language Query
-- [ ] Implement query to retrieve the number of people who speak the following languages from the greatest number to smallest, including the percentage of the world population:
+- [x] Implement query to retrieve the number of people who speak the following languages from the greatest number to smallest, including the percentage of the world population:
     - Chinese.
     - English.
     - Hindi.
@@ -101,59 +101,59 @@
     - Arabic.
 --------------------------------------------------------
 ### Spoken Languages Unit Tests
-- [ ] Create unit tests for displaying the number of people who speak certain languages from the greatest number to smallest, including the percentage of the world population.
+- [x] Create unit tests for displaying the number of people who speak certain languages from the greatest number to smallest, including the percentage of the world population.
 - --------------------------------------------------------
 ### All Countries Integration Tests
-- [ ] Create integration tests for all countries with largest to smallest population in the world
-- [ ] Create integration tests for all countries in a continent with largest to smallest population
-- [ ] Create integration tests for all the countries in a region organised by lcargest population to smallest.
+- [x] Create integration tests for all countries with largest to smallest population in the world
+- [x] Create integration tests for all countries in a continent with largest to smallest population
+- [x] Create integration tests for all the countries in a region organised by lcargest population to smallest.
 --------------------------------------------------------
 ### Top N Populated Countries Integration Tests
-- [ ] Create integration tests for the top N populated countries in the world where N is provided by the user.
-- [ ] Create integration tests for the top N populated countries in a continent where N is provided by the user.
-- [ ] Create integration tests for the top N populated countries in a region where N is provided by the user.
+- [x] Create integration tests for the top N populated countries in the world where N is provided by the user.
+- [x] Create integration tests for the top N populated countries in a continent where N is provided by the user.
+- [x] Create integration tests for the top N populated countries in a region where N is provided by the user.
 --------------------------------------------------------
 ### All Cities Integration Tests
-- [ ] Create integration tests for all the cities in the world organised by largest population to smallest.
-- [ ] Create integration tests for all the cities in a continent organised by largest population to smallest.
-- [ ] Create integration tests for all the cities in a region organised by largest population to smallest.
-- [ ] Create integration tests for all the cities in a country organised by largest population to smallest.
-- [ ] Create integration tests for all the cities in a district organised by largest population to smallest.
+- [x] Create integration tests for all the cities in the world organised by largest population to smallest.
+- [x] Create integration tests for all the cities in a continent organised by largest population to smallest.
+- [x] Create integration tests for all the cities in a region organised by largest population to smallest.
+- [x] Create integration tests for all the cities in a country organised by largest population to smallest.
+- [x] Create integration tests for all the cities in a district organised by largest population to smallest.
 --------------------------------------------------------
 ### Top N Populated Cities Integration Tests
-- [ ] Create integration tests for the top N populated cities in the world where N is provided by the user.
-- [ ] Create integration tests for the top N populated cities in a continent where N is provided by the user.
-- [ ] Create integration tests for the top N populated cities in a region where N is provided by the user.
-- [ ] Create integration tests for the top N populated cities in a country where N is provided by the user.
-- [ ] Create integration tests for the top N populated cities in a district where N is provided by the user.
+- [x] Create integration tests for the top N populated cities in the world where N is provided by the user.
+- [x] Create integration tests for the top N populated cities in a continent where N is provided by the user.
+- [x] Create integration tests for the top N populated cities in a region where N is provided by the user.
+- [x] Create integration tests for the top N populated cities in a country where N is provided by the user.
+- [x] Create integration tests for the top N populated cities in a district where N is provided by the user.
 --------------------------------------------------------
 ### All Capital Cities Integration Tests
-- [ ] Create integration tests for all the capital cities in the world organised by largest population to smallest.
-- [ ] Create integration tests for all the capital cities in a continent organised by largest population to smallest.
-- [ ] Create integration tests for all the capital cities in a region organised by largest to smallest.
+- [x] Create integration tests for all the capital cities in the world organised by largest population to smallest.
+- [x] Create integration tests for all the capital cities in a continent organised by largest population to smallest.
+- [x] Create integration tests for all the capital cities in a region organised by largest to smallest.
 --------------------------------------------------------
 ### Top N Populated Capital Cities Integration Tests
-- [ ] Create integration tests for the top N populated capital cities in the world where N is provided by the user.
-- [ ] Create integration tests for the top N populated capital cities in a continent where N is provided by the user.
-- [ ] Create integration tests for the top N populated capital cities in a region where N is provided by the user.
+- [x] Create integration tests for the top N populated capital cities in the world where N is provided by the user.
+- [x] Create integration tests for the top N populated capital cities in a continent where N is provided by the user.
+- [x] Create integration tests for the top N populated capital cities in a region where N is provided by the user.
 --------------------------------------------------------
 ### Population Within and Outwith Cities Integration Tests
-- [ ] Create integration tests for the population of people, people living in cities, and people not living in cities in each continent.
-- [ ] Create integration tests for the population of people, people living in cities, and people not living in cities in each region.
-- [ ] Create integration tests for the population of people, people living in cities, and people not living in cities in each country.
+- [x] Create integration tests for the population of people, people living in cities, and people not living in cities in each continent.
+- [x] Create integration tests for the population of people, people living in cities, and people not living in cities in each region.
+- [x] Create integration tests for the population of people, people living in cities, and people not living in cities in each country.
 --------------------------------------------------------
 ### General Population Integration Tests
-- [ ] Create integration tests for the population of the world.
-- [ ] Create integration tests for the population of a continent.
-- [ ] Create integration tests for the population of a region.
-- [ ] Create integration tests for the population of a country.
-- [ ] Create integration tests for the population of a district.
-- [ ] Create integration tests for the population of a city.
+- [x] Create integration tests for the population of the world.
+- [x] Create integration tests for the population of a continent.
+- [x] Create integration tests for the population of a region.
+- [x] Create integration tests for the population of a country.
+- [x] Create integration tests for the population of a district.
+- [x] Create integration tests for the population of a city.
 --------------------------------------------------------
 ### Spoken Language Integration Tests
-- [ ] Create integration tests for the number of people who speak the certain languages from the greatest number to smallest, including the percentage of the world population.
+- [x] Create integration tests for the number of people who speak the certain languages from the greatest number to smallest, including the percentage of the world population.
 
 --------------------------------------------------------
 ### General 
-- [ ] Set up bug reporting system
-- [ ] Deploy application
+- [x] Set up bug reporting system
+- [x] Deploy application
