@@ -1289,18 +1289,28 @@ public class AppTest
     }
 
     //----------------------- 6. Unit tests: Languages ------------------------------------//
+    /**
+     * Tests that the displayLanguages() method handles null input without error
+     */
     @Test
     void printLanguagesTestNull()
     {
         app.displayLanguages(null);
     }
 
+    /**
+     * Tests that the displayLanguages() method handles an empty array input without error
+     */
     @Test
     void printLanguagesTestEmpty()
     {
         ArrayList<Language> languages = new ArrayList<>();
         app.displayLanguages(languages);
     }
+
+    /**
+     * Tests that the displayLanguages() method handles an array which contains a null value without error
+     */
     @Test
     void printLanguagesTestContainsNull()
     {
@@ -1309,6 +1319,9 @@ public class AppTest
         app.displayLanguages(languages);
     }
 
+    /**
+     * Tests that the displayLanguages() method successfully prints Language array objects to the console
+     */
     @Test
     void printLanguages()
     {
@@ -1321,6 +1334,11 @@ public class AppTest
 
         app.displayLanguages(languages);
     }
+
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the LanguageByPopulation.ByWorld() method successfully returns Language object(s) after a query
+     */
     @Test
     void testByWorld_ShouldRetrieve_LanguagesInDB()
     {
