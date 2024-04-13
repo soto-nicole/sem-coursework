@@ -6,13 +6,20 @@ import java.util.ArrayList;
 
 public class AllCities
 {
+    private final ReportHelper reportHelper;
+
+    public AllCities(ReportHelper reportHelper)
+    {
+        this.reportHelper = reportHelper;
+    }
+
     /**
      * Gets a list of all the cities in the world by their population number in descending order
      * @return ArrayList that contains City objects in the world with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByWorld()
+    public ArrayList<City> ByWorld()
     {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "ORDER BY city.Population DESC");
@@ -23,9 +30,9 @@ public class AllCities
      * @param continent is the name of the continent from which cities are being fetched from the db
      * @return ArrayList that contains City objects in the specific Continent with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByContinent(String continent)
+    public ArrayList<City> ByContinent(String continent)
     {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Continent = '" + continent + "' " +
@@ -37,9 +44,9 @@ public class AllCities
      * @param region is the name of the region from which cities are being fetched from the db
      * @return ArrayList that contains City objects in the specific region with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByRegion(String region)
+    public ArrayList<City> ByRegion(String region)
     {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Region = '" + region + "' " +
@@ -51,9 +58,9 @@ public class AllCities
      * @param countryName is the name of the country from which to get the list of cities
      * @return An ArrayList of City objects representing the cities in the specific country with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByCountry(String countryName)
+    public ArrayList<City> ByCountry(String countryName)
     {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Name = '" + countryName + "' " +
@@ -65,15 +72,12 @@ public class AllCities
      * @param districtName is the name of the district for which to get the list of cities
      * @return An ArrayList of City objects representing the cities in the specific district with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByDistrict(String districtName)
+    public ArrayList<City> ByDistrict(String districtName)
     {
-        return ReportHelper.getCityReport("SELECT city.Name, city.District, city.Population, country.Name as CountryName " +
+        return reportHelper.getCityReport("SELECT city.Name, city.District, city.Population, country.Name as CountryName " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE city.District = '" + districtName + "' " +
                 "ORDER BY city.Population DESC");
-
-        //TODO: Investigate quirk where the district  Cordoba shows up two different countries - might be a db issue. unless we let the user input
-        // for which country they need
     }
 }

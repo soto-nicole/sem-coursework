@@ -1,11 +1,14 @@
 package com.napier.sem;
 import com.napier.sem.Models.City;
 import com.napier.sem.Models.Country;
+import com.napier.sem.Models.Language;
+import com.napier.sem.Models.Population;
 import com.napier.sem.Utils.DatabaseUtil;
 import com.napier.sem.View.Index;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class App
@@ -22,6 +25,8 @@ public class App
         {
             DatabaseUtil.connect(args[0], Integer.parseInt(args[1]));
         }
+        Index index = new Index();
+
 
         boolean continueLoop = true;
         boolean isDefaultOption = false;
@@ -33,7 +38,7 @@ public class App
 
         while (continueLoop)
         {
-            Index.displayOptions();
+            index.displayOptions();
             System.out.println("Select the number you wish to see the report for or press 0 to quit:");
 
             String choice = null;
@@ -80,7 +85,7 @@ public class App
 
             else
             {
-                Runnable action = Index.getUserOption(app, choice, scanner);
+                Runnable action = index.getUserOption(app, choice, scanner);
                 action.run();
 
                 if (isDefaultOption)
@@ -167,10 +172,86 @@ public class App
                     capitalCity.name, capitalCity.countryCode, capitalCity.population);
             System.out.println(capitalCityString);
         }
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+    /**
+     * Displays the population details in a formatted table
+     * @param populations The list of Population objects that will be displayed
+     */
+    public void displayPopulations(ArrayList<Population> populations)
+    {
+        if (populations == null)
+        {
+            System.out.println("No populations");
+            return;
+        }
+
+        System.out.printf("%-45s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+
+        for (Population population : populations)
+        {
+            if (population == null) continue;
+            String populationString = String.format("%-45s %-25s %-25s %-25s %-25s %-25s",
+                    population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
+            System.out.println(populationString);
+        }
 
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Displays the population details in a formatted table
+     * @param population The population object that will be displayed
+     * @param type The area type that population data will be displayed for - affects displayed columns
+     */
+    public void displaySpecificPopulation(Population population, String type)
+    {
+        if (population == null)
+        {
+            System.out.println("No population");
+            return;
+        }
+
+        String populationString;
+
+        if (!Objects.equals(type, "District") && !Objects.equals(type, "City")) {
+            System.out.printf("%-45s %-25s %-25s %-25s %-25s %-25s%n", "AreaName", "TotalPopulation", "PopulationInCities", "PopulationInCities(%)", "PopulationOutsideCities", "PopulationOutsideCities(%)");
+
+            populationString = String.format("%-45s %-25s %-25s %-25s %-25s %-25s",
+                    population.areaName, population.population, population.populationCities, population.populationCitiesPercentage, population.populationOutsideCities, population.populationOutsideCitiesPercentage);
+        } else {
+            System.out.printf("%-45s %-25s %n", "AreaName", "TotalPopulation");
+
+            populationString = String.format("%-45s %-25s",
+                    population.areaName, population.population);
+        }
+
+        System.out.println(populationString);
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
+
+    public void displayLanguages(ArrayList<Language> languages)
+    {
+        if (languages == null)
+        {
+            System.out.println("No languages");
+            return;
+        }
+
+        System.out.printf("%-30s %-30s %-30s %n", "Language", "TotalPopulation", "WorldPercentage (%)");
+
+        for (Language language : languages)
+        {
+            if (language == null) continue;
+            String languageString = String.format("%-30s %-30s %-30s ",
+                    language.languageName, language.totalSpeakers, language.totalSpeakersPercentage);
+            System.out.println(languageString);
+        }
+
+        System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
+    }
 
     public void connect(String location, int delay)
     {
