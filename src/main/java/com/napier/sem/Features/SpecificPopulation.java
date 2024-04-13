@@ -17,7 +17,8 @@ public class SpecificPopulation
      * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
-    public Population ByWorld() {
+    public Population ByWorld()
+    {
         return reportHelper.getSpecificPopulationReport("SELECT COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
                         "FROM country " +
                         "LEFT JOIN (SELECT CountryCode, SUM(population) AS population " +
@@ -33,7 +34,8 @@ public class SpecificPopulation
      * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
-    public Population ByContinent(String continent) {
+    public Population ByContinent(String continent)
+    {
         return reportHelper.getSpecificPopulationReport("SELECT country.continent AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
                 "FROM country " +
                 "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
@@ -52,7 +54,8 @@ public class SpecificPopulation
      * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
-    public Population ByRegion(String region) {
+    public Population ByRegion(String region)
+    {
         return reportHelper.getSpecificPopulationReport("SELECT country.Region AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
                 "FROM country " +
                 "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
@@ -71,7 +74,8 @@ public class SpecificPopulation
      * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
-    public Population ByCountry(String country) {
+    public Population ByCountry(String country)
+    {
         return reportHelper.getSpecificPopulationReport("SELECT country.Name AS AreaName, COALESCE(SUM(country.population), 0) AS TotalPopulation, COALESCE(SUM(city_population.population), 0) AS PopulationCities, (COALESCE(SUM(city_population.population), 0) / COALESCE(SUM(country.population), 0) * 100) AS PopulationCityPercentage, SUM(country.population) - COALESCE(SUM(city_population.population), 0) AS PopulationOutsideCities, ((SUM(country.population) - COALESCE(SUM(city_population.population), 0)) / COALESCE(SUM(country.population), 0) * 100) AS PopulationOutsideCityPercentage " +
                 "FROM country " +
                 "LEFT JOIN (SELECT CountryCode, SUM(city.population) AS population " +
@@ -90,7 +94,8 @@ public class SpecificPopulation
      * @return a Population object that contains the respective properties : AreaName, Population, PopulationCities, PopulationOutsideCityPercentage PopulationOutsideCities, PopulationOutsideCityPercentage
      */
 
-    public Population ByDistrict(String district) {
+    public Population ByDistrict(String district)
+    {
 
         return reportHelper.getSpecificPopulationReport("SELECT city.district AS AreaName, COALESCE(SUM(city.population), 0) AS TotalPopulation " +
                 "FROM city " +
@@ -105,8 +110,8 @@ public class SpecificPopulation
      * @return a Population object that contains the respective properties : AreaName, Population,
      */
 
-
-    public Population ByCity(String city) {
+    public Population ByCity(String city)
+    {
         return reportHelper.getSpecificPopulationReport("SELECT city.name AS AreaName, city.population AS TotalPopulation " +
                 "FROM city " +
                 "WHERE city.name = '" + city + "' ","City");

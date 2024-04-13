@@ -13,7 +13,6 @@ public class AllCountries
         this.reportHelper = reportHelper;
     }
 
-
     /**
      * Gets a list of all the countries in the world by their population number in descending order
      * @return ArrayList that contains Country objects in the world with their respective properties : code, name, continent, region, population and capital name

@@ -1,6 +1,10 @@
 package com.napier.sem.Models;
 
-public class Language {
+/**
+ * A class that creates Language object
+ */
+public class Language
+{
     /**
      * The name of the language the number of speakers is being reported for
      */
