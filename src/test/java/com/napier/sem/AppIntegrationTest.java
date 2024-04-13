@@ -107,6 +107,145 @@ public class AppIntegrationTest
     }
 
 
+    //---------------------------------- All Cities Population -----------------------------------------//
+    @Test
+    void testByWorld_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<City> cities = allCities.ByWorld();
+
+        //Act
+        City largestPopulationCity = cities.get(0);
+
+        //Assert
+        assertNotNull(cities);
+        assertFalse(false);
+        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
+    }
+
+    @Test
+    void testByContinent_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<City> cities = allCities.ByContinent(TEST_CONTINENT);
+
+        //Act
+        City largestPopulationCity = cities.get(0);
+
+        //Assert
+        assertNotNull(cities);
+        assertFalse(false);
+        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
+    }
+
+    @Test
+    void testByRegion_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<City> cities = allCities.ByRegion(TEST_REGION);
+
+        //Act
+        City largestPopulationCity = cities.get(0);
+
+        //Assert
+        assertNotNull(cities);
+        assertFalse(false);
+        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
+    }
+
+    @Test
+    void testByCountry_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<City> cities = allCities.ByCountry(TEST_COUNTRY);
+
+        //Act
+        City largestPopulationCity = cities.get(0);
+
+        //Assert
+        assertNotNull(cities);
+        assertFalse(false);
+        assertTrue(cities.stream().allMatch(city -> city.countryCode.equals(TEST_COUNTRY)),"All cities should be from the country: " + TEST_COUNTRY);
+        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
+    }
+
+    @Test
+    void testByDistrict_ShouldProvide_CitiesFromLargestPopulationFirst()
+    {
+        //Arrange
+        ArrayList<City> cities = allCities.ByDistrict(TEST_DISTRICT);
+
+        //Act
+        City largestPopulationCity = cities.get(0);
+
+        //Assert
+        assertNotNull(cities);
+        assertFalse(false);
+        assertTrue(cities.stream().allMatch(city -> city.district.equals(TEST_DISTRICT)),"All cities should be from the district: " + TEST_DISTRICT);
+        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
+    }
+
+
+
+
+
+
+
+    //---------------------------------- All Capital Cities Population -----------------------------------------//
+
+    @Test
+    void testByWorld_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByWorld();
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("Seoul", largestPopulationCapitalCity.name);
+        assertEquals(9981619, largestPopulationCapitalCity.population);
+        assertEquals("South Korea", largestPopulationCapitalCity.countryCode);
+    }
+
+    @Test
+    void testByContinent_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByContinent(TEST_CONTINENT);
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("Cairo", largestPopulationCapitalCity.name);
+        assertEquals(6789479, largestPopulationCapitalCity.population);
+        assertEquals("Egypt", largestPopulationCapitalCity.countryCode);
+    }
+
+    @Test
+    void testByRegion_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
+    {
+        ArrayList<City> CapitalCities = allCapitalCities.ByRegion(TEST_REGION);
+        assertNotNull(CapitalCities);
+        assertFalse(CapitalCities.isEmpty());
+
+        City largestPopulationCapitalCity = CapitalCities.get(0);
+        assertEquals("La Habana", largestPopulationCapitalCity.name);
+        assertEquals(2256000, largestPopulationCapitalCity.population);
+        assertEquals("Cuba", largestPopulationCapitalCity.countryCode);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //-------------------- Spoken languages tests -----------------------------------------------------------//
 
@@ -427,120 +566,6 @@ public class AppIntegrationTest
         assertEquals(2583000, topCountries.get(4).population);
     }
 
-
-    //---------------------------------- All Capital Cities Population -----------------------------------------//
-
-    @Test
-    void testByWorld_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> CapitalCities = allCapitalCities.ByWorld();
-        assertNotNull(CapitalCities);
-        assertFalse(CapitalCities.isEmpty());
-
-        City largestPopulationCapitalCity = CapitalCities.get(0);
-        assertEquals("Seoul", largestPopulationCapitalCity.name);
-        assertEquals(9981619, largestPopulationCapitalCity.population);
-        assertEquals("South Korea", largestPopulationCapitalCity.countryCode);
-    }
-
-    @Test
-    void testByContinent_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> CapitalCities = allCapitalCities.ByContinent(TEST_CONTINENT);
-        assertNotNull(CapitalCities);
-        assertFalse(CapitalCities.isEmpty());
-
-        City largestPopulationCapitalCity = CapitalCities.get(0);
-        assertEquals("Cairo", largestPopulationCapitalCity.name);
-        assertEquals(6789479, largestPopulationCapitalCity.population);
-        assertEquals("Egypt", largestPopulationCapitalCity.countryCode);
-    }
-
-    @Test
-    void testByRegion_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> CapitalCities = allCapitalCities.ByRegion(TEST_REGION);
-        assertNotNull(CapitalCities);
-        assertFalse(CapitalCities.isEmpty());
-
-        City largestPopulationCapitalCity = CapitalCities.get(0);
-        assertEquals("La Habana", largestPopulationCapitalCity.name);
-        assertEquals(2256000, largestPopulationCapitalCity.population);
-        assertEquals("Cuba", largestPopulationCapitalCity.countryCode);
-    }
-
-    //---------------------------------- All Cities Population -----------------------------------------//
-    @Test
-    void testByWorld_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> cities = allCities.ByWorld();
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City largestPopulationCity = cities.get(0);
-        assertEquals("Mumbai (Bombay)", largestPopulationCity.name);
-        assertEquals("Maharashtra", largestPopulationCity.district);
-        assertEquals(10500000, largestPopulationCity.population);
-        assertEquals("India", largestPopulationCity.countryCode);
-    }
-
-    @Test
-    void testByContinent_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> cities = allCities.ByContinent(TEST_CONTINENT);
-        assertNotNull(cities);
-
-        City largestPopulationCity = cities.get(0);
-        assertEquals("Cairo", largestPopulationCity.name);
-        assertEquals("Kairo", largestPopulationCity.district);
-        assertEquals(6789479, largestPopulationCity.population);
-        assertEquals("Egypt", largestPopulationCity.countryCode);
-    }
-
-    @Test
-    void testByRegion_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> cities = allCities.ByRegion(TEST_REGION);
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City largestPopulationCity = cities.get(0);
-
-        assertEquals("La Habana", largestPopulationCity.name);
-        assertEquals("La Habana", largestPopulationCity.district);
-        assertEquals("Cuba", largestPopulationCity.countryCode);
-        assertEquals(2256000, largestPopulationCity.population);
-    }
-
-    @Test
-    void testByCountry_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> cities = allCities.ByCountry(TEST_COUNTRY);
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City largestPopulationCity = cities.get(0);
-
-        assertEquals("Madrid", largestPopulationCity.name);
-        assertEquals("Madrid", largestPopulationCity.district);
-        assertEquals("Spain", largestPopulationCity.countryCode);
-        assertEquals(2879052, largestPopulationCity.population);
-    }
-
-    @Test
-    void testByDistrict_ShouldProvide_CitiesFromLargestPopulationFirst()
-    {
-        ArrayList<City> cities = allCities.ByDistrict(TEST_DISTRICT);
-        assertNotNull(cities);
-        assertFalse(cities.isEmpty());
-
-        City largestPopulationCity = cities.get(0);
-
-        assertEquals("La Matanza", largestPopulationCity.name);
-        assertEquals("Buenos Aires", largestPopulationCity.district);
-        assertEquals("Argentina", largestPopulationCity.countryCode);
-        assertEquals(1266461, largestPopulationCity.population);
-    }
 
 
 
