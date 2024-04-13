@@ -4,15 +4,24 @@ import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import java.util.ArrayList;
 
-public class TopNCities {
+public class TopNCities
+{
+    private final ReportHelper reportHelper;
+
+    public TopNCities(ReportHelper reportHelper)
+    {
+        this.reportHelper = reportHelper;
+    }
+
     /**
      * Gets a list of the top N populated cities in the world by their population number in descending order
      *
      * @param N The number of top populated cities to be returned
      * @return ArrayList that contains City objects in the world with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByWorld(int N) {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+    public ArrayList<City> ByWorld(int N)
+    {
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "ORDER BY city.Population DESC " +
@@ -27,8 +36,9 @@ public class TopNCities {
      * @param continent The name of the continent, constraining the list of cities returned to those within the specified continent
      * @return ArrayList that contains City objects in a specific continent with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByContinent(int N, String continent) {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+    public ArrayList<City> ByContinent(int N, String continent)
+    {
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.continent = '" + continent + "'" +
@@ -44,8 +54,9 @@ public class TopNCities {
      * @param region The name of the region, constraining the list of cities returned to those within the specified region
      * @return ArrayList that contains City objects in a specific region with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByRegion(int N, String region) {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+    public ArrayList<City> ByRegion(int N, String region)
+    {
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.region = '" + region + "'" +
@@ -61,8 +72,9 @@ public class TopNCities {
      * @param country The name of the country, constraining the list of cities returned to those within the specified country
      * @return ArrayList that contains City objects in a specific country with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByCountry(int N, String country) {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+    public ArrayList<City> ByCountry(int N, String country)
+    {
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE country.Name = '" + country + "'" +
@@ -78,8 +90,9 @@ public class TopNCities {
      * @param district The name of the district, constraining the list of cities returned to those within the specified district
      * @return ArrayList that contains City objects in a specific district with their respective properties : Name, Country, District and Population
      */
-    public static ArrayList<City> ByDistrict(int N, String district) {
-        return ReportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
+    public ArrayList<City> ByDistrict(int N, String district)
+    {
+        return reportHelper.getCityReport("SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
                 "JOIN country ON city.CountryCode = country.Code " +
                 "WHERE city.District = '" + district + "'" +
