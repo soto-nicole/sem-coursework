@@ -563,7 +563,7 @@ public class AppIntegrationTest
         String menuText = index.generateMenuOptionsText();
 
         assertTrue(menuText.contains("Welcome to the report system"));
-        assertTrue(menuText.contains("List of countries in the world by population in descending order"));
+        assertTrue(menuText.contains("All the countries in the world by population in descending order"));
     }
 
     @Test
