@@ -115,7 +115,7 @@ class AppIntegrationTest
         //Assert
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
-        assertTrue(countries.stream().allMatch(c -> c.continent.equals(TEST_CONTINENT)), "All countries should be from the continent: " + TEST_CONTINENT);
+        assertTrue(countries.stream().allMatch(c -> TEST_CONTINENT.equals(c.continent)), "All countries should be from the continent: " + TEST_CONTINENT);
         assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
     }
 
@@ -139,7 +139,7 @@ class AppIntegrationTest
         //Assert
         assertNotNull(countries);
         assertFalse(countries.isEmpty());
-        assertTrue(countries.stream().allMatch(c -> c.region.equals(TEST_REGION)), "All countries should be from the region: " + TEST_REGION);
+        assertTrue(countries.stream().allMatch(c -> TEST_REGION.equals(c.region)), "All countries should be from the region: " + TEST_REGION);
         assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
     }
 
@@ -232,7 +232,7 @@ class AppIntegrationTest
         //Assert
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
-        assertTrue(cities.stream().allMatch(city -> city.countryCode.equals(TEST_COUNTRY)),"All cities should be from the country: " + TEST_COUNTRY);
+        assertTrue(cities.stream().allMatch(city -> TEST_COUNTRY.equals(city.countryCode)), "All cities should be from the country: " + TEST_COUNTRY);
         assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
@@ -256,7 +256,7 @@ class AppIntegrationTest
         //Assert
         assertNotNull(cities);
         assertFalse(cities.isEmpty());
-        assertTrue(cities.stream().allMatch(city -> city.district.equals(TEST_DISTRICT)),"All cities should be from the district: " + TEST_DISTRICT);
+        assertTrue(cities.stream().allMatch(city -> TEST_DISTRICT.equals(city.district)), "All cities should be from the district: " + TEST_DISTRICT);
         assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
@@ -372,7 +372,7 @@ class AppIntegrationTest
         assertNotNull(topCountries);
         assertFalse(topCountries.isEmpty());
         assertEquals(N, topCountries.size());
-        assertTrue(topCountries.stream().allMatch(country -> country.continent.equals(TEST_CONTINENT)),"All countries should be from the continent: " + TEST_CONTINENT);
+        assertTrue(topCountries.stream().allMatch(country -> TEST_CONTINENT.equals(country.continent)), "All countries should be from the continent: " + TEST_CONTINENT);
         assertTrue(topCountries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
     }
 
@@ -395,7 +395,7 @@ class AppIntegrationTest
         assertNotNull(topCountries);
         assertFalse(topCountries.isEmpty());
         assertEquals(5, topCountries.size());
-        assertTrue(topCountries.stream().allMatch(country -> country.region.equals(TEST_REGION)), "All countries should be from the region: " + TEST_REGION);
+        assertTrue(topCountries.stream().allMatch(country -> TEST_REGION.equals(country.region)), "All countries should be from the region: " + TEST_REGION);
         assertTrue(topCountries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
     }
 
@@ -488,7 +488,7 @@ class AppIntegrationTest
         assertNotNull(topCities);
         assertFalse(topCities.isEmpty());
         assertEquals(N, topCities.size());
-        assertTrue(topCities.stream().allMatch(city -> city.countryCode.equals(TEST_COUNTRY)), "All cities should be from the country: " + TEST_COUNTRY);
+        assertTrue(topCities.stream().allMatch(city -> TEST_COUNTRY.equals(city.countryCode)), "All cities should be from the country: " + TEST_COUNTRY);
         assertTrue(topCities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
@@ -512,7 +512,7 @@ class AppIntegrationTest
         assertNotNull(topCities);
         assertFalse(topCities.isEmpty());
         assertEquals(N, topCities.size());
-        assertTrue(topCities.stream().allMatch(city -> city.district.equals(TEST_DISTRICT)),"All cities should be from the district: " + TEST_DISTRICT);
+        assertTrue(topCities.stream().allMatch(city -> TEST_DISTRICT.equals(city.district)), "All cities should be from the district: " + TEST_DISTRICT);
         assertTrue(topCities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
@@ -1235,6 +1235,7 @@ class AppIntegrationTest
 
         Runnable action = index.getUserOption(app, "1", scanner);
         action.run();
+        assertNotNull(action, "Action should not be null for valid choice");
     }
 
     /**
@@ -1248,6 +1249,7 @@ class AppIntegrationTest
 
         Runnable action = index.getUserOption(app, "87", scanner);
         action.run();
+        assertNotNull(action, "Action should not be null, even for invalid choice.");
     }
 
     /**
