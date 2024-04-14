@@ -1235,6 +1235,7 @@ class AppIntegrationTest
 
         Runnable action = index.getUserOption(app, "1", scanner);
         action.run();
+        assertNotNull(action, "Action should not be null for valid choice");
     }
 
     /**
@@ -1248,6 +1249,7 @@ class AppIntegrationTest
 
         Runnable action = index.getUserOption(app, "87", scanner);
         action.run();
+        assertNotNull(action, "Action should not be null, even for invalid choice.");
     }
 
     /**
