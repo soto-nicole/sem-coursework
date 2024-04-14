@@ -9,19 +9,55 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Allows display and selection of the application's query options to users
+ */
 public class Index
 {
-    private final  ReportHelper reportHelper;
+    /**
+     * Helps other methods create queries to the db
+     */
+    private final ReportHelper reportHelper;
+    /**
+     * Allows use of methods relevant to querying all the countries in specific areas
+     */
     private final AllCountries allCountries;
+    /**
+     * Allows use of methods relevant to querying the top populated countries in specific areas
+     */
     private final TopNCountries topNCountries;
+    /**
+     * Allows use of methods relevant to querying all the cities in specific areas
+     */
     private final AllCities allCities;
+    /**
+     * Allows use of methods relevant to querying all the capital cities in specific areas
+     */
     private final AllCapitalCities allCapitalCities;
+    /**
+     * Allows use of methods relevant to querying the top populated capital cities in specific areas
+     */
     private final TopNCapitalCities topNCapitalCities;
+    /**
+     * Allows use of methods relevant to querying the top populated cities in specific areas
+     */
     private final TopNCities topNCities;
+    /**
+     * Allows use of methods relevant to querying all the populations of specific area types
+     */
     private final AllPopulations allPopulations;
+    /**
+     * Allows use of methods relevant to querying the population of specific areas
+     */
     private final SpecificPopulation specificPopulation;
+    /**
+     * Allows use of a method relevant to querying the number of speakers of certain languages in the world
+     */
     private final LanguageByPopulation languages;
 
+    /**
+     * Constructor to create an Index object with access to all the necessary methods for querying data
+     */
     public Index()
     {
         this.reportHelper = new ReportHelper(DatabaseUtil.getConnection());
