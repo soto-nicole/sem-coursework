@@ -26,6 +26,9 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Defines Unit Tests for the application
+ */
 public class AppTest
 {
     /**

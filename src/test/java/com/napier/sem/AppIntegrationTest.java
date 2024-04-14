@@ -19,36 +19,89 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Defines Integration Test cases for application
+ */
 class AppIntegrationTest
 {
-    /**
-     * Static fields declaration for all the report classes
-     */
-    static App app;                                   // Defines a new instance of the App class
-    static AllCountries allCountries;                 // Handles country related reports
-    static AllCities allCities;                        // Handles city related reports
-    static TopNCountries topNCountries;                // Handles reports for top N countries by population
-    static AllCapitalCities allCapitalCities;         // Handles capital city related reports
-    static TopNCities topNCities;                     // Handles reports for top N cities by population
-    static TopNCapitalCities topNCapitalCities;       // Handles reports for top N capital cities by population
-    static AllPopulations allPopulations;             // Handles population related reporting
-    static SpecificPopulation specificPopulation;     // Handles specific population queries and reporting
-    static LanguageByPopulation languageByPopulation; // Handles language distribution by population
-
+    // Static fields declaration for all the report classes
 
     /**
-     *  Constants used as parameters for the test queries
+     * Defines a new instance of the App class
      */
-    static final String TEST_CONTINENT = "Africa";         //Defines a static continent name to help test methods
-    static final String TEST_REGION = "Caribbean";         //Defines a static region name to help test methods
-    static final String TEST_COUNTRY = "Spain";            //Defines a static country name to help test methods
-    static final String TEST_DISTRICT = "Buenos Aires";    //Defines a static district name to help test methods
-    static final String TEST_CITY = "Seoul";                //Defines a static city name to help test methods
-    static final int N = 5;                                 //Defines a static value for "N", mimicking user input, to help test methods
+    static App app;
+    /**
+     * Handles country related reports
+     */
+    static AllCountries allCountries;
+    /**
+     * Handles city related reports
+     */
+    static AllCities allCities;
+    /**
+     * Handles reports for top N countries by population
+     */
+    static TopNCountries topNCountries;
+    /**
+     * Handles capital city related reports
+     */
+    static AllCapitalCities allCapitalCities;
+    /**
+     * Handles reports for top N cities by population
+     */
+    static TopNCities topNCities;
+    /**
+     * Handles reports for top N capital cities by population
+     */
+    static TopNCapitalCities topNCapitalCities;
+    /**
+     * Handles Handles population related reporting
+     */
+    static AllPopulations allPopulations;
+    /**
+     * Handles specific population queries and reporting
+     */
+    static SpecificPopulation specificPopulation;
+    /**
+     * Handles language distribution by population
+     */
+    static LanguageByPopulation languageByPopulation;
 
 
-    private final PrintStream originalOut = System.out;      //Defines a print stream, to help test methods which print to the console.
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream(); //Defines a byte array output stream, to help test methods which print to the console.
+    // Constants used as parameters for the test queries
+
+    /**
+     * Defines a static continent name to help test methods
+     */
+    static final String TEST_CONTINENT = "Africa";
+    /**
+     * Defines a static region name to help test methods
+     */
+    static final String TEST_REGION = "Caribbean";
+    /**
+     * Defines a static country name to help test methods
+     */
+    static final String TEST_COUNTRY = "Spain";
+    /**
+     * Defines a static district name to help test methods
+     */
+    static final String TEST_DISTRICT = "Buenos Aires";
+    /**
+     * Defines a static city name to help test methods
+     */
+    static final String TEST_CITY = "Seoul";
+    /**
+     * Defines a static value for "N", mimicking user input, to help test methods
+     */
+    static final int N = 5;
+    /**
+     * Defines a print stream, to help test methods which print to the console.
+     */
+    private final PrintStream originalOut = System.out;
+    /**
+     * Defines a byte array output stream, to help test methods which print to the console.
+     */
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
 
     /**
