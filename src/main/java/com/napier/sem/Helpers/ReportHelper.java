@@ -11,10 +11,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * A class which contains methods to execute db query statements and populate relevant Class objects based on the result set
+ */
 public class ReportHelper
 {
+    /**
+     * Allows connection to the database
+     */
     private final Connection con;
 
+    /**
+     * Constructor for ReportHelper objects
+     * @param connection Database connection
+     */
     public ReportHelper(Connection connection)
     {
         this.con = connection;

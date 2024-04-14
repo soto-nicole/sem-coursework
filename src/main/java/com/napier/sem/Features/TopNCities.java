@@ -4,10 +4,20 @@ import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import java.util.ArrayList;
 
+/**
+ * A class that contains methods relevant to querying a specified number of the top populated cities in specific areas
+ */
 public class TopNCities
 {
+    /**
+     * An instance of the ReportHelper class, which can be accessed by each method to help run db queries
+     */
     private final ReportHelper reportHelper;
 
+    /**
+     * Constructor for the TopNCities object
+     * @param reportHelper sets an object of class ReportHelper to be used by TopNCities when running methods which will query the database
+     */
     public TopNCities(ReportHelper reportHelper)
     {
         this.reportHelper = reportHelper;

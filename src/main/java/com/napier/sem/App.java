@@ -11,10 +11,20 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Creates an instance of the application
+ */
 public class App
 {
+    /**
+     * Allows user input
+     */
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Main method
+     * @param args Custom database location and delay time can be passed in here
+     */
     public static void main(String[] args)
     {
         App app = new App();
@@ -233,6 +243,10 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Displays the language details in a formatted table
+     * @param languages The language objects that will be displayed
+     */
     public void displayLanguages(ArrayList<Language> languages)
     {
         if (languages == null)
@@ -254,6 +268,11 @@ public class App
         System.out.println("`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Creates a connection to the database
+     * @param location The location of the database/server
+     * @param delay The length of time to wait in milliseconds for the database to connect
+     */
     public void connect(String location, int delay)
     {
         DatabaseUtil.connect(location, delay);

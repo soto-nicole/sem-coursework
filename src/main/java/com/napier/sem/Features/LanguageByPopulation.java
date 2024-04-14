@@ -5,10 +5,20 @@ import com.napier.sem.Models.Language;
 
 import java.util.ArrayList;
 
+/**
+ * A class that contains a method relevant to querying all the speakers of specific languages in the world
+ */
 public class LanguageByPopulation
 {
+    /**
+     * An instance of the ReportHelper class, which can be accessed by the ByWorld method to help run the db query
+     */
     private final ReportHelper reportHelper;
 
+    /**
+     * Constructor for the LanguageByPopulation object
+     * @param reportHelper sets an object of class ReportHelper to be used by LanguageByPopulation when running the method which will query the database
+     */
     public LanguageByPopulation(ReportHelper reportHelper) {
         this.reportHelper = reportHelper;
     }
