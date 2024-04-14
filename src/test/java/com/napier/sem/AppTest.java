@@ -26,30 +26,69 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Defines Unit Tests for the application
+ */
 public class AppTest
 {
+    /**
+     * Defines a static continent name to help test methods
+     */
     static final String TEST_CONTINENT = "Africa";
+    /**
+     * Defines a static region name to help test methods
+     */
     static final String TEST_REGION = "Caribbean";
+    /**
+     * Defines a static country name to help test methods
+     */
     static final String TEST_COUNTRY = "Spain";
+    /**
+     * Defines a static district name to help test methods
+     */
     static final String TEST_DISTRICT = "Buenos Aires";
+    /**
+     * Defines a static city name to help test methods
+     */
     static final String TEST_CITY = "Seoul";
+    /**
+     * Defines a static value for "N", mimicking user input, to help test methods
+     */
     static final int TEST_N = 5;
+    /**
+     * Defines a byte array output stream, to help test methods which print to the console.
+     */
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    /**
+     * Defines a print stream, to help test methods which print to the console.
+     */
     private final PrintStream originalOut = System.out;
-    static  App app;
+    /**
+     * Defines a new instance of the App class
+     */
+    static App app;
 
+    /**
+     * Before each test is run, create an instance of app to test with
+     */
     @BeforeAll
     static void init()
     {
         app = new App();
     }
 
+    /**
+     * Before each test is run, set up the streams which help the test print to the console.
+     */
     @BeforeEach
     public void setUpStreams()
     {
         System.setOut(new PrintStream(outContent));
     }
 
+    /**
+     * After each test is run, remove the print stream that was set
+     */
     @AfterEach
     public void restoreStreams()
     {
@@ -57,18 +96,29 @@ public class AppTest
     }
 
     //----------------------- 1. Unit tests: Countries ------------------------------------//
+
+    /**
+     * Tests that the displayCountries() method handles null input without error
+     */
     @Test
     void printCountriesTestNull()
     {
         app.displayCountries(null);
     }
 
+    /**
+     * Tests that the displayCountries() method handles an empty array input without error
+     */
     @Test
     void printCountriesTestEmpty()
     {
         ArrayList<Country> countries = new ArrayList<>();
         app.displayCountries(countries);
     }
+
+    /**
+     * Tests that the displayCountries() method handles an array which contains a null value without error
+     */
     @Test
     void printCountriesTestContainsNull()
     {
@@ -77,6 +127,9 @@ public class AppTest
         app.displayCountries(countries);
     }
 
+    /**
+     * Tests that the displayCountries() method successfully prints Country array objects to the console
+     */
     @Test
     void printCountries()
     {
@@ -93,6 +146,10 @@ public class AppTest
         app.displayCountries(countries);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCountries.ByWorld() method successfully returns Country object(s) after a query
+     */
     @Test
     void testAllCountries_ByWorld_ShouldRetrieve_AllCountriesInDB()
     {
@@ -116,6 +173,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCountries.ByContinent() method successfully returns Country object(s) after a query
+     */
     @Test
     void testAllCountries_ByContinent_ShouldRetrieve_AllCountriesInDB_ForSpecificContinent()
     {
@@ -140,6 +201,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCountries.ByRegion() method successfully returns Country object(s) after a query
+     */
     @Test
     void testAllCountries_ByRegion_ShouldRetrieve_AllCountriesInDB_ForSpecificRegion()
     {
@@ -164,6 +229,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCountries.ByWorld() method successfully returns the correct number of Country object(s) after a query
+     */
     @Test
     void testTopNCountries_ByWorld_ShouldRetrieve_TopNCountriesInDB()
     {
@@ -193,6 +262,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCountries.ByContinent() method successfully returns the correct number of Country object(s) after a query
+     */
     @Test
     void testTopNCountries_ByContinent_ShouldRetrieve_TopNCountriesInDB_ForSpecificContinent()
     {
@@ -223,6 +296,10 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCountries.ByRegion() method successfully returns the correct number of Country object(s) after a query
+     */
     @Test
     void testTopNCountries_ByRegion_ShouldRetrieve_TopNCountriesInDB_ForSpecificRegion()
     {
@@ -253,14 +330,20 @@ public class AppTest
         verify(mockReportHelperClass).getCountryReport(queryRegion);
     }
 
-
     //----------------------- 2. Unit tests: Cities ------------------------------------//
+
+    /**
+     * Tests that the displayCities() method handles null input without error
+     */
     @Test
     void printCitiesTestNull()
     {
         app.displayCities(null);
     }
 
+    /**
+     * Tests that the displayCities() method handles an empty array input without error
+     */
     @Test
     void printCitiesTestEmpty()
     {
@@ -268,6 +351,9 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    /**
+     * Tests that the displayCities() method handles an array which contains a null value without error
+     */
     @Test
     void printCitiesTestContainsNull()
     {
@@ -276,6 +362,9 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    /**
+     * Tests that the displayCities() method successfully prints City array objects to the console
+     */
     @Test
     void displayCities()
     {
@@ -290,6 +379,10 @@ public class AppTest
         app.displayCities(cities);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByWorld() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByWorld_ShouldRetrieve_AllCitiesInDB()
     {
@@ -313,6 +406,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByContinent() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByContinent_ShouldRetrieve_AllCitiesInDB_ForSpecificContinent()
     {
@@ -337,6 +434,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByRegion() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByRegion_ShouldRetrieve_AllCitiesInDB_ForSpecificRegion()
     {
@@ -345,7 +446,6 @@ public class AppTest
         AllCities allCities = new AllCities(mockReportHelperClass);
         ArrayList<City> expectedCities = new ArrayList<>();
         expectedCities.add(new City());
-
 
         String queryRegion = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
@@ -362,6 +462,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByCountry() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByCountry_ShouldRetrieve_AllCitiesInDB_ForSpecificCountry()
     {
@@ -370,7 +474,6 @@ public class AppTest
         AllCities allCities = new AllCities(mockReportHelperClass);
         ArrayList<City> expectedCities = new ArrayList<>();
         expectedCities.add(new City());
-
 
         String queryCountry = "SELECT city.Name, country.Name as CountryName, city.District, city.Population " +
                 "FROM city " +
@@ -387,6 +490,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryCountry);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCities.ByDistrict() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCities_ByDistrict_ShouldRetrieve_AllCitiesInDB_ForSpecificDistrict()
     {
@@ -395,7 +502,6 @@ public class AppTest
         AllCities allCities = new AllCities(mockReportHelperClass);
         ArrayList<City> expectedCities = new ArrayList<>();
         expectedCities.add(new City());
-
 
         String queryDistrict = "SELECT city.Name, city.District, city.Population, country.Name as CountryName " +
                 "FROM city " +
@@ -412,6 +518,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryDistrict);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByWorld() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByWorld_ShouldRetrieve_TopNCitiesInDB()
     {
@@ -441,6 +551,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByContinent() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByContinent_ShouldRetrieve_TopNCitiesInDB_ForSpecificContinent()
     {
@@ -471,6 +585,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByRegion() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByRegion_ShouldRetrieve_TopNCitiesInDB_ForSpecificRegion()
     {
@@ -501,6 +619,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByCountry() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByCountry_ShouldRetrieve_TopNCitiesInDB_ForSpecificCountry()
     {
@@ -531,6 +653,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryCountry);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCities.ByDistrict() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCities_ByDistrict_ShouldRetrieve_TopNCitiesInDB_ForSpecificDistrict()
     {
@@ -561,18 +687,28 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryDistrict);
     }
     //----------------------- 3. Unit tests: Capital Cities ------------------------------------//
+    /**
+     * Tests that the displayCapitalCities() method handles null input without error
+     */
     @Test
     void printCapitalCitiesTestNull()
     {
         app.displayCapitalCities(null);
     }
 
+    /**
+     * Tests that the displayCapitalCities() method handles an empty array input without error
+     */
     @Test
     void printCapitalCitiesTestEmpty()
     {
         ArrayList<City> capitalCities = new ArrayList<>();
         app.displayCapitalCities(capitalCities);
     }
+
+    /**
+     * Tests that the displayCapitalCities() method handles an array which contains a null value without error
+     */
     @Test
     void printCapitalCitiesTestContainsNull()
     {
@@ -581,6 +717,9 @@ public class AppTest
         app.displayCapitalCities(capitalCities);
     }
 
+    /**
+     * Tests that the displayCapitalCities() method successfully prints City array objects to the console
+     */
     @Test
     void printCapitalCities()
     {
@@ -591,10 +730,13 @@ public class AppTest
         capitalCity.population = 1780000;
         capitalCities.add(capitalCity);
 
-
         app.displayCapitalCities(capitalCities);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCapitalCities.ByWorld() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCapitalCities_ByWorld_ShouldRetrieve_AllCapitalCitiesInDB()
     {
@@ -619,6 +761,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCapitalCities.ByContinent() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCapitalCities_ByContinent_ShouldRetrieve_AllCapitalCitiesInDB_ForSpecificContinent()
     {
@@ -644,6 +790,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllCapitalCities.ByRegion() method successfully returns City object(s) after a query
+     */
     @Test
     void testAllCapitalCities_ByRegion_ShouldRetrieve_AllCapitalCitiesInDB_ForSpecificRegion()
     {
@@ -669,6 +819,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCapitalCities.ByWorld() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCapitalCities_ByWorld_ShouldRetrieve_TopNCapitalCitiesInDB()
     {
@@ -699,6 +853,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryWorld);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCapitalCities.ByContinent() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCapitalCities_ByContinent_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificContinent()
     {
@@ -730,6 +888,10 @@ public class AppTest
         verify(mockReportHelperClass).getCityReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the TopNCapitalCities.ByRegion() method successfully returns the correct number of City object(s) after a query
+     */
     @Test
     void testTopNCapitalCities_ByRegion_ShouldRetrieve_TopNCapitalCitiesInDB_ForSpecificRegion()
     {
@@ -762,18 +924,28 @@ public class AppTest
     }
 
     //----------------------- 4. Unit tests: Population ------------------------------------//
+    /**
+     * Tests that the displayPopulations() method handles null input without error
+     */
     @Test
     void printPopulationsTestNull()
     {
         app.displayPopulations(null);
     }
 
+    /**
+     * Tests that the displayPopulations() method handles an empty array input without error
+     */
     @Test
     void printPopulationsTestEmpty()
     {
         ArrayList<Population> populations = new ArrayList<>();
         app.displayPopulations(populations);
     }
+
+    /**
+     * Tests that the displayPopulations() method handles an array which contains a null value without error
+     */
     @Test
     void printPopulationsTestContainsNull()
     {
@@ -782,6 +954,9 @@ public class AppTest
         app.displayPopulations(populations);
     }
 
+    /**
+     * Tests that the displayPopulations() method successfully prints Population array objects to the console
+     */
     @Test
     void printPopulations()
     {
@@ -798,6 +973,10 @@ public class AppTest
         app.displayPopulations(populations);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllPopulations.ByContinent() method successfully returns Population object(s) after a query
+     */
     @Test
     void testAllPopulation_ByContinent_ShouldRetrieve_AllPopulationInDB()
     {
@@ -823,6 +1002,10 @@ public class AppTest
         verify(mockReportHelperClass).getPopulationReport(queryContinent);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllPopulations.ByRegion() method successfully returns Population object(s) after a query
+     */
     @Test
     void testAllPopulation_ByRegion_ShouldRetrieve_AllPopulationInDB_ForSpecificContinent()
     {
@@ -848,6 +1031,10 @@ public class AppTest
         verify(mockReportHelperClass).getPopulationReport(queryRegion);
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the AllPopulations.ByCountry() method successfully returns Population object(s) after a query
+     */
     @Test
     void testAllPopulation_ByCountry_ShouldRetrieve_AllPopulationInDB_ForSpecificRegion()
     {
@@ -873,14 +1060,20 @@ public class AppTest
         verify(mockReportHelperClass).getPopulationReport(queryRegion);
     }
 
-
     //----------------------- 5. Unit tests: Specific Population ------------------------------------//
+
+    /**
+     * Tests that the displaySpecificPopulation () method handles null input without error
+     */
     @Test
     void printSpecificPopulationTestNull()
     {
         app.displaySpecificPopulation(null, "World");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles an empty Population object without error
+     */
     @Test
     void printSpecificPopulationTestEmpty()
     {
@@ -888,6 +1081,9 @@ public class AppTest
         app.displaySpecificPopulation(population, "World");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles a District query and successfully prints a Population object to the console
+     */
     @Test
     void printSpecificPopulationDistrict()
     {
@@ -896,6 +1092,9 @@ public class AppTest
         app.displaySpecificPopulation(population, "District");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles a City query and successfully prints a Population object to the console
+     */
     @Test
     void printSpecificPopulationCity()
     {
@@ -904,6 +1103,9 @@ public class AppTest
         app.displaySpecificPopulation(population, "City");
     }
 
+    /**
+     * Tests that the displaySpecificPopulation() method handles a Country query and successfully prints a Population object to the console
+     */
     @Test
     void printSpecificPopulation()
     {
@@ -918,6 +1120,10 @@ public class AppTest
         app.displaySpecificPopulation(population, "Country");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByWorld() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByWorld_ShouldRetrieve_PopulationInDB_ForWorld()
     {
@@ -941,6 +1147,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryWorld, "World");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByContinent() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByContinent_ShouldRetrieve_PopulationInDB_ForSpecificContinent()
     {
@@ -968,6 +1178,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryContinent, "Continent");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByRegion() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByRegion_ShouldRetrieve_PopulationInDB_ForSpecificRegion()
     {
@@ -995,6 +1209,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryRegion, "Region");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByCountry() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByCountry_ShouldRetrieve_PopulationInDB_ForSpecificCountry()
     {
@@ -1022,6 +1240,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryCountry, "Country");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByDistrict() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByDistrict_ShouldRetrieve_PopulationInDB_ForSpecificDistrict()
     {
@@ -1044,6 +1266,10 @@ public class AppTest
         verify(mockReportHelperClass).getSpecificPopulationReport(queryDistrict, "District");
     }
 
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the SpecificPopulation.ByCity() method successfully returns a Population object after a query
+     */
     @Test
     void testSpecificPopulation_ByCity_ShouldRetrieve_PopulationInDB_ForSpecificCity()
     {
@@ -1066,18 +1292,28 @@ public class AppTest
     }
 
     //----------------------- 6. Unit tests: Languages ------------------------------------//
+    /**
+     * Tests that the displayLanguages() method handles null input without error
+     */
     @Test
     void printLanguagesTestNull()
     {
         app.displayLanguages(null);
     }
 
+    /**
+     * Tests that the displayLanguages() method handles an empty array input without error
+     */
     @Test
     void printLanguagesTestEmpty()
     {
         ArrayList<Language> languages = new ArrayList<>();
         app.displayLanguages(languages);
     }
+
+    /**
+     * Tests that the displayLanguages() method handles an array which contains a null value without error
+     */
     @Test
     void printLanguagesTestContainsNull()
     {
@@ -1086,6 +1322,9 @@ public class AppTest
         app.displayLanguages(languages);
     }
 
+    /**
+     * Tests that the displayLanguages() method successfully prints Language array objects to the console
+     */
     @Test
     void printLanguages()
     {
@@ -1098,6 +1337,11 @@ public class AppTest
 
         app.displayLanguages(languages);
     }
+
+    /**
+     * Uses a mocked ReportHelper class to help simulate querying the db
+     * This tests that the LanguageByPopulation.ByWorld() method successfully returns Language object(s) after a query
+     */
     @Test
     void testByWorld_ShouldRetrieve_LanguagesInDB()
     {
@@ -1140,7 +1384,10 @@ public class AppTest
 
 
     //----------------------- Report Helper tests  ------------------------------------//
-    //1. Test to ensure that the getCountryReport method in the ReportHelper class is correctly fetching the country data from the database and transforming it into a list of Country objects
+
+    /**
+     * 1. Test to ensure that the getCountryReport method in the ReportHelper class is correctly fetching the country data from the database and transforming it into a list of Country objects
+     */
     @Test
     void testGetCountryReport_ShouldFetchCountryData() throws Exception
     {
@@ -1169,7 +1416,9 @@ public class AppTest
         assertEquals("USA", country.code);
     }
 
-    //2. Test for SQL exception
+    /**
+     * 2. Test to ensure that the getCountryReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetCountryReport_ThrowsSQLException() throws Exception
     {
@@ -1193,7 +1442,9 @@ public class AppTest
         assertNull(result);
     }
 
-    //3. SQL Exception when extracting ResultSet
+    /**
+     * 3. Test to ensure that the getCountryReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetCountryReportWithSQLException_InResultSet() throws Exception
     {
@@ -1218,6 +1469,9 @@ public class AppTest
         assertFalse(countries.isEmpty());
     }
 
+    /**
+     * Test to ensure that the getCityReport method in the ReportHelper class is correctly fetching the City data from the database and transforming it into a list of City objects
+     */
     @Test
     void testGetCityReport_ShouldFetchCityData() throws Exception
     {
@@ -1246,6 +1500,9 @@ public class AppTest
         assertEquals("London", city.name);
     }
 
+    /**
+     * Test to ensure that the getCityReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetCityReport_ThrowsSQLException() throws Exception
     {
@@ -1269,6 +1526,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getCityReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetCityReportWithSQLException_InResultSet() throws Exception
     {
@@ -1290,6 +1550,9 @@ public class AppTest
         assertFalse(cities.isEmpty());
     }
 
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class is correctly fetching the Population data from the database and transforming it into a list of Population objects
+     */
     @Test
     void testGetPopulationReport_ShouldFetchPopulationData() throws Exception
     {
@@ -1319,6 +1582,10 @@ public class AppTest
         Population population = populations.get(0);
         assertEquals("Europe", population.areaName);
     }
+
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetPopulationReport_ThrowsSQLException() throws Exception
     {
@@ -1345,6 +1612,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetPopulationReportWithSQLException_InResultSet() throws Exception
     {
@@ -1371,6 +1641,9 @@ public class AppTest
         assertFalse(populations.isEmpty());
     }
 
+    /**
+     * Test to ensure that the getSpecificPopulationReport method in the ReportHelper class is correctly fetching the Population data from the database and transforming it into a Population object
+     */
     @Test
     void testGetSpecificPopulationReport_ShouldFetchPopulationData() throws Exception
     {
@@ -1403,6 +1676,9 @@ public class AppTest
         assertEquals("Africa", population.areaName);
     }
 
+    /**
+     * Test to ensure that the getPopulationReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetSpecificPopulationReport_ThrowsSQLException() throws Exception
     {
@@ -1432,6 +1708,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getLanguageReport method in the ReportHelper class is correctly fetching the Language data from the database and transforming it into a list of Language objects
+     */
     @Test
     void testGetLanguageReport_ShouldFetchLanguageData() throws Exception
     {
@@ -1462,6 +1741,9 @@ public class AppTest
         assertEquals("Chinese", language.languageName);
     }
 
+    /**
+     * Test to ensure that the getLanguageReport method in the ReportHelper class correctly catches a SQL exception error when querying the db
+     */
     @Test
     void testGetLanguageReport_ThrowsSQLException() throws Exception
     {
@@ -1487,6 +1769,9 @@ public class AppTest
         assertNull(result);
     }
 
+    /**
+     * Test to ensure that the getLanguageReport method in the ReportHelper class correctly catches a SQL exception error when there is an error in the results set
+     */
     @Test
     void testGetLanguageReportWithSQLException_InResultSet() throws Exception
     {
@@ -1513,6 +1798,9 @@ public class AppTest
         assertFalse(languages.isEmpty());
     }
 
+    /**
+     * Test which mocks user input to ensure the Index.getUserOption() method takes the correct mock input and runs the resulting action
+     */
     @Test
     void testGetUserOptionValidInput()
     {
@@ -1529,6 +1817,9 @@ public class AppTest
         action.run();
     }
 
+    /**
+     * Tests that the Index.displayOptions() method returns the correct console output to display the user's options
+     */
     @Test
     public void testDisplayOptions()
     {
@@ -1540,6 +1831,9 @@ public class AppTest
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Tests that the Index.GetN(scanner) method correctly takes the user's numeric input
+     */
     @Test
     public void testGetN()
     {

@@ -4,10 +4,20 @@ import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Country;
 import java.util.ArrayList;
 
+/**
+ * A class that contains methods relevant to querying a specified number of the top populated countries in specific areas
+ */
 public class TopNCountries
 {
+    /**
+     * An instance of the ReportHelper class, which can be accessed by each method to help run db queries
+     */
     private final ReportHelper reportHelper;
 
+    /**
+     * Constructor for the TopNCountries object
+     * @param reportHelper sets an object of class ReportHelper to be used by TopNCountries when running methods which will query the database
+     */
     public TopNCountries(ReportHelper reportHelper)
     {
         this.reportHelper = reportHelper;

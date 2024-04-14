@@ -4,15 +4,24 @@ import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Country;
 import java.util.ArrayList;
 
+/**
+ * A class that contains methods relevant to querying all the countries in specific areas
+ */
 public class AllCountries
 {
+    /**
+     * An instance of the ReportHelper class, which can be accessed by each method to help run db queries
+     */
     private final ReportHelper reportHelper;
 
+    /**
+     * Constructor for the AllCountries object
+     * @param reportHelper sets an object of class ReportHelper to be used by AllCountries when running methods which will query the database
+     */
     public AllCountries(ReportHelper reportHelper)
     {
         this.reportHelper = reportHelper;
     }
-
 
     /**
      * Gets a list of all the countries in the world by their population number in descending order

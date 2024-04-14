@@ -9,19 +9,55 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Allows display and selection of the application's query options to users
+ */
 public class Index
 {
-    private final  ReportHelper reportHelper;
+    /**
+     * Helps other methods create queries to the db
+     */
+    private final ReportHelper reportHelper;
+    /**
+     * Allows use of methods relevant to querying all the countries in specific areas
+     */
     private final AllCountries allCountries;
+    /**
+     * Allows use of methods relevant to querying the top populated countries in specific areas
+     */
     private final TopNCountries topNCountries;
+    /**
+     * Allows use of methods relevant to querying all the cities in specific areas
+     */
     private final AllCities allCities;
+    /**
+     * Allows use of methods relevant to querying all the capital cities in specific areas
+     */
     private final AllCapitalCities allCapitalCities;
+    /**
+     * Allows use of methods relevant to querying the top populated capital cities in specific areas
+     */
     private final TopNCapitalCities topNCapitalCities;
+    /**
+     * Allows use of methods relevant to querying the top populated cities in specific areas
+     */
     private final TopNCities topNCities;
+    /**
+     * Allows use of methods relevant to querying all the populations of specific area types
+     */
     private final AllPopulations allPopulations;
+    /**
+     * Allows use of methods relevant to querying the population of specific areas
+     */
     private final SpecificPopulation specificPopulation;
+    /**
+     * Allows use of a method relevant to querying the number of speakers of certain languages in the world
+     */
     private final LanguageByPopulation languages;
 
+    /**
+     * Constructor to create an Index object with access to all the necessary methods for querying data
+     */
     public Index()
     {
         this.reportHelper = new ReportHelper(DatabaseUtil.getConnection());
@@ -44,17 +80,17 @@ public class Index
         return "=========================================\n" +
                 "|      Welcome to the report system     |\n" +
                 "=========================================\n\n" +
-                "  1) All the countries in the world by population in descending order\n" +
-                "  2) All the countries in a continent by population in descending order\n" +
-                "  3) All the countries in a region by population in descending order\n\n" +
-                "  4) All the cities in the world by population in descending order\n" +
-                "  5) All the cities of a continent by population in descending order\n" +
-                "  6) All the cities in a region by population in descending order\n" +
-                "  7) All the cities in a country by population in descending order\n" +
-                "  8) All the cities in a district by population in descending order\n\n" +
-                "  9) Top N populated countries in the world in descending order\n" +
-                " 10) Top N populated countries in a continent in descending order\n" +
-                " 11) Top N populated countries in a region in descending order\n\n" +
+                " 1) All the countries in the world by population in descending order\n" +
+                " 2) All the countries in a continent by population in descending order\n" +
+                " 3) All the countries in a region by population in descending order\n\n" +
+                " 4) Top N populated countries in the world in descending order\n" +
+                " 5) Top N populated countries in a continent in descending order\n" +
+                " 6) Top N populated countries in a region in descending order\n\n" +
+                " 7) All the cities in the world by population in descending order\n" +
+                " 8) All the cities in a continent by population in descending order\n" +
+                " 9) All the cities in a region by population in descending order\n" +
+                " 10) All the cities in a country by population in descending order\n" +
+                " 11) All the cities in a district by population in descending order\n\n" +
                 " 12) Top N populated cities in the world in descending order\n" +
                 " 13) Top N populated cities in a continent in descending order\n" +
                 " 14) Top N populated cities in a region in descending order\n" +
@@ -77,7 +113,6 @@ public class Index
                 " 31) Display the total population of people in a city\n" +
                 " 32) Display the total number of people who speak certain languages in the world and as a total percentage of the world population, in descending order of total speakers";
     }
-
 
     /**
      * Displaying the menu options for user interaction with the terminal.
@@ -109,17 +144,17 @@ public class Index
         keyValues.put("2", () -> app.displayCountries(allCountries.ByContinent(continent)));
         keyValues.put("3", () -> app.displayCountries(allCountries.ByRegion(region)));
 
-        //---------       All cities by population in descending order    ---------------
-        keyValues.put("4", () -> app.displayCities(allCities.ByWorld()));
-        keyValues.put("5", () -> app.displayCities(allCities.ByContinent(continent)));
-        keyValues.put("6", () -> app.displayCities(allCities.ByRegion(region)));
-        keyValues.put("7", () -> app.displayCities(allCities.ByCountry(country)));
-        keyValues.put("8", () -> app.displayCities(allCities.ByDistrict(district)));
-
         //-------------- Top N countries by population in descending order --------------
-        keyValues.put("9", () -> app.displayCountries(topNCountries.ByWorld(getN(scanner))));
-        keyValues.put("10", () -> app.displayCountries(topNCountries.ByContinent(getN(scanner), continent)));
-        keyValues.put("11", () -> app.displayCountries(topNCountries.ByRegion(getN(scanner), region)));
+        keyValues.put("4", () -> app.displayCountries(topNCountries.ByWorld(getN(scanner))));
+        keyValues.put("5", () -> app.displayCountries(topNCountries.ByContinent(getN(scanner), continent)));
+        keyValues.put("6", () -> app.displayCountries(topNCountries.ByRegion(getN(scanner), region)));
+
+        //---------       All cities by population in descending order    ---------------
+        keyValues.put("7", () -> app.displayCities(allCities.ByWorld()));
+        keyValues.put("8", () -> app.displayCities(allCities.ByContinent(continent)));
+        keyValues.put("9", () -> app.displayCities(allCities.ByRegion(region)));
+        keyValues.put("10", () -> app.displayCities(allCities.ByCountry(country)));
+        keyValues.put("11", () -> app.displayCities(allCities.ByDistrict(district)));
 
         //---------------Top N cities by population in descending order -------------------
         keyValues.put("12", () -> app.displayCities(topNCities.ByWorld(getN(scanner))));
