@@ -21,26 +21,39 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AppIntegrationTest
 {
-    static App app;
-    static AllCountries allCountries;
-    static AllCities allCities;
-    static TopNCountries topNCountries;
-    static AllCapitalCities allCapitalCities;
-    static TopNCities topNCities;
-    static TopNCapitalCities topNCapitalCities;
-    static AllPopulations allPopulations;
-    static SpecificPopulation specificPopulation;
-    static LanguageByPopulation languageByPopulation;
+    /**
+     * Static fields declaration for all the report classes
+     */
+    static App app;                                   // Defines a new instance of the App class
+    static AllCountries allCountries;                 // Handles country related reports
+    static AllCities allCities;                        // Handles city related reports
+    static TopNCountries topNCountries;                // Handles reports for top N countries by population
+    static AllCapitalCities allCapitalCities;         // Handles capital city related reports
+    static TopNCities topNCities;                     // Handles reports for top N cities by population
+    static TopNCapitalCities topNCapitalCities;       // Handles reports for top N capital cities by population
+    static AllPopulations allPopulations;             // Handles population related reporting
+    static SpecificPopulation specificPopulation;     // Handles specific population queries and reporting
+    static LanguageByPopulation languageByPopulation; // Handles language distribution by population
 
 
-    static final String TEST_CONTINENT = "Africa";
-    static final String TEST_REGION = "Caribbean";
-    static final String TEST_COUNTRY = "Spain";
-    static final String TEST_DISTRICT = "Buenos Aires";
-    static final String TEST_CITY = "Seoul";
-    static final int N = 5;
-    private final PrintStream originalOut = System.out;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    /**
+     *  Constants used as parameters for the test queries
+     */
+    static final String TEST_CONTINENT = "Africa";         //Defines a static continent name to help test methods
+    static final String TEST_REGION = "Caribbean";         //Defines a static region name to help test methods
+    static final String TEST_COUNTRY = "Spain";            //Defines a static country name to help test methods
+    static final String TEST_DISTRICT = "Buenos Aires";    //Defines a static district name to help test methods
+    static final String TEST_CITY = "Seoul";                //Defines a static city name to help test methods
+    static final int N = 5;                                 //Defines a static value for "N", mimicking user input, to help test methods
+
+
+    private final PrintStream originalOut = System.out;      //Defines a print stream, to help test methods which print to the console.
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream(); //Defines a byte array output stream, to help test methods which print to the console.
+
+
+    /**
+     * Sets up database connections and initializes report helpers and class instances before all tests.
+     */
     @BeforeAll
     static void init()
     {
@@ -58,8 +71,14 @@ public class AppIntegrationTest
         languageByPopulation = new LanguageByPopulation(reportHelper);
     }
 
-    //---------------------------------- All Countries Population -----------------------------------------//
+    //---------------------------------- 1. All Countries Population integration tests -----------------------------------------//
 
+    /**
+     * This test verifies that the `ByWorld` method correctly retrieves a list of all countries sorted by population in descending order.
+     * This test ensures that:
+     * - The list of countries is not null, which would indicate the data was successfully retrieved.
+     * - The first country in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByWorld_ShouldProvide_CountriesFromLargestPopulationFirst()
     {
@@ -75,6 +94,13 @@ public class AppIntegrationTest
         assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population),"The first country should have the highest population");
     }
 
+    /**
+     * This test that the `ByContinent` method correctly retrieves a list of all countries from a specified continent sorted by population in descending order.
+     * This test ensures that:
+     * - The list of countries is not null, which would indicate the data was successfully retrieved.
+     * - All countries in the list belong to the specified continent, confirming correct filtering by continent.
+     * - The first country in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByContinent_ShouldProvide_CountriesLargestPopulationFirst()
     {
@@ -91,6 +117,13 @@ public class AppIntegrationTest
         assertTrue(countries.stream().noneMatch(country -> country.population > largestPopulationCountry.population), "The first country should have the highest population");
     }
 
+    /**
+     * This test verifies that the `ByRegion` method correctly retrieves a list of all countries from a specified region sorted by population in descending order.
+     * This test ensures that:
+     * - The list of countries is not null, which would indicate the data was successfully retrieved.
+     * - All countries in the list are part of the specified region, confirming correct filtering by region.
+     * - The first country in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByRegion_ShouldProvide_CountriesLargestPopulationFirst()
     {
@@ -108,7 +141,14 @@ public class AppIntegrationTest
     }
 
 
-    //---------------------------------- All Cities Population -----------------------------------------//
+    //---------------------------------- 2. All Cities Population integration tests -----------------------------------------//
+
+    /**
+     * Verifies that the `ByWorld` method correctly retrieves a list of all cities sorted by population in descending order.
+     * This test ensures that:
+     * - The list of cities is not null, which would indicate the data was successfully retrieved.
+     * - The first city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByWorld_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
@@ -124,6 +164,12 @@ public class AppIntegrationTest
         assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
+    /**
+     * Verifies that the `ByContinent` method correctly retrieves a list of all cities from a specified continent sorted by population in descending order.
+     * This test ensures that:
+     * - The list of cities is not null, which would indicate the data was successfully retrieved.
+     * - The first city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByContinent_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
@@ -139,6 +185,12 @@ public class AppIntegrationTest
         assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
+    /**
+     * Verifies that the `ByRegion` method correctly retrieves a list of all cities from a specified region sorted by population in descending order.
+     * This test ensures that:
+     * - The list of cities is not null, which would indicate the data was successfully retrieved.
+     * - The first city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByRegion_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
@@ -154,6 +206,13 @@ public class AppIntegrationTest
         assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should; have the highest population");
     }
 
+    /**
+     * Verifies that the `ByCountry` method correctly retrieves a list of all cities from a specified country sorted by population in descending order.
+     * This test ensures that:
+     * - The list of cities is not null, which would indicate the data was successfully retrieved.
+     * - All cities in the list belong to the specified country, confirming correct filtering by country.
+     * - The first city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByCountry_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
@@ -170,6 +229,13 @@ public class AppIntegrationTest
         assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
     }
 
+    /**
+     * Verifies that the `ByDistrict` method correctly retrieves a list of all cities from a specified district sorted by population in descending order.
+     * This test ensures that:
+     * - The list of cities is not null, which would indicate the data was successfully retrieved.
+     * - All cities in the list belong to the specified district, confirming correct filtering by district.
+     * - The first city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByDistrict_ShouldProvide_CitiesFromLargestPopulationFirst()
     {
@@ -187,7 +253,14 @@ public class AppIntegrationTest
     }
 
 
-    //---------------------------------- All Capital Cities Population -----------------------------------------//
+    //---------------------------------- 3. All Capital Cities Population integration tests -----------------------------------------//
+
+    /**
+     * Verifies that the `ByWorld` method correctly retrieves a list of all capital cities sorted by population in descending order.
+     * This test ensures that:
+     * - The list of capital cities is not null, which would indicate the data was successfully retrieved.
+     * - The first capital city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByWorld_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
     {
@@ -203,6 +276,12 @@ public class AppIntegrationTest
         assertTrue(CapitalCities.stream().noneMatch(city -> city.population > largestPopulationCapitalCity.population), "The first capital city should have the highest population");
     }
 
+    /**
+     * Verifies that the `ByContinent` method correctly retrieves a list of all capital cities from a specified continent sorted by population in descending order.
+     * This test ensures that:
+     * - The list of capital cities is not null, which would indicate the data was successfully retrieved.
+     * - The first capital city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByContinent_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
     {
@@ -218,6 +297,12 @@ public class AppIntegrationTest
         assertTrue(CapitalCities.stream().noneMatch(city -> city.population > largestPopulationCapitalCity.population), "The first capital city should have the highest population");
     }
 
+    /**
+     * Verifies that the `ByRegion` method correctly retrieves a list of all capital cities from a specified region sorted by population in descending order.
+     * This test ensures that:
+     * - The list of capital cities is not null, which would indicate the data was successfully retrieved.
+     * - The first capital city in the list has the highest population, which would indicate the correct descending sorting order.
+     */
     @Test
     void testByRegion_ShouldProvide_CapitalCitiesFromLargestPopulationFirst()
     {
@@ -232,6 +317,8 @@ public class AppIntegrationTest
         assertFalse(false);
         assertTrue(CapitalCities.stream().noneMatch(city -> city.population > largestPopulationCapitalCity.population),"The first capital city should have the highest population");
     }
+
+
 
     //---------------------------------- Top N Populated countries-----------------------------------------//
     @Test
