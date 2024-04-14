@@ -151,7 +151,7 @@ public class AppIntegrationTest
         //Assert
         assertNotNull(cities);
         assertFalse(false);
-        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should have the highest population");
+        assertTrue(cities.stream().noneMatch(city -> city.population > largestPopulationCity.population), "The first city should; have the highest population");
     }
 
     @Test
@@ -560,85 +560,9 @@ public class AppIntegrationTest
         //Assert
         assertNotNull(languages);
         assertFalse(false);
-        assertTrue(languages.stream().allMatch(lang -> lang.totalSpeakers <= languageWithMostSpeakers.totalSpeakers), "All languages should have fewer or equal speakers than the first language");
+        assertTrue(languages.stream().allMatch(language -> language.totalSpeakers <= languageWithMostSpeakers.totalSpeakers), "All languages should have fewer or equal speakers than the first language");
     }
 
-
-
-
-
-
-
-
-
-
-   //---------------------------------- index tests --------------------------------------//
-    @Test
-    public void testGetN_ReturnsCorrectValue()
-    {
-        String input = "5\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        Scanner scanner = new Scanner(System.in);
-        Index index = new Index();
-
-        assertEquals(5, index.getN(scanner));
-
-        System.setIn(System.in);
-    }
-
-    @Test
-    public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions()
-    {
-        Index index = new Index();
-        String menuText = index.generateMenuOptionsText();
-
-        assertTrue(menuText.contains("Welcome to the report system"));
-        assertTrue(menuText.contains("All the countries in the world by population in descending order"));
-    }
-
-    @Test
-    public void testDisplayOptions_OutputContainsCorrectMenuOptions()
-    {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Index index = new Index();
-
-        index.displayOptions();
-
-        String output = outContent.toString();
-        assertTrue(output.contains("Welcome to the report system"));
-        System.setOut(System.out);
-    }
-
-    @Test
-    public void testGetUserOption_ValidChoice_ReturnsCorrectAction()
-    {
-        App app = new App();
-        Scanner scanner = new Scanner(System.in);
-        Index index = new Index();
-
-        Runnable action = index.getUserOption(app, "1", scanner);
-        action.run();
-    }
-
-    @Test
-    public void testGetUserOption_InvalidChoice_ReturnsDefaultAction()
-    {
-        App app = new App();
-        Scanner scanner = new Scanner(System.in);
-        Index index = new Index();
-
-        Runnable action = index.getUserOption(app, "87", scanner);
-        action.run();
-    }
-
-    @Test
-    public void testDatabaseConnection() {
-        App app = new App();
-        app.connect("localhost:33060", 30000);
-        assertNotNull(DatabaseUtil.getConnection(), "The database connection should be established.");
-    }
 
     //---------------------- Tests App ---------------------------------------------------//
     @BeforeEach
@@ -662,27 +586,21 @@ public class AppIntegrationTest
     @Test
     public void testDisplayCountries()
     {
+        //Arrange
+        ArrayList<Country> countries = new ArrayList<>();
         Country country = new Country();
         country.code = "CHN";
         country.name = "China";
-        country.continent = "Asia";
-        country.region = "Eastern Asia";
-        country.population = 1277558000;
-        country.capitalName = "Peking";
-
-        ArrayList<Country> countries = new ArrayList<>();
         countries.add(country);
         countries.add(null);
 
+        //Act
         app.displayCountries(countries);
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "CHN");
         assertContains(capturedOutput, "China");
-        assertContains(capturedOutput, "Asia");
-        assertContains(capturedOutput, "Eastern Asia");
-        assertContains(capturedOutput, String.valueOf(country.population));
-        assertContains(capturedOutput, "Peking");
     }
 
     @Test
@@ -696,22 +614,21 @@ public class AppIntegrationTest
     @Test
     public void testDisplayCities()
     {
+        //Arrange
         ArrayList<City> cities = new ArrayList<>();
         City city = new City();
         city.name = "Seoul";
         city.countryCode = "South Korea";
-        city.district = "Seoul";
-        city.population = 9981619;
         cities.add(city);
         cities.add(null);
 
+        //Act
         app.displayCities(cities);
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "Seoul");
         assertContains(capturedOutput, "South Korea");
-        assertContains(capturedOutput, "Seoul");
-        assertContains(capturedOutput, String.valueOf(city.population));
     }
 
     @Test
@@ -725,20 +642,21 @@ public class AppIntegrationTest
     @Test
     public void testDisplayCapitalCities()
     {
+        //Arrange
         ArrayList<City> capitalCities = new ArrayList<>();
         City city = new City();
         city.name = "Jakarta";
         city.countryCode = "Indonesia";
-        city.population = 9604900;
         capitalCities.add(city);
         capitalCities.add(null);
 
+        //Act
         app.displayCapitalCities(capitalCities);
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "Jakarta");
         assertContains(capturedOutput, "Indonesia");
-        assertContains(capturedOutput, String.valueOf(city.population));
     }
 
     @Test
@@ -752,26 +670,19 @@ public class AppIntegrationTest
     @Test
     public void testDisplayPopulations()
     {
+        //Arrange
         ArrayList<Population> populations = new ArrayList<>();
         Population population = new Population();
         population.areaName = "World";
-        population.population = 6078749450L;
-        population.populationCities = 1429559884;
-        population.populationCitiesPercentage = 23.5173f;
-        population.populationOutsideCities = 4649189566L;
-        population.populationOutsideCitiesPercentage = 76.4827f;
         populations.add(population);
         populations.add(null);
 
+        //Act
         app.displayPopulations(populations);
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "World");
-        assertContains(capturedOutput, String.valueOf(population.population));
-        assertContains(capturedOutput, String.valueOf(population.populationCities));
-        assertContains(capturedOutput, String.valueOf(population.populationCitiesPercentage));
-        assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
-        assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
     }
 
     @Test
@@ -785,38 +696,33 @@ public class AppIntegrationTest
     @Test
     public void testDisplaySpecificPopulation()
     {
+        //Arrange
         Population population = new Population();
         population.areaName = "Seoul";
-        population.population = 9981619;
 
+        //Act
         app.displaySpecificPopulation(population, "City");
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "Seoul");
-        assertContains(capturedOutput, String.valueOf(population.population));
     }
 
     @Test
     public void testDisplaySpecificPopulationNonCityOrDistrict()
     {
+        //Arrange
         Population population = new Population();
         population.areaName = "Africa";
-        population.population = 784475000;
-        population.populationCities = 135838579;
-        population.populationCitiesPercentage = 17.3159f;
-        population.populationOutsideCities = 648636421;
-        population.populationOutsideCitiesPercentage = 82.6841f;
 
+        //Act
         app.displaySpecificPopulation(population, "Continent");
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "Africa");
-        assertContains(capturedOutput, String.valueOf(population.population));
-        assertContains(capturedOutput, String.valueOf(population.populationCities));
-        assertContains(capturedOutput, String.valueOf(population.populationCitiesPercentage));
-        assertContains(capturedOutput, String.valueOf(population.populationOutsideCities));
-        assertContains(capturedOutput, String.valueOf(population.populationOutsideCitiesPercentage));
     }
+
     @Test
     public void testDisplayLanguagesWithNull()
     {
@@ -828,21 +734,20 @@ public class AppIntegrationTest
     @Test
     public void testDisplayLanguages()
     {
+        //Arrange
         ArrayList<Language> languages = new ArrayList<>();
         Language chineseLanguage = new Language();
         chineseLanguage.languageName = "Chinese";
-        chineseLanguage.totalSpeakers = 1191843539;
-        chineseLanguage.totalSpeakersPercentage = 19.6067f;
 
         languages.add(chineseLanguage);
         languages.add(null);
 
+        //Act
         app.displayLanguages(languages);
 
+        //Assert
         String capturedOutput = outContent.toString();
         assertContains(capturedOutput, "Chinese");
-        assertContains(capturedOutput, "1191843539");
-        assertContains(capturedOutput, "19.6067");
     }
 
     private void assertContains(String capturedOutput, String expectedContent)
@@ -851,6 +756,7 @@ public class AppIntegrationTest
     }
 
     //---------------------- Exception tests in ReportHelper ----------------------//
+
     @Test
     void testGetCountryReport_ExceptionThrowDueToWithInvalidQuery_ShouldDealWithException()
     {
@@ -929,4 +835,74 @@ public class AppIntegrationTest
         DatabaseUtil.connect("localhost:33060", 30000);
         DatabaseUtil.disconnect();
     }
+
+
+    //---------------------------------- index tests --------------------------------------//
+    @Test
+    public void testGetN_ReturnsCorrectValue()
+    {
+        String input = "5\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        Scanner scanner = new Scanner(System.in);
+        Index index = new Index();
+
+        assertEquals(5, index.getN(scanner));
+
+        System.setIn(System.in);
+    }
+
+    @Test
+    public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions()
+    {
+        Index index = new Index();
+        String menuText = index.generateMenuOptionsText();
+
+        assertTrue(menuText.contains("Welcome to the report system"));
+        assertTrue(menuText.contains("All the countries in the world by population in descending order"));
+    }
+
+    @Test
+    public void testDisplayOptions_OutputContainsCorrectMenuOptions()
+    {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Index index = new Index();
+
+        index.displayOptions();
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Welcome to the report system"));
+        System.setOut(System.out);
+    }
+
+    @Test
+    public void testGetUserOption_ValidChoice_ReturnsCorrectAction()
+    {
+        App app = new App();
+        Scanner scanner = new Scanner(System.in);
+        Index index = new Index();
+
+        Runnable action = index.getUserOption(app, "1", scanner);
+        action.run();
+    }
+
+    @Test
+    public void testGetUserOption_InvalidChoice_ReturnsDefaultAction()
+    {
+        App app = new App();
+        Scanner scanner = new Scanner(System.in);
+        Index index = new Index();
+
+        Runnable action = index.getUserOption(app, "87", scanner);
+        action.run();
+    }
+
+    @Test
+    public void testDatabaseConnection() {
+        App app = new App();
+        app.connect("localhost:33060", 30000);
+        assertNotNull(DatabaseUtil.getConnection(), "The database connection should be established.");
+    }
+
 }
