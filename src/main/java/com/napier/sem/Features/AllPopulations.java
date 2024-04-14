@@ -4,10 +4,20 @@ import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.Population;
 import java.util.ArrayList;
 
+/**
+ * A class that contains methods relevant to querying all the populations within specific area types
+ */
 public class AllPopulations
 {
+    /**
+     * An instance of the ReportHelper class, which can be accessed by each method to help run db queries
+     */
     private final ReportHelper reportHelper;
 
+    /**
+     * Constructor for the AllPopulations object
+     * @param reportHelper sets an object of class ReportHelper to be used by AllPopulations when running methods which will query the database
+     */
     public AllPopulations(ReportHelper reportHelper) {
         this.reportHelper = reportHelper;
     }

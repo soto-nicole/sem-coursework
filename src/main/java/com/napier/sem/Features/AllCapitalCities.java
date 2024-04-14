@@ -4,10 +4,20 @@ import com.napier.sem.Helpers.ReportHelper;
 import com.napier.sem.Models.City;
 import java.util.ArrayList;
 
+/**
+ * A class that contains methods relevant to querying all the capital cities in specific areas
+ */
 public class AllCapitalCities
 {
+    /**
+     * An instance of the ReportHelper class, which can be accessed by each method to help run db queries
+     */
     private final ReportHelper reportHelper;
 
+    /**
+     * Constructor for the AllCapitalCities object
+     * @param reportHelper sets an object of class ReportHelper to be used by AllCapitalCities when running methods which will query the database
+     */
     public AllCapitalCities(ReportHelper reportHelper)
     {
         this.reportHelper = reportHelper;
