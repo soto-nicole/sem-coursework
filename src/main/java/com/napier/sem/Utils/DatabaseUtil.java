@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * A class that handles connecting and disconnecting from a MySql database
+ */
 public class DatabaseUtil
 {
 
@@ -14,6 +17,8 @@ public class DatabaseUtil
 
     /**
      * Connect to the MySQL database.
+     * @param location The location of the MySQL database and server
+     * @param delay The length of time in milliseconds to wait for the db to connect before breaking the function
      */
     public static void connect(String location, int delay)
     {
@@ -73,6 +78,10 @@ public class DatabaseUtil
         }
     }
 
+    /**
+     * Allows access to the db connection instance
+     * @return Returns the database connection
+     */
     public static Connection getConnection()
     {
         return con;
