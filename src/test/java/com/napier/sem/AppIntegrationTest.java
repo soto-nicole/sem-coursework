@@ -19,7 +19,7 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppIntegrationTest
+class AppIntegrationTest
 {
     /**
      * Static fields declaration for all the report classes
@@ -830,7 +830,7 @@ public class AppIntegrationTest
      * Ensures that the method outputs a specific message indicating no countries are available to display.
      */
     @Test
-    public void testDisplayCountriesWithNull()
+    void testDisplayCountriesWithNull()
     {
         app.displayCountries(null);
         String capturedOutput = outContent.toString();
@@ -841,7 +841,7 @@ public class AppIntegrationTest
      * This test verifies that the displayCountries method with a list of countries including null elements is correctly displaying the country details.
      */
     @Test
-    public void testDisplayCountries()
+    void testDisplayCountries()
     {
         //Arrange
         ArrayList<Country> countries = new ArrayList<>();
@@ -865,7 +865,7 @@ public class AppIntegrationTest
      * This test verifies that the displayCities method with a null input outputs a message indicating no cities are available.
      */
     @Test
-    public void testDisplayCitiesWithNull()
+    void testDisplayCitiesWithNull()
     {
         app.displayCities(null);
         String capturedOutput = outContent.toString();
@@ -877,7 +877,7 @@ public class AppIntegrationTest
      * Ensures the method correctly displays city details and handles null values without errors.
      */
     @Test
-    public void testDisplayCities()
+    void testDisplayCities()
     {
         //Arrange
         ArrayList<City> cities = new ArrayList<>();
@@ -901,7 +901,7 @@ public class AppIntegrationTest
      * This test verifies that the displayCapitalCities method with a null input checks for correct message output indicating no capital cities available.
      */
     @Test
-    public void testDisplayCapitalCitiesWithNull()
+    void testDisplayCapitalCitiesWithNull()
     {
         app.displayCapitalCities(null);
         String capturedOutput = outContent.toString();
@@ -913,7 +913,7 @@ public class AppIntegrationTest
      * Confirms that the method outputs city and country codes correctly and handles nulls gracefully.
      */
     @Test
-    public void testDisplayCapitalCities()
+    void testDisplayCapitalCities()
     {
         //Arrange
         ArrayList<City> capitalCities = new ArrayList<>();
@@ -938,7 +938,7 @@ public class AppIntegrationTest
      * This test checks that the appropriate message "No populations" is displayed, indicating that no data is available to present.
      */
     @Test
-    public void testDisplayPopulationsWithNull()
+    void testDisplayPopulationsWithNull()
     {
         app.displayPopulations(null);
         String capturedOutput = outContent.toString();
@@ -950,7 +950,7 @@ public class AppIntegrationTest
      * Ensures that the application outputs the area name for non-null population entries and handles null values within the list.
      */
     @Test
-    public void testDisplayPopulations()
+    void testDisplayPopulations()
     {
         //Arrange
         ArrayList<Population> populations = new ArrayList<>();
@@ -974,7 +974,7 @@ public class AppIntegrationTest
      * Ensures that the method outputs a specific message "No population" when no population data is available to display.
      */
     @Test
-    public void testDisplaySpecificPopulationWithNull()
+    void testDisplaySpecificPopulationWithNull()
     {
         app.displaySpecificPopulation(null, "City");
         String capturedOutput = outContent.toString();
@@ -985,7 +985,7 @@ public class AppIntegrationTest
      * This test verifies that displaySpecificPopulation method displays details of a specified population object accurately, and it confirms that the population area name is correctly shown in the output
      */
     @Test
-    public void testDisplaySpecificPopulation()
+     void testDisplaySpecificPopulation()
     {
         //Arrange
         Population population = new Population();
@@ -1004,7 +1004,7 @@ public class AppIntegrationTest
      * It confirms that the application correctly outputs the area name
      */
     @Test
-    public void testDisplaySpecificPopulationNonCityOrDistrict()
+    void testDisplaySpecificPopulationNonCityOrDistrict()
     {
         //Arrange
         Population population = new Population();
@@ -1025,7 +1025,7 @@ public class AppIntegrationTest
      * specific message of "No languages".
      */
     @Test
-    public void testDisplayLanguagesWithNull()
+    void testDisplayLanguagesWithNull()
     {
         app.displayLanguages(null);
         String capturedOutput = outContent.toString();
@@ -1038,7 +1038,7 @@ public class AppIntegrationTest
      * The test captures the output stream to evaluate the behaviour of the method and ensures that the languages has valid entries.
      */
     @Test
-    public void testDisplayLanguages()
+    void testDisplayLanguages()
     {
         //Arrange
         ArrayList<Language> languages = new ArrayList<>();
@@ -1179,7 +1179,7 @@ public class AppIntegrationTest
      * then checks if the returned value matches the expected value.
      */
     @Test
-    public void testGetN_ReturnsCorrectValue()
+    void testGetN_ReturnsCorrectValue()
     {
         String input = "5\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -1196,7 +1196,7 @@ public class AppIntegrationTest
      * This test verifies that the generateMenuOptionsText method in the Index class generates menu text containing the correct options
      */
     @Test
-    public void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions()
+    void testGenerateMenuOptionsText_ShouldContainCorrectMenuOptions()
     {
         Index index = new Index();
         String menuText = index.generateMenuOptionsText();
@@ -1209,7 +1209,7 @@ public class AppIntegrationTest
      *  This test verifies that the displayOptions method in the Index class outputs text containing the correct menu options which is hardcoded in the Index class
      */
     @Test
-    public void testDisplayOptions_OutputContainsCorrectMenuOptions()
+    void testDisplayOptions_OutputContainsCorrectMenuOptions()
     {
         //Arrange
         System.setOut(new PrintStream(outContent));
@@ -1228,7 +1228,7 @@ public class AppIntegrationTest
      * This test verifies that the getUserOption method in the Index class returns the correct action for a valid user choice from the menu selection
      */
     @Test
-    public void testGetUserOption_ValidChoice_ReturnsCorrectAction()
+    void testGetUserOption_ValidChoice_ReturnsCorrectAction()
     {
         Scanner scanner = new Scanner(System.in);
         Index index = new Index();
@@ -1241,7 +1241,7 @@ public class AppIntegrationTest
      * This test verifies that the getUserOption method in the Index class returns the default action for an invalid user choice from the menu selection
      */
     @Test
-    public void testGetUserOption_InvalidChoice_ReturnsDefaultAction()
+    void testGetUserOption_InvalidChoice_ReturnsDefaultAction()
     {
         Scanner scanner = new Scanner(System.in);
         Index index = new Index();
@@ -1254,7 +1254,7 @@ public class AppIntegrationTest
      * This test verifies that the connect method in the App class successfully establish a connection with the database
      */
     @Test
-    public void testDatabaseConnection()
+    void testDatabaseConnection()
     {
         app.connect("localhost:33060", 30000);
         assertNotNull(DatabaseUtil.getConnection(), "The database connection should be established.");
