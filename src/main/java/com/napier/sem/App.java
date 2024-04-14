@@ -15,7 +15,8 @@ public class App
 {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         App app = new App();
         if (args.length < 2)
         {

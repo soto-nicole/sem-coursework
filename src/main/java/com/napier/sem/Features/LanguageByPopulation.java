@@ -5,8 +5,8 @@ import com.napier.sem.Models.Language;
 
 import java.util.ArrayList;
 
-public class LanguageByPopulation {
-
+public class LanguageByPopulation
+{
     private final ReportHelper reportHelper;
 
     public LanguageByPopulation(ReportHelper reportHelper) {
