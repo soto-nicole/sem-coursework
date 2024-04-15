@@ -13,7 +13,7 @@ public class DatabaseUtil
     /**
      * Connection to MySQL database.
      */
-    private static Connection con;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
